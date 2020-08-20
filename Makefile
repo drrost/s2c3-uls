@@ -10,7 +10,7 @@ LIBS = -L./libmx/ -lmx
 SRC=src
 OBJ=obj
 
-BINARY = pathfinder
+BINARY = uls
 
 CFILES = $(wildcard src/*.c) $(wildcard src/*/*.c) $(wildcard src/*/*/*.c) \
 		 $(wildcard src/*/*/*/*.c)
