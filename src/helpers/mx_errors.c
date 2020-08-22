@@ -1,8 +1,7 @@
 #include <unistd.h>
-#include <libmx.h>
 #include <stdlib.h>
 
-#include "pathfinder.h"
+#include <uls.h>
 
 void mx_printerr(const char *s) {
     write(STDERR_FILENO, s, mx_strlen(s));

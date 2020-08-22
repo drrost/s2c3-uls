@@ -1,14 +1,40 @@
 #ifndef ULS_H
 #define ULS_H
 
-#include "../libmx/inc/libmx.h"
-//Macros
+#include <libmx.h>
+
+// Macros
 #define USAGE "usage: uls [-l] [file ...]\n"
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
 #define FLAGS "al"
 
+// README.md
+//
+// `_e' suffix in functions name means that function may exit in a case
+// of error.
+//
+// `_w' suffix in structs' *fields* mean that the field is "weak", so
+// the struct does not own data obtained in this field. In all other
+// cases means that the struct owns a field and *MUST* call free()
+// function for this field in an appropriate place (mx_delete_xxx).
+//
+
+// Errors
+
+enum e_error {
+    ERROR_WRONG_PARAM_NUMBER,
+    ERROR_FILE_NOT_FOUND,
+    ERROR_FILE_IS_EMPTY,
+    ERROR_LINE_NOT_VALID,
+    ERROR_INVALID_NUMBER_OF_ISLANDS,
+    ERROR_DUPLICATE_BRIDGES,
+    ERROR_SUM_OF_BRIDGES_TOO_BIG,
+    ERROR_NOT_ENOUGH_MEMORY
+};
+
+void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
 #endif
