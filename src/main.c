@@ -7,6 +7,7 @@
 #include <uls.h>
 
 void uls(const char *path, bool op_a, bool op_l) {
+    op_l++;
     struct dirent *dir;
     //opendir returns a pointer to directory entry
     DIR *directory = opendir(path);
@@ -41,7 +42,7 @@ int main(int argc, char *argv[]) {
     const char *current_path = ".";
 
     if (argc == 1) {
-        uls(current_path, 0, 0);
+        mx_basic(current_path);
     }
     else if (argc == 2) {
         if (argv[1][0] == '-') {

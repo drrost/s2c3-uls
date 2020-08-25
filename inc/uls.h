@@ -37,4 +37,6 @@ enum e_error {
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
+void mx_basic(const char *dir_name);
+
 #endif

@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <wchar.h>
+#include <dirent.h>
 
 typedef struct s_list {
     void *data;
@@ -100,3 +101,12 @@ t_list *mx_listdup(t_list *list, void *(*copy)(void *data));
 void *mx_list_data_at(t_list *list, int index);
 void mx_list_delete(t_list *list);
 void mx_list_attach_back(t_list **list_head, t_list *list_tail);
+
+// Files
+//
+int
+mx_scandir(const char *dirname, struct dirent ***namelist,
+           int (*select)(const struct dirent *),
+           int (*compar)(const struct dirent **, const struct dirent **));
+int mx_alphasort(const struct dirent **d1, const struct dirent **d2);
+int mx_select_exclude_dot_dirs(const struct dirent *dirent);
