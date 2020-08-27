@@ -34,6 +34,13 @@ enum e_error {
     ERROR_NOT_ENOUGH_MEMORY
 };
 
+typedef struct s_flags {
+    bool flag_l;
+    bool flag_a;
+    //bool flag_r;
+
+}              t_flags;
+
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 

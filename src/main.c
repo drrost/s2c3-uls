@@ -3,11 +3,11 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <stdbool.h>
+//#include <sys/ioctl.h>
 
 #include <uls.h>
 
-void uls(const char *path, bool op_a, bool op_l) {
-    op_l++;
+void uls(const char *path, t_flags flags) {
     struct dirent *dir;
     //opendir returns a pointer to directory entry
     DIR *directory = opendir(path);
@@ -27,34 +27,43 @@ void uls(const char *path, bool op_a, bool op_l) {
     }
     //readdir returns next directory entry in the stream
     while ((dir = readdir(directory)) != 0) {
-        if (!op_a && dir->d_name[0] == '.') // to skip "." and ".." directories
+        if (!flags.flag_a && dir->d_name[0] == '.')// to skip "." and ".." directories
             continue;
         mx_printstr(dir->d_name);
-        if (op_l)
+        if (flags.flag_l)
             mx_printstr("\n");
-        if (!op_l)
+        if (!flags.flag_l)
             // TODO: fix the last element alignment issue
             mx_printstr("\t\t");
     }
 }
 
 int main(int argc, char *argv[]) {
+    //struct winsize ws;
+    //size_t line_length= 80;
+    // if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) != -1 
+    // && 0 < ws.ws_col && ws.ws_col == (size_t)ws.ws_col)
+    //     line_length = ws.ws_col;
+    // printf("Screen width: %zu\n", line_length);
+
+
     const char *current_path = ".";
+    t_flags flags;
 
     if (argc == 1) {
         mx_basic(current_path);
     }
     else if (argc == 2) {
         if (argv[1][0] == '-') {
-            int option_a = false;
-            int option_l = false;
+            flags.flag_l = false;
+            flags.flag_a = false;
             char *p = (char *)(argv[1] + 1);
 
             while (*p) {
                 if (*p == 'a')
-                    option_a = true;
+                    flags.flag_a = true;
                 else if (*p == 'l')
-                    option_l = true;
+                    flags.flag_l = true;
                 else {
                     mx_printerr(ILLEGAL_OPTION);
                     mx_printerr(p);
@@ -64,10 +73,11 @@ int main(int argc, char *argv[]) {
                 }
                 p++;
             }
-            uls(current_path, option_a, option_l);
+            uls(current_path, flags);
         }
         else {
-            uls(argv[1], 0, 0);
+            //uls(argv[1], 0, 0);
+            //uls(argv[1], flags); //decide on steps if file/directory is passed
         }
     }
     else if (argc == 3) {
@@ -75,15 +85,15 @@ int main(int argc, char *argv[]) {
             mx_printerr(USAGE);
             exit(EXIT_FAILURE);
         }
-        int option_a = false;
-        int option_l = false;
+        flags.flag_a = false;
+        flags.flag_l = false;
         char *p = (char *)(argv[1] + 1);
 
         while (*p) {
             if (*p == 'a')
-                option_a = true;
+                flags.flag_a = true;
             else if (*p == 'l')
-                option_l = true;
+                flags.flag_l = true;
             else {
                 mx_printerr(ILLEGAL_OPTION);
                 mx_printerr(p);
@@ -93,7 +103,7 @@ int main(int argc, char *argv[]) {
             }
             p++;
         }
-        uls(argv[2], option_a, option_l);
+        uls(argv[2], flags);
     }
     return 0;
 }
