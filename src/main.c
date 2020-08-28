@@ -3,9 +3,24 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <stdbool.h>
-//#include <sys/ioctl.h>
-
+#include <sys/ioctl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <uls.h>
+
+int find_longest_name(DIR *directory) {
+    int longest = 0;
+    struct dirent *dir;
+
+    while((dir = readdir(directory)) != 0) {
+        if (mx_strlen(dir->d_name) > longest)
+            longest = mx_strlen(dir->d_name);
+    }
+    //closedir()
+    return longest;
+}
+
 
 void uls(const char *path, t_flags flags) {
     struct dirent *dir;
@@ -25,10 +40,44 @@ void uls(const char *path, t_flags flags) {
         }
         exit(EXIT_FAILURE);
     }
+
+    // //TEST: check length of directory entries
+    // int tab_size = 8;
+    // //int longest_name = (find_longest_name(directory)) + tab_size;
+
+    // struct winsize ws; //check terminal width;
+    // size_t line_length= 80;
+    // if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) != -1 
+    // && 0 < ws.ws_col && ws.ws_col == (size_t)ws.ws_col)
+    //     line_length = ws.ws_col;
+    // //printf("Screen width: %zu\n", line_length);
+
+
     //readdir returns next directory entry in the stream
     while ((dir = readdir(directory)) != 0) {
         if (!flags.flag_a && dir->d_name[0] == '.')// to skip "." and ".." directories
             continue;
+        
+
+        if (flags.flag_l) {
+            struct stat buf;
+            stat(dir->d_name, &buf);
+            if (buf.st_size == 0) //check for empty file
+                mx_printstr("-");
+            mx_printstr((buf.st_mode & S_IRUSR) ? "r" : "-");
+            mx_printstr((buf.st_mode & S_IWUSR) ? "w" : "-");
+            mx_printstr((buf.st_mode & S_IXUSR) ? "x" : "-");
+            mx_printstr((buf.st_mode & S_IRGRP) ? "r" : "-");
+            mx_printstr((buf.st_mode & S_IWGRP) ? "w" : "-");
+            mx_printstr((buf.st_mode & S_IXGRP) ? "x" : "-");
+            mx_printstr((buf.st_mode & S_IROTH) ? "r" : "-");
+            mx_printstr((buf.st_mode & S_IWOTH) ? "w" : "-");
+            mx_printstr((buf.st_mode & S_IXOTH) ? "x" : "-");
+            mx_printstr("\t");
+            mx_printstr(mx_itoa(buf.st_size));//print size
+            mx_printstr("\t");
+            mx_printstr(ctime(&buf.st_ctime));//last modified time
+        }
         mx_printstr(dir->d_name);
         if (flags.flag_l)
             mx_printstr("\n");

@@ -26,12 +26,7 @@
 enum e_error {
     ERROR_WRONG_PARAM_NUMBER,
     ERROR_FILE_NOT_FOUND,
-    ERROR_FILE_IS_EMPTY,
-    ERROR_LINE_NOT_VALID,
-    ERROR_INVALID_NUMBER_OF_ISLANDS,
-    ERROR_DUPLICATE_BRIDGES,
-    ERROR_SUM_OF_BRIDGES_TOO_BIG,
-    ERROR_NOT_ENOUGH_MEMORY
+    ERROR_FILE_IS_EMPTY
 };
 
 typedef struct s_flags {
@@ -40,6 +35,22 @@ typedef struct s_flags {
     //bool flag_r;
 
 }              t_flags;
+
+typedef struct s_info {
+    char *short_name; //example main.c
+    char *full_name;//example ./src/main.c
+    char file_type; //dir, regular file, link etc.
+    //char *acl_info;
+}              t_info;
+
+typedef struct s_input {
+    int win_width;
+    char **files;
+    char *flags;
+    t_info **info;
+    int string_size;
+    int files_num;
+}              t_input;
 
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
