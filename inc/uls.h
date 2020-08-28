@@ -62,5 +62,7 @@ void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
 void mx_basic(const char *dir_name);
+//PRINTING
 void print_permissions(struct dirent *dir);
+void print_type_of_file(struct dirent *dir);
 #endif

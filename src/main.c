@@ -57,7 +57,9 @@ void uls(const char *path, t_flags flags) {
         
 
         if (flags.flag_l) {
+            print_type_of_file(dir);
             print_permissions(dir);
+            //print_group(dir);
         }
         mx_printstr(dir->d_name);
         if (flags.flag_l)
