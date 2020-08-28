@@ -57,9 +57,10 @@ typedef struct s_input {
     int files_num;
 }              t_input;
 
+
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
 void mx_basic(const char *dir_name);
-
+void print_permissions(struct dirent *dir);
 #endif
