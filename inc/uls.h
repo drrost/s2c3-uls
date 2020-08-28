@@ -65,4 +65,5 @@ void mx_basic(const char *dir_name);
 //PRINTING
 void print_permissions(struct dirent *dir);
 void print_type_of_file(struct dirent *dir);
+int get_window_size(void);
 #endif
