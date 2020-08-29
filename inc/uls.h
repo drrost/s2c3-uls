@@ -39,4 +39,7 @@ void mx_printerr(const char *s);
 
 void mx_basic(const char *dir_name);
 
+// Utils
+void mx_delete_dirent_arr(struct dirent ***arr);
+
 #endif

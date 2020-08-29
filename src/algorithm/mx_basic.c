@@ -15,11 +15,6 @@ void print_dirent_arr(struct dirent **arr, char *delim) {
     mx_printstr("\n");
 }
 
-static void delete_dirent_arr(struct dirent ***arr) {
-    free(*arr);
-    *arr = 0;
-}
-
 void mx_basic(const char *dir_name) {
     struct dirent **arr = 0;
 
