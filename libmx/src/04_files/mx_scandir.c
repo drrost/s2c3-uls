@@ -11,8 +11,7 @@ static void swap_dirent(t_list *d1, t_list *d2) {
 }
 
 static void
-sort_dirs(t_list *dirs,
-          int (*compar)(const struct dirent **, const struct dirent **)) {
+sort_dirs(t_list *dirs, SD_COMPAR) {
     t_list *work_i = dirs;
     while (work_i) {
         t_list *work_j = work_i;
@@ -27,25 +26,18 @@ sort_dirs(t_list *dirs,
     }
 }
 
-static t_list *read_dir(const char *dirname,
-                        int (*select)(const struct dirent *)) {
+static t_list *read_dir(const char *dirname, SD_SELECT) {
     DIR *dir = opendir(dirname);
     t_list *work = 0;
     struct dirent *dirent = 0;
-    while ((dirent = readdir(dir))) {
-        if (select(dirent)) {
+    while ((dirent = readdir(dir)))
+        if (select(dirent))
             mx_push_back(&work, dirent);
-        }
-    }
     closedir(dir);
     return work;
 }
 
-int
-mx_scandir(const char *dirname,
-           t_list **dirs,
-           int (*select)(const struct dirent *),
-           int (*compar)(const struct dirent **, const struct dirent **)) {
+int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR) {
     t_list *dir_content = read_dir(dirname, select);
     sort_dirs(dir_content, compar);
 
