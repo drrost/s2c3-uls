@@ -5,11 +5,16 @@
 #include <uls.h>
 
 void mx_recursive(const char *dir_name) {
-    struct dirent **arr = 0;
+//    struct dirent **arr = 0;
+    dir_name++;
 
-    mx_scandir(dir_name, &arr, mx_select_exclude_dot_dirs, mx_alphasort);
-    char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
-    print_dirent_arr(arr, delim);
+//    t_list *dirs = 0; // <t_dirnode>
 
-    delete_dirent_arr(&arr);
+    // delete dirs list
+
+//    mx_scandir(dir_name, &arr, mx_select_exclude_dot_dirs, mx_alphasort);
+//    char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
+//    print_dirent_arr(arr, delim);
+//
+//    delete_dirent_arr(&arr);
 }

@@ -27,5 +27,5 @@ void mx_basic(const char *dir_name) {
     char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
     print_dirent_arr(arr, delim);
 
-    delete_dirent_arr(&arr);
+    mx_delete_dirent_arr(&arr);
 }

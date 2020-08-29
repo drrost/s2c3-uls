@@ -57,6 +57,13 @@ typedef struct s_input {
     int files_num;
 }              t_input;
 
+typedef struct s_dir {
+    char *name;
+    t_list *entities; // dirent
+}              t_dir;
+
+t_dir *mx_dirnew();
+void mx_dirdelete(t_dir *dir);
 
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
