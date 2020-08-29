@@ -104,8 +104,17 @@ void mx_list_attach_back(t_list **list_head, t_list *list_tail);
 
 // Files
 //
+
+typedef struct s_dir {
+    char *name;
+    t_list *entities; // dirent
+}              t_dir;
+
+t_dir *mx_dirnew();
+void mx_dirdelete(t_dir *dir);
+
 int
-mx_scandir(const char *dirname, struct dirent ***namelist,
+mx_scandir(const char *dirname, t_list **dirs,
            int (*select)(const struct dirent *),
            int (*compar)(const struct dirent **, const struct dirent **));
 int mx_alphasort(const struct dirent **d1, const struct dirent **d2);

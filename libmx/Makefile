@@ -10,7 +10,7 @@ OBJ=obj
 
 BINARY = libmx.a
 
-CFILES = $(wildcard src/*.c) $(wildcard src/*/*.c)
+CFILES = $(wildcard src/*.c) $(wildcard src/*/*.c) $(wildcard src/*/*/*.c)
 OBJ_DIR = obj
 
 ###############################################################################

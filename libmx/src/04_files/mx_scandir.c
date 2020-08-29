@@ -1,52 +1,52 @@
 //
-// Created by Rostyslav Druzhchenko on 25.08.2020.
+// Created by Rostyslav Druzhchenko on 29.08.2020.
 //
 
 #include <libmx.h>
-#include <stdlib.h>
 
-static void swap_dirent(struct dirent **d1, struct dirent **d2) {
-    struct dirent *temp = *d1;
-    *d1 = *d2;
-    *d2 = temp;
+static void swap_dirent(t_list *d1, t_list *d2) {
+    void *temp = d1->data;
+    d1->data = d2->data;
+    d2->data = temp;
 }
 
-// TODO: replace array with linked list
-//
 int
-mx_scandir(const char *dirname, struct dirent ***namelist,
+mx_scandir(const char *dirname, t_list **dirs,
            int (*select)(const struct dirent *),
            int (*compar)(const struct dirent **, const struct dirent **)) {
     // Open dir
     DIR *dir = opendir(dirname);
 
-    // Allocate memory
-    struct dirent **work = malloc(sizeof(struct dirent) * 1024);
-
+    t_list *work = 0;
     // Read dir's content
-    int n = 0;
     struct dirent *dirent = 0;
     while ((dirent = readdir(dir))) {
         if (select(dirent)) {
-            work[n] = dirent;
-            n++;
+            mx_push_back(&work, dirent);
         }
     }
 
     // Sort
-    for (int i = 0; i < n; i++) {
-        for (int j = i; j < n; j++) {
-            if (compar((const struct dirent **)&(work[i]),
-                       (const struct dirent **)&(work[j])) > 0) {
-                swap_dirent(&(work[i]), &(work[j]));
+    t_list *work_i = work;
+    while (work_i) {
+        t_list *work_j = work_i;
+        while (work_j) {
+            if (compar((const struct dirent **)&(work_i),
+                       (const struct dirent **)&(work_j)) > 0) {
+                swap_dirent(work_i, work_j);
             }
+            work_j = work_j->next;
         }
+        work_i = work_i->next;
     }
 
     // Close dir
     closedir(dir);
 
-    *namelist = work;
+    t_dir *result = mx_dirnew();
+    result->entities = work;
+
+    mx_push_back(dirs, result);
 
     return 0;
 }
