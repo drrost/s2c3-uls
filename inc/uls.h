@@ -37,8 +37,7 @@ enum e_error {
 typedef struct s_flags {
     bool flag_l;
     bool flag_a;
-    //bool flag_r;
-
+    bool flag_R;
 }              t_flags;
 
 typedef struct s_info {
@@ -61,12 +60,14 @@ void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
 void mx_basic(const char *dir_name);
+void mx_recursive(const char *dir_name);
 
 // Utils
 void mx_delete_dirent_arr(struct dirent ***arr);
 
 // Printing
-void print_permissions(struct dirent *dir);
+void mx_print_dirent_simple(t_list *dirs, char *delim);
+void mx_print_permissions(struct dirent *dir);
 void print_type_of_file(struct dirent *dir);
 int get_window_size(void);
 

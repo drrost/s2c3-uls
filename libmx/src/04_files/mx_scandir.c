@@ -10,24 +10,10 @@ static void swap_dirent(t_list *d1, t_list *d2) {
     d2->data = temp;
 }
 
-int
-mx_scandir(const char *dirname, t_list **dirs,
-           int (*select)(const struct dirent *),
-           int (*compar)(const struct dirent **, const struct dirent **)) {
-    // Open dir
-    DIR *dir = opendir(dirname);
-
-    t_list *work = 0;
-    // Read dir's content
-    struct dirent *dirent = 0;
-    while ((dirent = readdir(dir))) {
-        if (select(dirent)) {
-            mx_push_back(&work, dirent);
-        }
-    }
-
-    // Sort
-    t_list *work_i = work;
+static void
+sort_dirs(t_list *dirs,
+          int (*compar)(const struct dirent **, const struct dirent **)) {
+    t_list *work_i = dirs;
     while (work_i) {
         t_list *work_j = work_i;
         while (work_j) {
@@ -39,13 +25,32 @@ mx_scandir(const char *dirname, t_list **dirs,
         }
         work_i = work_i->next;
     }
+}
 
-    // Close dir
+static t_list *read_dir(const char *dirname,
+                        int (*select)(const struct dirent *)) {
+    DIR *dir = opendir(dirname);
+    t_list *work = 0;
+    struct dirent *dirent = 0;
+    while ((dirent = readdir(dir))) {
+        if (select(dirent)) {
+            mx_push_back(&work, dirent);
+        }
+    }
     closedir(dir);
+    return work;
+}
+
+int
+mx_scandir(const char *dirname,
+           t_list **dirs,
+           int (*select)(const struct dirent *),
+           int (*compar)(const struct dirent **, const struct dirent **)) {
+    t_list *dir_content = read_dir(dirname, select);
+    sort_dirs(dir_content, compar);
 
     t_dir *result = mx_dirnew();
-    result->entities = work;
-
+    result->entities = dir_content;
     mx_push_back(dirs, result);
 
     return 0;

@@ -21,27 +21,12 @@
 //    mx_printstr("\n");
 //}
 
-void print_dirent_simple(t_list *dirs, char *delim) {
-    while (dirs) {
-        t_list *entities = ((t_dir *)dirs->data)->entities;
-        while (entities) {
-            struct dirent *entity = (struct dirent *)entities->data;
-            mx_printstr(entity->d_name);
-            if (entities->next != 0)
-                mx_printstr(delim);
-            entities = entities->next;
-        }
-        dirs = dirs->next;
-    }
-    mx_printstr("\n");
-}
-
 void mx_basic(const char *dir_name) {
     t_list *dirs = 0;
 
     mx_scandir(dir_name, &dirs, mx_select_exclude_dot_dirs, mx_alphasort);
     char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
-    print_dirent_simple(dirs, delim);
+    mx_print_dirent_simple(dirs, delim);
 
 //    mx_delete_dirent_arr(&arr);
 }

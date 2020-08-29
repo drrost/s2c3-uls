@@ -2,9 +2,6 @@
 #include <dirent.h>
 #include <errno.h>
 #include <stdlib.h>
-#include <stdbool.h>
-//#include <sys/ioctl.h>
-#include <unistd.h>
 #include <uls.h>
 
 int find_longest_name(DIR *directory) {
@@ -54,11 +51,10 @@ void uls(const char *path, t_flags flags) {
     while ((dir = readdir(directory)) != 0) {
         if (!flags.flag_a && dir->d_name[0] == '.')// to skip "." and ".." directories
             continue;
-        
 
         if (flags.flag_l) {
             print_type_of_file(dir);
-            print_permissions(dir);
+            mx_print_permissions(dir);
             //print_group(dir);
         }
         mx_printstr(dir->d_name);
@@ -89,6 +85,8 @@ int main(int argc, char *argv[]) {
                     flags.flag_a = true;
                 else if (*p == 'l')
                     flags.flag_l = true;
+                else if (*p == 'R')
+                    flags.flag_R = true;
                 else {
                     mx_printerr(ILLEGAL_OPTION);
                     mx_printerr(p);
@@ -98,7 +96,10 @@ int main(int argc, char *argv[]) {
                 }
                 p++;
             }
-            uls(current_path, flags);
+            if (flags.flag_R)
+                mx_recursive(current_path);
+            else
+                uls(current_path, flags);
         }
         else {
             //uls(argv[1], 0, 0);

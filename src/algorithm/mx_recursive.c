@@ -3,18 +3,21 @@
 //
 
 #include <uls.h>
+#include <unistd.h>
+
+static void do_scan(const char *dir_name, t_list **dirs) {
+
+    mx_scandir(dir_name, dirs, mx_select_exclude_dot_dirs, mx_alphasort);
+
+    mx_printstr("");
+}
 
 void mx_recursive(const char *dir_name) {
-//    struct dirent **arr = 0;
-    dir_name++;
+    t_list *dirs = 0;
 
-//    t_list *dirs = 0; // <t_dirnode>
+    do_scan(dir_name, &dirs);
 
-    // delete dirs list
+    char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
+    mx_print_dirent_simple(dirs, delim);
 
-//    mx_scandir(dir_name, &arr, mx_select_exclude_dot_dirs, mx_alphasort);
-//    char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
-//    print_dirent_arr(arr, delim);
-//
-//    delete_dirent_arr(&arr);
 }

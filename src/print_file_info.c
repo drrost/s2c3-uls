@@ -39,7 +39,7 @@ static void print_last_modified_time(struct stat buf) {
     mx_printstr(ctime(&buf.st_ctime));//last modified time
 }
 
-void print_permissions(struct dirent *dir) {
+void mx_print_permissions(struct dirent *dir) {
     struct stat buf;
 
     stat(dir->d_name, &buf);
