@@ -10,14 +10,13 @@ static void swap_dirent(t_list *d1, t_list *d2) {
     d2->data = temp;
 }
 
-static void
-sort_dirs(t_list *dirs, SD_COMPAR) {
+static void sort_dirs(t_list *dirs, SD_COMPAR) {
     t_list *work_i = dirs;
     while (work_i) {
         t_list *work_j = work_i;
         while (work_j) {
-            if (compar((const struct dirent **)&(work_i),
-                       (const struct dirent **)&(work_j)) > 0) {
+            if (compar((tp_dirent *)&(work_i->data),
+                       (tp_dirent *)&(work_j->data)) > 0) {
                 swap_dirent(work_i, work_j);
             }
             work_j = work_j->next;
