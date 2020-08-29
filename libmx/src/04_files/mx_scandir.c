@@ -21,7 +21,7 @@ static void swap_dirent(t_list *d1, t_list *d2) {
     d2->data = temp;
 }
 
-static void sort_dirs(t_list *dirs, SD_COMPAR) {
+static void sort_dirents(t_list *dirs, SD_COMPAR) {
     t_list *work_i = dirs;
     while (work_i) {
         t_list *work_j = work_i;
@@ -38,7 +38,7 @@ static void sort_dirs(t_list *dirs, SD_COMPAR) {
 
 int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR) {
     t_list *dir_content = read_dir(dirname, select);
-    sort_dirs(dir_content, compar);
+    sort_dirents(dir_content, compar);
 
     t_dir *result = mx_dirnew();
     result->entities = dir_content;
