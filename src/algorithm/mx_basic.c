@@ -7,8 +7,13 @@
 #include <unistd.h>
 
 void print_dirent_arr(struct dirent **arr, char *delim) {
+    //works as ls -1 for now
     for (int i = 0; arr[i]; i++) {
-        mx_printstr(arr[i]->d_name);
+        if (arr[i]->d_name[0] == '.')
+            continue;
+        else {
+            mx_printstr(arr[i]->d_name);
+        }
         if (arr[i + 1] != 0)
             mx_printstr(delim);
     }

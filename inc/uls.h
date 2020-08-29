@@ -34,6 +34,30 @@ enum e_error {
     ERROR_NOT_ENOUGH_MEMORY
 };
 
+typedef struct s_flags {
+    bool flag_l;
+    bool flag_a;
+    //bool flag_r;
+
+}              t_flags;
+
+typedef struct s_info {
+    char *short_name; //example main.c
+    char *full_name;//example ./src/main.c
+    char file_type; //dir, regular file, link etc.
+    //char *acl_info;
+}              t_info;
+
+typedef struct s_input {
+    int win_width;
+    char **files;
+    char *flags;
+    t_info **info;
+    int string_size;
+    int files_num;
+}              t_input;
+
+
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
@@ -41,5 +65,10 @@ void mx_basic(const char *dir_name);
 
 // Utils
 void mx_delete_dirent_arr(struct dirent ***arr);
+
+// Printing
+void print_permissions(struct dirent *dir);
+void print_type_of_file(struct dirent *dir);
+int get_window_size(void);
 
 #endif
