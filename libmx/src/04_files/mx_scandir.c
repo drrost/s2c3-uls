@@ -4,6 +4,17 @@
 
 #include <libmx.h>
 
+static t_list *read_dir(const char *dirname, SD_SELECT) {
+    DIR *dir = opendir(dirname);
+    t_list *work = 0;
+    struct dirent *dirent = 0;
+    while ((dirent = readdir(dir)))
+        if (select(dirent))
+            mx_push_back(&work, dirent);
+    closedir(dir);
+    return work;
+}
+
 static void swap_dirent(t_list *d1, t_list *d2) {
     void *temp = d1->data;
     d1->data = d2->data;
@@ -23,17 +34,6 @@ static void sort_dirs(t_list *dirs, SD_COMPAR) {
         }
         work_i = work_i->next;
     }
-}
-
-static t_list *read_dir(const char *dirname, SD_SELECT) {
-    DIR *dir = opendir(dirname);
-    t_list *work = 0;
-    struct dirent *dirent = 0;
-    while ((dirent = readdir(dir)))
-        if (select(dirent))
-            mx_push_back(&work, dirent);
-    closedir(dir);
-    return work;
 }
 
 int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR) {
