@@ -40,17 +40,21 @@ static void print_dirs_recursive(t_list *dirs, char *delim) {
     while (dirs) {
         t_dir *dir = (t_dir*)dirs->data;
         if (count != 0) {
-            mx_printline(dir->name);
+            mx_printstr(dir->name);
+            mx_printstr(":\n");
         }
 
         t_list *entities = (t_list *)dir->entities;
         print_dir_content(entities, delim);
-        mx_printstr("\n\n");
+        if (entities && dirs->next) {
+            mx_printstr("\n\n");
+        } else {
+            mx_printstr("\n");
+        }
 
         dirs = dirs->next;
         count++;
     }
-    mx_printline("");
 }
 
 void mx_recursive(const char *dir_name) {
