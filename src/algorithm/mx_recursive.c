@@ -17,11 +17,64 @@ static void print_dir_content(t_list *entities, const char *delim) {
     }
 }
 
+static char *mx_strformat(const char *f, ...) {
+    va_list arg;
+
+    int len = 10;
+    int locations[len];
+    mx_memset(locations, 0, len * sizeof(int));
+
+    int count = 0;
+    int i = 0;
+    char *s = f;
+    while (*s) {
+        if (*s == '%' && *s + 1 != '%') {
+            locations[count] = i;
+            count++;
+        }
+        s++;
+        i++;
+    }
+
+    int f_len = mx_strlen(f);
+    int new_len = f_len - 2 * count;
+
+    va_start(arg, f);
+    for (int i = 0; i < count; i++) {
+        char *s = va_arg(arg, char *);
+        new_len += mx_strlen(s);
+    }
+    va_end(arg);
+
+    char *new_s = mx_strnew(new_len);
+
+    va_start(arg, f);
+    mx_strncpy(new_s, f, locations[0]);
+    int pos = locations[0];
+    for (int i = 0; i < count; i++) {
+        char *s = va_arg(arg, char *);
+        int len = mx_strlen(s);
+        mx_strcpy(new_s + pos, s);
+        pos += len;
+        int aaa = 0;
+        if (i + 1 != count) {
+            aaa = locations[i + 1] - locations[i] - 2;
+        } else {
+            aaa = f_len - locations[i] + 2;
+        }
+        mx_strncpy(new_s + pos, f + locations[i] + 2, aaa);
+        pos += aaa;
+    }
+    va_end(arg);
+
+    return new_s;
+}
+
 static void do_scan(const char *dir_name, t_list **dirs) {
     mx_scandir(dir_name, dirs, mx_select_exclude_dot_dirs, mx_alphasort);
 
     t_list *last_dir_node = mx_list_get_last(*dirs);
-    t_dir *dir = (t_dir*)last_dir_node->data;
+    t_dir *dir = (t_dir *)last_dir_node->data;
     t_list *entities = dir->entities;
 
     while (entities) {
