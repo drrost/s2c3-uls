@@ -68,7 +68,7 @@ void uls(const char *path, t_flags flags) {
 
 int main(int argc, char *argv[]) {
 
-    const char *current_path = argc == 2 ? "." : argv[2];
+    const char *current_path = argc == 3 ? argv[2] : ".";
     t_flags flags;
 
     if (argc == 1) {

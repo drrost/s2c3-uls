@@ -21,12 +21,25 @@
 //    mx_printstr("\n");
 //}
 
+static void print_dir_content(t_list *entities, const char *delim) {
+    while (entities) {
+        t_dirent *entity = (t_dirent *)entities->data;
+        mx_printstr(entity->name);
+        if (entities->next != 0)
+            mx_printstr(delim);
+        entities = entities->next;
+    }
+}
+
+
 void mx_basic(const char *dir_name) {
     t_list *dirs = 0;
 
     mx_scandir(dir_name, &dirs, mx_select_exclude_dot_dirs, mx_alphasort);
     char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
-    mx_print_dirent_simple(dirs, delim);
+    t_dir *dir = (t_dir *)dirs->data;
+    print_dir_content(dir->entities, delim);
+    mx_printline("");
 
 //    mx_delete_dirent_arr(&arr);
 }
