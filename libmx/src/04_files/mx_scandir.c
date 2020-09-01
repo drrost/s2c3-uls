@@ -42,6 +42,7 @@ int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR) {
 
     t_dir *result = mx_dirnew();
     result->entities = dir_content;
+    result->name = mx_strdup(dirname);
     mx_push_back(dirs, result);
 
     return 0;
