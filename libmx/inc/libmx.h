@@ -70,6 +70,7 @@ char *mx_replace_substr(const char *str, const char *sub, const char *replace);
 bool mx_isdigit(int c);
 bool mx_isspace(int c);
 bool mx_isalpha(int c);
+char *mx_strformat(const char *f, ...);
 
 // Memory pack
 //
