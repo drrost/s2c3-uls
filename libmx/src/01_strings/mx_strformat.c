@@ -4,6 +4,8 @@
 
 #include <libmx.h>
 
+// TODO: Split to several functions
+
 char *mx_strformat(const char *f, ...) {
     va_list arg;
 
@@ -13,7 +15,7 @@ char *mx_strformat(const char *f, ...) {
 
     int count = 0;
     int i = 0;
-    char *s = f;
+    const char *s = f;
     while (*s) {
         if (*s == '%' && *s + 1 != '%') {
             locations[count] = i;
@@ -43,14 +45,14 @@ char *mx_strformat(const char *f, ...) {
         int len = mx_strlen(s);
         mx_strcpy(new_s + pos, s);
         pos += len;
-        int aaa = 0;
+        int piece_len = 0;
         if (i + 1 != count) {
-            aaa = locations[i + 1] - locations[i] - 2;
+            piece_len = locations[i + 1] - locations[i] - 2;
         } else {
-            aaa = f_len - locations[i] + 2;
+            piece_len = f_len - locations[i] + 2;
         }
-        mx_strncpy(new_s + pos, f + locations[i] + 2, aaa);
-        pos += aaa;
+        mx_strncpy(new_s + pos, f + locations[i] + 2, piece_len);
+        pos += piece_len;
     }
     va_end(arg);
 

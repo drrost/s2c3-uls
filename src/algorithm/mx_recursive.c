@@ -26,20 +26,9 @@ static void do_scan(const char *dir_name, t_list **dirs) {
         t_dirent *dir_ent = (t_dirent *)entities->data;
 
         if (dir_ent->type == DT_DIR) {
-            int parent_len = mx_strlen(dir_name);
-            int len = parent_len + 1 + mx_strlen(dir_ent->name);
-            char *subdir_name = mx_strnew(len);
-            char *old = subdir_name;
-            mx_strcpy(subdir_name, dir_name);
-            subdir_name += parent_len;
-            subdir_name[0] = '/';
-            subdir_name += 1;
-            mx_strcpy(subdir_name, dir_ent->name);
-
-            subdir_name = old;
-
+            char *subdir_name = mx_strformat("%s/%s", dir_name, dir_ent->name);
             do_scan(subdir_name, dirs);
-            mx_strdel(&subdir_name);
+//            mx_strdel(&subdir_name);
         }
         entities = entities->next;
     }

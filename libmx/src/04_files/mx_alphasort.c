@@ -4,6 +4,6 @@
 
 #include <libmx.h>
 
-int mx_alphasort(const struct dirent **d1, const struct dirent **d2) {
-    return mx_strcmp((*d1)->d_name, (*d2)->d_name);
+int mx_alphasort(t_dirent *d1, t_dirent *d2) {
+    return mx_strcmp(d1->name, d2->name);
 }

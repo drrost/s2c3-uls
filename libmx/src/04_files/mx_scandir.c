@@ -29,8 +29,8 @@ static void sort_dirents(t_list *dirs, SD_COMPAR) {
     while (work_i) {
         t_list *work_j = work_i;
         while (work_j) {
-            if (compar((tp_dirent *)&(work_i->data),
-                       (tp_dirent *)&(work_j->data)) > 0) {
+            if (compar((t_dirent *)work_i->data,
+                       (t_dirent *)work_j->data) > 0) {
                 swap_dirent(work_i, work_j);
             }
             work_j = work_j->next;
