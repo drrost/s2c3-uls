@@ -68,7 +68,7 @@ void uls(const char *path, t_flags flags) {
 
 int main(int argc, char *argv[]) {
 
-    const char *current_path = ".";
+    const char *current_path = argc == 2 ? "." : argv[2];
     t_flags flags;
 
     if (argc == 1) {
@@ -120,6 +120,8 @@ int main(int argc, char *argv[]) {
                 flags.flag_a = true;
             else if (*p == 'l')
                 flags.flag_l = true;
+            else if (*p == 'R')
+                flags.flag_R = true;
             else {
                 mx_printerr(ILLEGAL_OPTION);
                 mx_printerr(p);
@@ -129,7 +131,10 @@ int main(int argc, char *argv[]) {
             }
             p++;
         }
-        uls(argv[2], flags);
+        if (flags.flag_R)
+            mx_recursive(current_path);
+        else
+            uls(current_path, flags);
     }
     return 0;
 }
