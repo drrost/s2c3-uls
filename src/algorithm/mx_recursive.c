@@ -18,31 +18,14 @@ static void print_dir_content(t_list *entities, const char *delim) {
 }
 
 static void do_scan(const char *dir_name, t_list **dirs) {
-
-    static int level = 0;
-    level++;
-
-    mx_printline("\ndo_scan  >>>>>");
-    mx_printstr("Level: ");
-    mx_printint(level);
-    mx_printline("");
-
-    mx_printstr("dir_name:    ");
-    mx_printstr(dir_name);
-    mx_printline("");
-
     mx_scandir(dir_name, dirs, mx_select_exclude_dot_dirs, mx_alphasort);
 
     t_list *last_dir_node = mx_list_get_last(*dirs);
     t_dir *dir = (t_dir*)last_dir_node->data;
     t_list *entities = dir->entities;
 
-    print_dir_content(entities, "\t\t");
-
     while (entities) {
         t_dirent *dir_ent = (t_dirent *)entities->data;
-        mx_printstr("dir_ent->name : ");
-        mx_printline(dir_ent->name);
 
         if (dir_ent->type == DT_DIR) {
             int parent_len = mx_strlen(dir_name);
@@ -56,17 +39,12 @@ static void do_scan(const char *dir_name, t_list **dirs) {
             mx_strcpy(subdir_name, dir_ent->name);
 
             subdir_name = old;
-            mx_printstr("subdir_name: ");
-            mx_printline(subdir_name);
 
             do_scan(subdir_name, dirs);
             mx_strdel(&subdir_name);
         }
         entities = entities->next;
     }
-    level--;
-    mx_printline("do_scan  <<<<<");
-    mx_printline("");
 }
 
 

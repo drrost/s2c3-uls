@@ -127,8 +127,8 @@ void mx_dirdelete(t_dir *dir);
 
 #define SD_SELECT int (*select)(tp_dirent)
 #define SD_COMPAR int (*compar)(tp_dirent *, tp_dirent *)
-typedef const struct t_dirent *tp_dirent;
+typedef const struct dirent *tp_dirent;
 
 int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR);
-int mx_alphasort(const struct dirent **d1, const struct dirent **d2);
-int mx_select_exclude_dot_dirs(const struct dirent *dirent);
+int mx_alphasort(tp_dirent *d1, tp_dirent *d2);
+int mx_select_exclude_dot_dirs(tp_dirent dirent);
