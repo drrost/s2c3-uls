@@ -106,9 +106,20 @@ t_list *mx_list_get_last(t_list *list);
 // Files
 //
 
+// A partial copy of system *dirent* structure.
+// Needed because readdir does not share owning of its *dirent*s.
+//
+typedef struct s_dirent {
+    char *name;
+    int type;
+}              t_dirent;
+
+t_dirent *mx_dirent_new(char *name, int type);
+void mx_dirent_del(t_dirent **dir_ent);
+
 typedef struct s_dir {
     char *name;
-    t_list *entities; // dirent
+    t_list *entities; // t_dirent
 }              t_dir;
 
 t_dir *mx_dirnew();
@@ -116,7 +127,7 @@ void mx_dirdelete(t_dir *dir);
 
 #define SD_SELECT int (*select)(tp_dirent)
 #define SD_COMPAR int (*compar)(tp_dirent *, tp_dirent *)
-typedef const struct dirent *tp_dirent;
+typedef const struct t_dirent *tp_dirent;
 
 int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR);
 int mx_alphasort(const struct dirent **d1, const struct dirent **d2);

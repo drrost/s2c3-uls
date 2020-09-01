@@ -7,10 +7,13 @@
 static t_list *read_dir(const char *dirname, SD_SELECT) {
     DIR *dir = opendir(dirname);
     t_list *work = 0;
-    struct dirent *dirent = 0;
-    while ((dirent = readdir(dir)))
-        if (select(dirent))
-            mx_push_back(&work, dirent);
+    struct dirent *dir_ent = 0;
+    while ((dir_ent = readdir(dir)))
+        if (select(dir_ent)) {
+            t_dirent *custom_dirent = mx_dirent_new(
+                dir_ent->d_name, dir_ent->d_type);
+            mx_push_back(&work, custom_dirent);
+        }
     closedir(dir);
     return work;
 }

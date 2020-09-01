@@ -6,5 +6,8 @@
 #include <stdlib.h>
 
 t_dir *mx_dirnew() {
-    return (t_dir *)malloc(sizeof(t_dir));
+    int size = sizeof(t_dir);
+    t_dir *inst = (t_dir *)malloc(size);
+    mx_memset(inst, 0, size);
+    return inst;
 }
