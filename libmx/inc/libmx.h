@@ -36,6 +36,9 @@ void mx_foreach(int *arr, int size, void(*f)(int));
 int mx_binary_search(char **arr, int size, const char *s, int *count);
 int mx_bubble_sort(char **arr, int size);
 int mx_quicksort(char **arr, int left, int right);
+bool mx_islower(int c);
+bool mx_isupper(int c);
+int mx_nbrlen(int nbr);
 
 // String pack
 //
@@ -71,6 +74,8 @@ bool mx_isdigit(int c);
 bool mx_isspace(int c);
 bool mx_isalpha(int c);
 char *mx_strformat(const char *f, ...);
+int mx_unicode_strcmp(const char *s1, const char *s2);
+int mx_unicode_strlen(const char *s);
 
 // Memory pack
 //
@@ -110,25 +115,25 @@ t_list *mx_list_get_last(t_list *list);
 // A partial copy of system *dirent* structure.
 // Needed because readdir does not share owning of its *dirent*s.
 //
-typedef struct s_dirent {
-    char *name;
-    int type;
-}              t_dirent;
+// typedef struct s_dirent {
+//     char *name;
+//     int type;
+// }              t_dirent;
 
-t_dirent *mx_dirent_new(char *name, int type);
-void mx_dirent_del(t_dirent **dir_ent);
+// t_dirent *mx_dirent_new(char *name, int type);
+// void mx_dirent_del(t_dirent **dir_ent);
 
-typedef struct s_dir {
-    char *name;
-    t_list *entities; // t_dirent
-}              t_dir;
+// typedef struct s_dir {
+//     char *name;
+//     t_list *entities; // t_dirent
+// }              t_dir;
 
-t_dir *mx_dirnew();
-void mx_dirdelete(t_dir *dir);
+// t_dir *mx_dirnew();
+// void mx_dirdelete(t_dir *dir);
 
-#define SD_SELECT int (*select)(const struct dirent *)
-#define SD_COMPAR int (*compar)(t_dirent *, t_dirent *)
+// #define SD_SELECT int (*select)(const struct dirent *)
+// #define SD_COMPAR int (*compar)(t_dirent *, t_dirent *)
 
-int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR);
-int mx_alphasort(t_dirent *d1, t_dirent *d2);
-int mx_select_exclude_dot_dirs(const struct dirent *dirent);
+// int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR);
+// int mx_alphasort(t_dirent *d1, t_dirent *d2);
+// int mx_select_exclude_dot_dirs(const struct dirent *dirent);
