@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 static void flags_init_01(t_flags *flags) {
     flags->f_C = 0;

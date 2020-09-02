@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <unistd.h>
 
 static void name_counter(char *name, int *count, int *lenth) {
     (*lenth) = mx_unicode_strlen(name);

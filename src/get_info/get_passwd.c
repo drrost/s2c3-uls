@@ -1,4 +1,6 @@
 #include <uls.h>
+#include <pwd.h>
+#include <sys/types.h>
 
 void mx_get_passwd(t_file *file) {
     t_passwd *passwd = getpwuid(file->stat.st_uid);

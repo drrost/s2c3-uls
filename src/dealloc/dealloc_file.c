@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 void mx_dealloc_file(t_file **file) {
     mx_strdel(&((*file)->name));

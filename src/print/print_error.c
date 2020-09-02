@@ -1,4 +1,6 @@
 #include <uls.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 void mx_print_error(char *str1, char *str2, char *str3) {
     if (str2 == NULL || str3 == NULL) {

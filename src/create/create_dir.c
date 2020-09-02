@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 t_dir *mx_create_dir() {
     t_dir *dir = (t_dir *)malloc(sizeof(t_dir));

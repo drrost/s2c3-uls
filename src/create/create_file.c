@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
  t_file *mx_create_file() {
     t_file *file = (t_file *)malloc(sizeof(t_file));

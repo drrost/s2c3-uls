@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 t_uls *mx_create_uls() {
     t_uls *uls = (t_uls *)malloc(sizeof(t_uls));

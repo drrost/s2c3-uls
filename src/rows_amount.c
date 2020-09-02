@@ -1,4 +1,6 @@
 #include <uls.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 static void isatty_condition(t_screen *screen, int longest_name, int *columns,
                              t_flags *flags) {

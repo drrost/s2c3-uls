@@ -1,4 +1,7 @@
 #include <uls.h>
+#include <sys/acl.h>
+#include <sys/xattr.h>
+#include <sys/types.h>
 
 void mx_set_acl_ads(char *path, char *acl) {
     acl_t my_acl = acl_get_file(path, ACL_TYPE_EXTENDED);

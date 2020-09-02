@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <unistd.h>
 
 static void tab_print(int tab, t_out *out) {
     for (out->k = 0; out->k < tab; out->k++)

@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 void mx_dealloc_dir(t_dir **dir) {
     mx_strdel(&((*dir)->path));

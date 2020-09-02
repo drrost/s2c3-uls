@@ -1,4 +1,6 @@
 #include <uls.h>
+#include <grp.h>
+#include <sys/types.h>
 
 void mx_get_group(t_file *file) {
     t_group *group = getgrgid(file->stat.st_gid);

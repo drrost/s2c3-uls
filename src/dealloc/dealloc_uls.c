@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 void mx_dealloc_uls(t_uls **uls) {
     free((*uls)->flags);

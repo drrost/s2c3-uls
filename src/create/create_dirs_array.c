@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 t_dir **mx_create_dirs_array(unsigned int size) {
     t_dir **array = NULL;

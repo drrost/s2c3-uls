@@ -68,20 +68,10 @@
 
 #include <dirent.h>
 #include <libmx.h>
-#include <grp.h>
-#include <pwd.h>
-#include <string.h>
-#include <sys/acl.h>
-#include <sys/errno.h>
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/xattr.h>
-#include <time.h>
-#include <unistd.h>
-#include <wchar.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <fcntl.h>
+ #include <sys/stat.h>
+// #include <time.h>
+// #include <wchar.h>
+// #include <fcntl.h>
 
 
 typedef struct stat t_stat;

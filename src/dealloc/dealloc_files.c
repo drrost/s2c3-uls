@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 void mx_dealloc_files(t_file ***files) {
     unsigned int i = 0;

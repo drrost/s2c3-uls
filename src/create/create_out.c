@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 t_out *mx_create_out() {
     t_out *out = (t_out *)malloc(sizeof(t_out));

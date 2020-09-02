@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 t_driver *mx_create_driver() {
     t_driver *driver = (t_driver *)malloc(sizeof(t_driver));

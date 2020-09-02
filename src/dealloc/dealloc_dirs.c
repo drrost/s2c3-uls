@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 void mx_dealloc_dirs(t_dir ***dirs) {
     unsigned int i = 0;

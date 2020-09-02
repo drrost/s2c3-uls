@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 static void parse_year(time_t time,t_time *parsed_time, char *date) {
     parsed_time->year = mx_strnew(4);

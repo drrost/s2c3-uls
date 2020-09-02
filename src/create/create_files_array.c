@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 t_file **mx_create_files_array(unsigned int size) {
     t_file **array = NULL;

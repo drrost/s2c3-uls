@@ -1,7 +1,5 @@
 #include <uls.h>
 
-#include "uls.h"
-
 static void set_file_type(t_file *file, char *acl) {
     acl[0] = MX_ISDIR(file->stat.st_mode) ? 'd' : '-';
     acl[0] = MX_ISCHR(file->stat.st_mode) ? 'c' : acl[0];

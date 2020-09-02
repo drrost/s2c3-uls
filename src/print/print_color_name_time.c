@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <unistd.h>
 
 static void print_uname_gr_size(t_file *file, t_flags *flags, t_out *out) {
   if (flags->f_g == 0)
