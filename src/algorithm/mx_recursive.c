@@ -62,6 +62,6 @@ void mx_recursive(const char *dir_name) {
 
     do_scan(dir_name, &dirs);
 
-    char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
+    char *delim = isatty(STDOUT_FILENO) ? "\t" : "\n";
     print_dirs_recursive(dirs, delim);
 }
