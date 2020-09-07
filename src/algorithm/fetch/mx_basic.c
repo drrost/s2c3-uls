@@ -11,7 +11,7 @@ void mx_basic(const char *dir_name) {
     mx_scandir(dir_name, &dirs, mx_select_exclude_dot_dirs, mx_alphasort);
     char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
     t_dir *dir = (t_dir *)dirs->data;
-    mx_print_dir_content(dir->entities, delim);
+    mx_print_single_dir(dir->entities, delim);
     mx_printline("");
 
     while (dirs) {

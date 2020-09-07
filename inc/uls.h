@@ -61,19 +61,21 @@ void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
 void mx_basic(const char *dir_name);
-void mx_recursive(const char *dir_name);
 
 // Utils
 void mx_delete_dirent_arr(struct dirent ***arr);
 
-// Fetch
+// Fetchers
 #define FETCHER(name) t_list *(*name)(const char *)
 t_list *mx_fetch_one_dir(const char *dir_name); // list of `t_dir`
+t_list * mx_fetch_recursive(const char *dir_name);
 
-// Print
+// Printers
 #define PRINTER(name) void (*name)(t_list *, const char *) // list of t_dirs
-void mx_print_dir_content(t_list *entities, const char *delim);
+void mx_print_single_dir(t_list *entities, const char *delim);
 void mx_print_dirs_recursive(t_list *dirs, const char *delim);
+
+void mx_print_dir_content(t_list *entities, const char *delim);
 
 void mx_print_permissions(struct dirent *dir);
 void print_type_of_file(struct dirent *dir);

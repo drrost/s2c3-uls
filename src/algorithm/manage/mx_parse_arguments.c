@@ -18,17 +18,27 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
         char *path = mx_strdup(".");
         mx_push_back(&(algorithm->paths), path);
         algorithm->fetcher = mx_fetch_one_dir;
-        algorithm->printer = mx_print_dir_content;
+        algorithm->printer = mx_print_single_dir;
     }
     else {
         if (argv[1][0] == '-') {
-            // handle flags
+            char *flags = argv[1];
+
+            if (mx_get_char_index(flags, 'R') != -1) {
+                algorithm->fetcher = mx_fetch_recursive;
+                algorithm->printer = mx_print_dirs_recursive;
+            }
             path_idx++;
         }
     }
 
     for (int i = path_idx; i < argc; i++) {
-        mx_push_back(&(algorithm->paths), argv[i]);
+        mx_push_back(&(algorithm->paths), mx_strdup(argv[i]));
+    }
+
+    if (algorithm->paths == 0) {
+        char *path = mx_strdup(".");
+        mx_push_back(&(algorithm->paths), path);
     }
 
     algorithm->delim = delim();

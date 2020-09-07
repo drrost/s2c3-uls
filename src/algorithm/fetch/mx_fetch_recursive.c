@@ -3,7 +3,6 @@
 //
 
 #include <uls.h>
-#include <unistd.h>
 
 static void do_scan(const char *dir_name, t_list **dirs) {
     mx_scandir(dir_name, dirs, mx_select_exclude_dot_dirs, mx_alphasort);
@@ -24,34 +23,8 @@ static void do_scan(const char *dir_name, t_list **dirs) {
     }
 }
 
-void mx_print_dirs_recursive(t_list *dirs, const char *delim) {
-    int count = 0;
-
-    while (dirs) {
-        t_dir *dir = (t_dir*)dirs->data;
-        if (count != 0) {
-            mx_printstr(dir->name);
-            mx_printstr(":\n");
-        }
-
-        t_list *entities = (t_list *)dir->entities;
-        mx_print_dir_content(entities, delim);
-        if (entities && dirs->next) {
-            mx_printstr("\n\n");
-        } else {
-            mx_printstr("\n");
-        }
-
-        dirs = dirs->next;
-        count++;
-    }
-}
-
-void mx_recursive(const char *dir_name) {
+t_list *mx_fetch_recursive(const char *dir_name) {
     t_list *dirs = 0;
-
     do_scan(dir_name, &dirs);
-
-    char *delim = isatty(STDOUT_FILENO) ? "\t" : "\n";
-    mx_print_dirs_recursive(dirs, delim);
+    return dirs;
 }

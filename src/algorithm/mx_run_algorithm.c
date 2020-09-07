@@ -9,7 +9,6 @@ void mx_run_algorithm(t_algorithm *algorithm) {
     t_list *dirs = algorithm->fetcher(path);
 
     algorithm->printer(dirs, algorithm->delim);
-    mx_printline("");
 
     // TODO: Move to a separate method
     while (dirs) {
