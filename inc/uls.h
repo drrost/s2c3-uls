@@ -56,6 +56,7 @@ typedef struct s_input {
     int files_num;
 }              t_input;
 
+
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
@@ -75,5 +76,18 @@ void mx_print_dir_content(t_list *entities, const char *delim);
 void mx_print_permissions(struct dirent *dir);
 void print_type_of_file(struct dirent *dir);
 int get_window_size(void);
+
+// Algorithm
+typedef struct s_algorithm {
+    FETCHER(fetcher);
+    PRINTER(printer);
+    t_list *paths;
+    char *delim;
+}              t_algorithm;
+
+t_algorithm *mx_parse_arguments(const char *line);
+void mx_run_algorithm(t_algorithm *algorithm);
+t_algorithm *mx_algorithm_new();
+void mx_algorithm_del(t_algorithm **algorithm);
 
 #endif

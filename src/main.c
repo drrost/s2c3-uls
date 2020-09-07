@@ -67,74 +67,10 @@ void uls(const char *path, t_flags flags) {
 }
 
 int main(int argc, char *argv[]) {
-
-    const char *current_path = argc == 3 ? argv[2] : ".";
-    t_flags flags;
-
     if (argc == 1) {
-        mx_basic(current_path);
-    }
-    else if (argc == 2) {
-        if (argv[1][0] == '-') {
-            flags.flag_l = false;
-            flags.flag_a = false;
-            char *p = (char *)(argv[1] + 1);
-
-            while (*p) {
-                if (*p == 'a')
-                    flags.flag_a = true;
-                else if (*p == 'l')
-                    flags.flag_l = true;
-                else if (*p == 'R')
-                    flags.flag_R = true;
-                else {
-                    mx_printerr(ILLEGAL_OPTION);
-                    mx_printerr(p);
-                    mx_printerr("\n");
-                    mx_printerr(USAGE);
-                    exit(EXIT_FAILURE);
-                }
-                p++;
-            }
-            if (flags.flag_R)
-                mx_recursive(current_path);
-            else
-                uls(current_path, flags);
-        }
-        else {
-            //uls(argv[1], 0, 0);
-            //uls(argv[1], flags); //decide on steps if file/directory is passed
-        }
-    }
-    else if (argc == 3) {
-        if (argv[1][0] != '-') {
-            mx_printerr(USAGE);
-            exit(EXIT_FAILURE);
-        }
-        flags.flag_a = false;
-        flags.flag_l = false;
-        char *p = (char *)(argv[1] + 1);
-
-        while (*p) {
-            if (*p == 'a')
-                flags.flag_a = true;
-            else if (*p == 'l')
-                flags.flag_l = true;
-            else if (*p == 'R')
-                flags.flag_R = true;
-            else {
-                mx_printerr(ILLEGAL_OPTION);
-                mx_printerr(p);
-                mx_printerr("\n");
-                mx_printerr(USAGE);
-                exit(EXIT_FAILURE);
-            }
-            p++;
-        }
-        if (flags.flag_R)
-            mx_recursive(current_path);
-        else
-            uls(current_path, flags);
+        t_algorithm *algorithm = mx_parse_arguments("");
+        mx_run_algorithm(algorithm);
+        mx_algorithm_del(&algorithm);
     }
     return 0;
 }

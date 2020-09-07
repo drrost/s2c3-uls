@@ -4,12 +4,7 @@
 
 #include <uls.h>
 #include <stdlib.h>
-
-typedef struct s_algorithm {
-    FETCHER(fetcher);
-    PRINTER(printer);
-    t_list *paths;
-}              t_algorithm;
+#include <unistd.h>
 
 t_algorithm *mx_algorithm_new() {
     t_algorithm *algorithm = (t_algorithm *)malloc(sizeof(t_algorithm));
@@ -18,6 +13,7 @@ t_algorithm *mx_algorithm_new() {
 }
 
 void mx_algorithm_del(t_algorithm **algorithm) {
+    mx_strdel(&((*algorithm)->delim));
     t_list *work = (*algorithm)->paths;
     while (work) {
         char *s = (char *)work->data;
@@ -46,6 +42,9 @@ t_algorithm *mx_parse_arguments(const char *line) {
         algorithm->fetcher = mx_fetch_one_dir;
         algorithm->printer = mx_print_dir_content;
     }
+
+    char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
+    algorithm->delim = mx_strdup(delim);
 
     mx_del_strarr(&arr);
     return algorithm;
