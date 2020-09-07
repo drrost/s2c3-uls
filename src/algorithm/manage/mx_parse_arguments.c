@@ -15,8 +15,6 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     int path_idx = 1;
 
     if (argc == 1) {
-        char *path = mx_strdup(".");
-        mx_push_back(&(algorithm->paths), path);
         algorithm->fetcher = mx_fetch_one_dir;
         algorithm->printer = mx_print_single_dir;
     }
