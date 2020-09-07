@@ -5,16 +5,6 @@
 #include <uls.h>
 #include <unistd.h>
 
-static void print_dir_content(t_list *entities, const char *delim) {
-    while (entities) {
-        t_dirent *entity = (t_dirent *)entities->data;
-        mx_printstr(entity->name);
-        if (entities->next != 0)
-            mx_printstr(delim);
-        entities = entities->next;
-    }
-}
-
 static void do_scan(const char *dir_name, t_list **dirs) {
     mx_scandir(dir_name, dirs, mx_select_exclude_dot_dirs, mx_alphasort);
 
@@ -45,7 +35,7 @@ static void print_dirs_recursive(t_list *dirs, char *delim) {
         }
 
         t_list *entities = (t_list *)dir->entities;
-        print_dir_content(entities, delim);
+        mx_print_dir_content(entities, delim);
         if (entities && dirs->next) {
             mx_printstr("\n\n");
         } else {

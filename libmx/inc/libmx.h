@@ -125,7 +125,7 @@ typedef struct s_dir {
 }              t_dir;
 
 t_dir *mx_dirnew();
-void mx_dirdelete(t_dir *dir);
+void mx_dirdelete(t_dir **dir);
 
 #define SD_SELECT int (*select)(const struct dirent *)
 #define SD_COMPAR int (*compar)(t_dirent *, t_dirent *)

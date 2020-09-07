@@ -66,7 +66,7 @@ void mx_recursive(const char *dir_name);
 void mx_delete_dirent_arr(struct dirent ***arr);
 
 // Printing
-void mx_print_dirent_simple(t_list *dirs, char *delim);
+void mx_print_dir_content(t_list *entities, const char *delim);
 void mx_print_permissions(struct dirent *dir);
 void print_type_of_file(struct dirent *dir);
 int get_window_size(void);
