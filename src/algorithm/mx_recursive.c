@@ -24,7 +24,7 @@ static void do_scan(const char *dir_name, t_list **dirs) {
     }
 }
 
-static void print_dirs_recursive(t_list *dirs, char *delim) {
+void mx_print_dirs_recursive(t_list *dirs, const char *delim) {
     int count = 0;
 
     while (dirs) {
@@ -53,5 +53,5 @@ void mx_recursive(const char *dir_name) {
     do_scan(dir_name, &dirs);
 
     char *delim = isatty(STDOUT_FILENO) ? "\t" : "\n";
-    print_dirs_recursive(dirs, delim);
+    mx_print_dirs_recursive(dirs, delim);
 }
