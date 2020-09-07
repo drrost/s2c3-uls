@@ -30,14 +30,11 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
         }
     }
 
-    for (int i = path_idx; i < argc; i++) {
+    for (int i = path_idx; i < argc; i++)
         mx_push_back(&(algorithm->paths), mx_strdup(argv[i]));
-    }
 
-    if (algorithm->paths == 0) {
-        char *path = mx_strdup(".");
-        mx_push_back(&(algorithm->paths), path);
-    }
+    if (algorithm->paths == 0)
+        mx_push_back(&(algorithm->paths), mx_strdup("."));
 
     algorithm->delim = delim();
 
