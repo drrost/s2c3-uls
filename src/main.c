@@ -72,5 +72,6 @@ int main(int argc, char *argv[]) {
         mx_run_algorithm(algorithm);
         mx_algorithm_del(&algorithm);
     }
+    argv++; // TODO: delete this line
     return 0;
 }

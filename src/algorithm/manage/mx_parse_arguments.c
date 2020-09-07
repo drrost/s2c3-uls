@@ -3,24 +3,7 @@
 //
 
 #include <uls.h>
-#include <stdlib.h>
 #include <unistd.h>
-
-t_algorithm *mx_algorithm_new() {
-    t_algorithm *algorithm = (t_algorithm *)malloc(sizeof(t_algorithm));
-    mx_memset(algorithm, 0, sizeof(t_algorithm));
-    return algorithm;
-}
-
-void mx_algorithm_del(t_algorithm **algorithm) {
-    mx_strdel(&((*algorithm)->delim));
-    t_list *work = (*algorithm)->paths;
-    while (work) {
-        char *s = (char *)work->data;
-        mx_strdel(&s);
-        mx_pop_front(&work);
-    }
-}
 
 static int mx_arr_size(char **arr) {
     int size = 0;
