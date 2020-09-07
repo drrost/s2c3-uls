@@ -4,12 +4,12 @@
 
 #include <libmx.h>
 
-static t_list *read_dir(const char *dirname, SD_SELECT) {
+static t_list *read_dir(const char *dirname, SD_FILTER) {
     DIR *dir = opendir(dirname);
     t_list *work = 0;
     struct dirent *dir_ent = 0;
     while ((dir_ent = readdir(dir)))
-        if (select(dir_ent)) {
+        if (should_include(dir_ent)) {
             t_dirent *custom_dirent = mx_dirent_new(
                 dir_ent->d_name, dir_ent->d_type);
             mx_push_back(&work, custom_dirent);
@@ -39,8 +39,8 @@ static void sort_dirents(t_list *dirs, SD_COMPAR) {
     }
 }
 
-int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR) {
-    t_list *dir_content = read_dir(dirname, select);
+int mx_scandir(const char *dirname, t_list **dirs, SD_FILTER, SD_COMPAR) {
+    t_list *dir_content = read_dir(dirname, should_include);
     sort_dirents(dir_content, compar);
 
     t_dir *result = mx_dirnew();

@@ -8,7 +8,7 @@ int find_longest_name(DIR *directory) {
     int longest = 0;
     struct dirent *dir;
 
-    while((dir = readdir(directory)) != 0) {
+    while ((dir = readdir(directory)) != 0) {
         if (mx_strlen(dir->d_name) > longest)
             longest = mx_strlen(dir->d_name);
     }
@@ -49,7 +49,8 @@ void uls(const char *path, t_flags flags) {
 
     //readdir returns next directory entry in the stream
     while ((dir = readdir(directory)) != 0) {
-        if (!flags.flag_a && dir->d_name[0] == '.')// to skip "." and ".." directories
+        if (!flags.flag_a &&
+            dir->d_name[0] == '.')// to skip "." and ".." directories
             continue;
 
         if (flags.flag_l) {
@@ -67,11 +68,9 @@ void uls(const char *path, t_flags flags) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc == 1) {
-        t_algorithm *algorithm = mx_parse_arguments("");
-        mx_run_algorithm(algorithm);
-        mx_algorithm_del(&algorithm);
-    }
-    argv++; // TODO: delete this line
+    t_algorithm *algorithm = mx_parse_arguments(argc, argv);
+    mx_run_algorithm(algorithm);
+    mx_algorithm_del(&algorithm);
+
     return 0;
 }

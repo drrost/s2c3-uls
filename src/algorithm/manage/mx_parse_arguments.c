@@ -5,30 +5,33 @@
 #include <uls.h>
 #include <unistd.h>
 
-static int mx_arr_size(char **arr) {
-    int size = 0;
-    while (*arr) {
-        arr++;
-        size++;
-    }
-    return size;
+static char *delim() {
+    char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
+    return mx_strdup(delim);
 }
 
-t_algorithm *mx_parse_arguments(const char *line) {
-    char **arr = mx_strsplit(line, ' ');
-    int size = mx_arr_size(arr);
-
+t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     t_algorithm *algorithm = mx_algorithm_new();
-    if (size == 0) {
+    int path_idx = 1;
+
+    if (argc == 1) {
         char *path = mx_strdup(".");
         mx_push_back(&(algorithm->paths), path);
         algorithm->fetcher = mx_fetch_one_dir;
         algorithm->printer = mx_print_dir_content;
     }
+    else {
+        if (argv[1][0] == '-') {
+            // handle flags
+            path_idx++;
+        }
+    }
 
-    char *delim = isatty(STDOUT_FILENO) ? "\t\t" : "\n";
-    algorithm->delim = mx_strdup(delim);
+    for (int i = path_idx; i < argc; i++) {
+        mx_push_back(&(algorithm->paths), argv[i]);
+    }
 
-    mx_del_strarr(&arr);
+    algorithm->delim = delim();
+
     return algorithm;
 }

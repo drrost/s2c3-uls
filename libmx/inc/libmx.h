@@ -127,9 +127,9 @@ typedef struct s_dir {
 t_dir *mx_dirnew();
 void mx_dirdelete(t_dir **dir);
 
-#define SD_SELECT int (*select)(const struct dirent *)
+#define SD_FILTER int (*should_include)(const struct dirent *)
 #define SD_COMPAR int (*compar)(t_dirent *, t_dirent *)
 
-int mx_scandir(const char *dirname, t_list **dirs, SD_SELECT, SD_COMPAR);
+int mx_scandir(const char *dirname, t_list **dirs, SD_FILTER, SD_COMPAR);
 int mx_alphasort(t_dirent *d1, t_dirent *d2);
 int mx_select_exclude_dot_dirs(const struct dirent *dirent);
