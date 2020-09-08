@@ -37,4 +37,5 @@ void mx_print_dirs_m(t_list *dirs, const char *delim) {
     t_dir *dir = (t_dir *)dirs->data;
 
     mx_print_dir_content_m(dir->entities, delim);
+    mx_printstr("\n");
 }
