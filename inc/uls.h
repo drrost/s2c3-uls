@@ -99,6 +99,7 @@ typedef struct s_algorithm {
 t_algorithm *mx_parse_arguments(int argc, char *argv[]);
 void mx_run_algorithm(t_algorithm *algorithm);
 t_algorithm *mx_algorithm_new();
+t_flags *mx_flags_new();
 void mx_algorithm_del(t_algorithm **algorithm);
 
 #endif

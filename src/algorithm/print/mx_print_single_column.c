@@ -5,8 +5,7 @@ void mx_print_dir_content_single_column(t_list *entities, const char *delim) {
 		t_dirent *entity = (t_dirent *)entities->data;
 		if (entity->name[0] != '.') {
 			mx_printstr(entity->name);
-			mx_printstr(delim); //MUST be removed
-			mx_printstr("\n");
+			mx_printstr(delim);
 		}
 		entities = entities->next;
 	}
