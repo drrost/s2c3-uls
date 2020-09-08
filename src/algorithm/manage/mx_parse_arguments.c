@@ -31,6 +31,11 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 algorithm->fetcher = mx_fetch_one_dir;
                 algorithm->printer = mx_print_single_column;
             }
+
+            if (mx_get_char_index(flags, 'm') != -1) {
+                algorithm->fetcher = mx_fetch_one_dir;
+                algorithm->printer = mx_print_dirs_m;
+            }
             path_idx++;
         }
     }
