@@ -76,6 +76,8 @@ void mx_print_single_dir(t_list *entities, const char *delim);
 void mx_print_dirs_recursive(t_list *dirs, const char *delim);
 
 void mx_print_dir_content(t_list *entities, const char *delim);
+void mx_print_dir_content_single_column(t_list *entities, const char *delim);
+void mx_print_single_column(t_list *entities, const char *delim);
 
 int get_window_size(void);
 
