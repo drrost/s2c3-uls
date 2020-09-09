@@ -9,5 +9,6 @@ t_flags *mx_flags_new() {
     flags->flag_R = false;
     flags->flag_1 = false;
     flags->flag_m = false;
+    flags->flag_G = false;
     return flags;
 }

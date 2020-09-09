@@ -11,6 +11,8 @@ static char *delim(t_flags *flags) {
         delim = ", ";
     else if (flags->flag_1)
         delim = "\n";
+    else if (flags->flag_l)
+        delim = "  ";
     else
         delim = isatty(STDOUT_FILENO) ? "\t" : "\n";
     return mx_strdup(delim);
@@ -46,6 +48,16 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 algorithm->fetcher = mx_fetch_one_dir;
                 algorithm->printer = mx_print_dirs_m;
             }
+            // if (mx_get_char_index(flags, 'G') != -1) {
+            //     uls_flags->flag_G = true;
+            //     algorithm->fetcher = mx_fetch_one_dir;
+            //     algorithm->printer = mx_print_colors;
+            // }
+            if (mx_get_char_index(flags, 'l') != -1) {
+                uls_flags->flag_l = true;
+                algorithm->fetcher = mx_fetch_one_dir;
+                algorithm->printer = mx_print_long;
+            }
             path_idx++;
         }
     }
@@ -57,6 +69,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
         mx_push_back(&(algorithm->paths), mx_strdup("."));
 
     algorithm->delim = delim(uls_flags);
+    //free flags
 
     return algorithm;
 }
