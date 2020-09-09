@@ -4,9 +4,13 @@
 
 #include <uls.h>
 
+static t_list *run_fetcher(const char *path, t_fetcher fetcher) {
+    return fetcher.fetch(path, fetcher.filter, fetcher.sort_cmp);
+}
+
 void mx_run_algorithm(t_algorithm *algorithm) {
     char *path = (char *)algorithm->paths->data;
-    t_list *dirs = algorithm->fetcher(path, algorithm->fetch_params);
+    t_list *dirs = run_fetcher(path, algorithm->fetcher);
 
     algorithm->printer(dirs, algorithm->delim);
 
