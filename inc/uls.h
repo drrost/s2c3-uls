@@ -119,15 +119,20 @@ int mx_lines_count(int files_count, int longest);
 
 
 // Fetchers
-#define FETCHER(name) t_list *(*name)(const char *, t_fetch_params)
-typedef struct s_fetch_params {
+#define FETCH_PARAMS const char *, SD_FILTER(filter), SD_COMPAR(sort_cmp)
+#define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
+
+typedef struct s_fetcher {
+    FETCHER(fetch);
     SD_FILTER(filter);
     SD_COMPAR(sort_cmp);
-}              t_fetch_params;
+}              t_fetcher;
 
 // list of `t_dir`
-t_list *mx_fetch_one_dir(const char *dir_name, t_fetch_params params);
-t_list *mx_fetch_recursive(const char *dir_name, t_fetch_params params);
+t_list *mx_fetch_one_dir(const char *dir_name,
+                         SD_FILTER(filter), SD_COMPAR(sort_cmp));
+t_list *mx_fetch_recursive(const char *dir_name,
+                           SD_FILTER(filter), SD_COMPAR(sort_cmp));
 
 // Printers
 #define PRINTER(name) void (*name)(t_list *, const char *) // list of t_dirs
@@ -149,8 +154,7 @@ int get_window_size(void);
 // Algorithm
 
 typedef struct s_algorithm {
-    FETCHER(fetcher);
-    t_fetch_params fetch_params;
+    t_fetcher fetcher;
     PRINTER(printer);
     t_list *paths;
     char *delim;

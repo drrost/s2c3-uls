@@ -24,7 +24,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     int path_idx = 1;
 
     if (argc == 1) {
-        algorithm->fetcher = mx_fetch_one_dir;
+        algorithm->fetcher.fetch = mx_fetch_one_dir;
         algorithm->printer = mx_print_multicolumn;
     }
     else {
@@ -33,19 +33,19 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
 
             if (mx_get_char_index(flags, 'R') != -1) {
                 uls_flags->flag_R = true;
-                algorithm->fetcher = mx_fetch_recursive;
+                algorithm->fetcher.fetch = mx_fetch_recursive;
                 algorithm->printer = mx_print_dirs_recursive;
             }
 
             if (mx_get_char_index(flags, '1') != -1) {
                 uls_flags->flag_1 = true;
-                algorithm->fetcher = mx_fetch_one_dir;
+                algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_single_column;
             }
 
             if (mx_get_char_index(flags, 'm') != -1) {
                 uls_flags->flag_m = true;
-                algorithm->fetcher = mx_fetch_one_dir;
+                algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_dirs_m;
             }
             // if (mx_get_char_index(flags, 'G') != -1) {
@@ -55,7 +55,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
             // }
             if (mx_get_char_index(flags, 'l') != -1) {
                 uls_flags->flag_l = true;
-                algorithm->fetcher = mx_fetch_one_dir;
+                algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_long;
             }
             path_idx++;
@@ -68,11 +68,11 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     if (algorithm->paths == 0)
         mx_push_back(&(algorithm->paths), mx_strdup("."));
 
-    if (algorithm->fetch_params.filter == 0)
-        algorithm->fetch_params.filter = mx_select_exclude_dot_dirs;
+    if (algorithm->fetcher.filter == 0)
+        algorithm->fetcher.filter = mx_select_exclude_dot_dirs;
 
-    if (algorithm->fetch_params.sort_cmp == 0)
-        algorithm->fetch_params.sort_cmp = mx_alphasort;
+    if (algorithm->fetcher.sort_cmp == 0)
+        algorithm->fetcher.sort_cmp = mx_alphasort;
 
     algorithm->delim = delim(uls_flags);
 
