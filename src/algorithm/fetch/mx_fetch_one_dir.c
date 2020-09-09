@@ -6,6 +6,6 @@
 
 t_list *mx_fetch_one_dir(FETCH_PARAMS) {
     t_list *dirs = 0;
-    mx_scandir(dir_name, &dirs, filter, sort_cmp);
+    mx_scandir(dir_name, &dirs, filter, cmp);
     return dirs;
 }

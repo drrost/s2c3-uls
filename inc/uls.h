@@ -120,7 +120,7 @@ int mx_get_max_spaces(int longest);
 int mx_lines_count(int files_count, int longest);
 
 // Fetchers
-#define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), SD_COMPAR (sort_cmp)
+#define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), SD_COMPAR (cmp)
 #define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
 
 typedef struct s_fetcher {
