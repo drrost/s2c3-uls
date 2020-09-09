@@ -97,6 +97,8 @@ void mx_print_dir_multicolumn(t_list *entities, const char *delim);
 int get_window_size(void);
 
 // Algorithm
+
+
 typedef struct s_algorithm {
     FETCHER(fetcher);
     PRINTER(printer);

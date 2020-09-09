@@ -4,12 +4,12 @@
 
 #include <libmx.h>
 
-static t_list *read_dir(const char *dirname, SD_FILTER) {
+static t_list *read_dir(const char *dirname, SD_FILTER(filter)) {
     DIR *dir = opendir(dirname);
     t_list *work = 0;
     struct dirent *dir_ent = 0;
     while ((dir_ent = readdir(dir)))
-        if (should_include(dir_ent)) {
+        if (filter(dir_ent)) {
             t_dirent *custom_dirent = mx_dirent_new(
                 dir_ent->d_name, dir_ent->d_type);
             mx_push_back(&work, custom_dirent);
@@ -24,13 +24,13 @@ static void swap_dirent(t_list *d1, t_list *d2) {
     d2->data = temp;
 }
 
-static void sort_dirents(t_list *dirs, SD_COMPAR) {
+static void sort_dirents(t_list *dirs, SD_COMPAR(cmp)) {
     t_list *work_i = dirs;
     while (work_i) {
         t_list *work_j = work_i;
         while (work_j) {
-            if (compar((t_dirent *)work_i->data,
-                       (t_dirent *)work_j->data) > 0) {
+            if (cmp((t_dirent *)work_i->data,
+                    (t_dirent *)work_j->data) > 0) {
                 swap_dirent(work_i, work_j);
             }
             work_j = work_j->next;
@@ -39,9 +39,10 @@ static void sort_dirents(t_list *dirs, SD_COMPAR) {
     }
 }
 
-int mx_scandir(const char *dirname, t_list **dirs, SD_FILTER, SD_COMPAR) {
-    t_list *dir_content = read_dir(dirname, should_include);
-    sort_dirents(dir_content, compar);
+int mx_scandir(const char *dirname, t_list **dirs,
+               SD_FILTER(filter), SD_COMPAR(cmp)) {
+    t_list *dir_content = read_dir(dirname, filter);
+    sort_dirents(dir_content, cmp);
 
     t_dir *result = mx_dirnew();
     result->entities = dir_content;
