@@ -57,6 +57,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
         mx_push_back(&(algorithm->paths), mx_strdup("."));
 
     algorithm->delim = delim(uls_flags);
+    mx_flags_delete(&uls_flags);
 
     return algorithm;
 }
