@@ -23,7 +23,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
 
     if (argc == 1) {
         algorithm->fetcher = mx_fetch_one_dir;
-        algorithm->printer = mx_print_single_dir;
+        algorithm->printer = mx_print_multicolumn;
     }
     else {
         if (argv[1][0] == '-') {

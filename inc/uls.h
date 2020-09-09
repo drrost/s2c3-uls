@@ -66,6 +66,13 @@ void mx_basic(const char *dir_name);
 
 // Utils
 void mx_delete_dirent_arr(struct dirent ***arr);
+int mx_get_num_files(t_list *entities);
+char *mx_find_index(t_list *entities, int index);
+void mx_count_spaces(t_list *entities, int max, int j);
+int mx_get_maxlen(t_list *entities);
+int mx_get_max_spaces(int longest);
+int mx_lines_count(int files_count, int longest);
+
 
 // Fetchers
 #define FETCHER(name) t_list *(*name)(const char *)
@@ -82,11 +89,12 @@ void mx_print_dir_content_single_column(t_list *entities, const char *delim);
 void mx_print_single_column(t_list *entities, const char *delim);
 void mx_print_dir_content_m(t_list *entities, const char *delim);
 void mx_print_dirs_m(t_list *dirs, const char *delim);
+void mx_print_multicolumn(t_list *dirs, const char *delim);
+void mx_print_dir_multicolumn(t_list *entities, const char *delim);
 
 
 
 int get_window_size(void);
-int mx_count_files(t_list *entities);
 
 // Algorithm
 typedef struct s_algorithm {
