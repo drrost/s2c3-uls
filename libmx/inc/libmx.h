@@ -121,6 +121,7 @@ typedef struct s_dirent {
     char *group;
     char *size_b;
     int total_size; //blocks
+    //t_stat stat;
     char *m_time; //time of the last modification
 }              t_dirent;
 
