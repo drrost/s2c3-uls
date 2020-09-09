@@ -119,7 +119,6 @@ int mx_get_maxlen(t_list *entities);
 int mx_get_max_spaces(int longest);
 int mx_lines_count(int files_count, int longest);
 
-
 // Fetchers
 #define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), SD_COMPAR (sort_cmp)
 #define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
@@ -133,6 +132,13 @@ typedef struct s_fetcher {
 // list of `t_dir`
 t_list *mx_fetch_one_dir(FETCH_PARAMS);
 t_list *mx_fetch_recursive(FETCH_PARAMS);
+
+// Sort comparators
+int mx_alphasort(t_dirent *d1, t_dirent *d2);
+
+// Filters
+int mx_select_all(const struct dirent *dirent);
+int mx_select_exclude_dot_dirs(const struct dirent *dirent);
 
 // Printers
 #define PRINTER(name) void (*name)(t_list *, const char *) // list of t_dirs

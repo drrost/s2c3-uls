@@ -141,5 +141,3 @@ void mx_dirdelete(t_dir **dir);
 
 int mx_scandir(const char *dirname, t_list **dirs,
                SD_FILTER(filter), SD_COMPAR(cmp));
-int mx_alphasort(t_dirent *d1, t_dirent *d2);
-int mx_select_exclude_dot_dirs(const struct dirent *dirent);
