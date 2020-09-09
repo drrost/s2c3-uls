@@ -16,9 +16,9 @@ void mx_print_dir_multicolumn(t_list *entities, const char *delim) {
                 if (j + lines >= files_count)
                     mx_printstr("\n");
                 else
-                    mx_count_spaces(entities, longest, j);
+		    mx_count_spaces(entities, longest, j, delim);
             }
-    mx_printstr(delim);//TO DO: MUST be removed
+    //mx_printstr(delim);//TO DO: MUST be removed
 }
 
 void mx_print_multicolumn(t_list *dirs, const char *delim) {

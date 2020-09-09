@@ -32,16 +32,16 @@ char *mx_find_index(t_list *entities, int index) {
     return entity->name;
 } 
 
-void mx_count_spaces(t_list *entities, int max, int j) {
+void mx_count_spaces(t_list *entities, int max, int j, const char *delim) {
     int cur_len = mx_strlen(mx_find_index(entities, j));
     int add = 8;
 
     if (cur_len < 8) {
-        mx_printstr("\t");
+        mx_printstr(delim);
         cur_len = 8;
     }
     while (cur_len <= max) {
-        mx_printstr("\t");
+        mx_printstr(delim);
         while (add <= cur_len)
             add += 8;
         cur_len = add;
