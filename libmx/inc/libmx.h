@@ -114,6 +114,14 @@ t_list *mx_list_get_last(t_list *list);
 typedef struct s_dirent {
     char *name;
     int type;
+    char *mode;
+    int number_link;
+    char *path_link;
+    char *owner_name;
+    char *group;
+    char *size_b;
+    int total_size; //blocks
+    char *m_time; //time of the last modification
 }              t_dirent;
 
 t_dirent *mx_dirent_new(char *name, int type);

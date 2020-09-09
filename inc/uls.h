@@ -38,6 +38,8 @@ typedef struct s_flags {
     bool flag_l;
     bool flag_a;
     bool flag_R;
+    bool flag_1;
+    bool flag_m;
 }              t_flags;
 
 typedef struct s_info {
@@ -76,8 +78,15 @@ void mx_print_single_dir(t_list *entities, const char *delim);
 void mx_print_dirs_recursive(t_list *dirs, const char *delim);
 
 void mx_print_dir_content(t_list *entities, const char *delim);
+void mx_print_dir_content_single_column(t_list *entities, const char *delim);
+void mx_print_single_column(t_list *entities, const char *delim);
+void mx_print_dir_content_m(t_list *entities, const char *delim);
+void mx_print_dirs_m(t_list *dirs, const char *delim);
+
+
 
 int get_window_size(void);
+int mx_count_files(t_list *entities);
 
 // Algorithm
 typedef struct s_algorithm {
@@ -90,6 +99,7 @@ typedef struct s_algorithm {
 t_algorithm *mx_parse_arguments(int argc, char *argv[]);
 void mx_run_algorithm(t_algorithm *algorithm);
 t_algorithm *mx_algorithm_new();
+t_flags *mx_flags_new();
 void mx_algorithm_del(t_algorithm **algorithm);
 
 #endif
