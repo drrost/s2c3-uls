@@ -6,7 +6,7 @@
 
 void mx_run_algorithm(t_algorithm *algorithm) {
     char *path = (char *)algorithm->paths->data;
-    t_list *dirs = algorithm->fetcher(path);
+    t_list *dirs = algorithm->fetcher(path, algorithm->fetch_params);
 
     algorithm->printer(dirs, algorithm->delim);
 

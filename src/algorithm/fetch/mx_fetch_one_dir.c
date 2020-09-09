@@ -4,8 +4,8 @@
 
 #include <uls.h>
 
-t_list *mx_fetch_one_dir(const char *dir_name) {
+t_list *mx_fetch_one_dir(const char *dir_name, t_fetch_params params) {
     t_list *dirs = 0;
-    mx_scandir(dir_name, &dirs, mx_select_exclude_dot_dirs, mx_alphasort);
+    mx_scandir(dir_name, &dirs, params.filter, params.sort_cmp);
     return dirs;
 }

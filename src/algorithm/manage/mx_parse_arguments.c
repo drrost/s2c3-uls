@@ -68,6 +68,12 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     if (algorithm->paths == 0)
         mx_push_back(&(algorithm->paths), mx_strdup("."));
 
+    if (algorithm->fetch_params.filter == 0)
+        algorithm->fetch_params.filter = mx_select_exclude_dot_dirs;
+
+    if (algorithm->fetch_params.sort_cmp == 0)
+        algorithm->fetch_params.sort_cmp = mx_alphasort;
+
     algorithm->delim = delim(uls_flags);
 
     mx_flags_delete(&uls_flags);
