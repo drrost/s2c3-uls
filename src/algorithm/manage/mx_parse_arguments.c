@@ -18,6 +18,17 @@ static char *delim(t_flags *flags) {
     return mx_strdup(delim);
 }
 
+static void set_defaults(t_algorithm *algorithm) {
+    if (algorithm->paths == 0)
+        mx_push_back(&(algorithm->paths), mx_strdup("."));
+
+    if (algorithm->fetcher.filter == 0)
+        algorithm->fetcher.filter = mx_select_exclude_dot_dirs;
+
+    if (algorithm->fetcher.sort_cmp == 0)
+        algorithm->fetcher.sort_cmp = mx_alphasort;
+}
+
 t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     t_algorithm *algorithm = mx_algorithm_new();
     t_flags *uls_flags = mx_flags_new();
@@ -62,21 +73,13 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
         }
     }
 
+    algorithm->delim = delim(uls_flags);
+    mx_flags_delete(&uls_flags);
+
     for (int i = path_idx; i < argc; i++)
         mx_push_back(&(algorithm->paths), mx_strdup(argv[i]));
 
-    if (algorithm->paths == 0)
-        mx_push_back(&(algorithm->paths), mx_strdup("."));
-
-    if (algorithm->fetcher.filter == 0)
-        algorithm->fetcher.filter = mx_select_exclude_dot_dirs;
-
-    if (algorithm->fetcher.sort_cmp == 0)
-        algorithm->fetcher.sort_cmp = mx_alphasort;
-
-    algorithm->delim = delim(uls_flags);
-
-    mx_flags_delete(&uls_flags);
+    set_defaults(algorithm);
 
     return algorithm;
 }
