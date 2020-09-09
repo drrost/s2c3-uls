@@ -121,7 +121,7 @@ int mx_lines_count(int files_count, int longest);
 
 
 // Fetchers
-#define FETCH_PARAMS const char *, SD_FILTER(filter), SD_COMPAR(sort_cmp)
+#define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), SD_COMPAR (sort_cmp)
 #define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
 
 typedef struct s_fetcher {
@@ -131,10 +131,8 @@ typedef struct s_fetcher {
 }              t_fetcher;
 
 // list of `t_dir`
-t_list *mx_fetch_one_dir(const char *dir_name,
-                         SD_FILTER(filter), SD_COMPAR(sort_cmp));
-t_list *mx_fetch_recursive(const char *dir_name,
-                           SD_FILTER(filter), SD_COMPAR(sort_cmp));
+t_list *mx_fetch_one_dir(FETCH_PARAMS);
+t_list *mx_fetch_recursive(FETCH_PARAMS);
 
 // Printers
 #define PRINTER(name) void (*name)(t_list *, const char *) // list of t_dirs

@@ -4,8 +4,7 @@
 
 #include <uls.h>
 
-static void do_scan(const char *dir_name, t_list **dirs,
-                    SD_FILTER(filter), SD_COMPAR(sort_cmp)) {
+static void do_scan(t_list **dirs, FETCH_PARAMS) {
     mx_scandir(dir_name, dirs, filter, sort_cmp);
 
     t_list *last_dir_node = mx_list_get_last(*dirs);
@@ -17,16 +16,15 @@ static void do_scan(const char *dir_name, t_list **dirs,
 
         if (dir_ent->type == DT_DIR) {
             char *subdir_name = mx_strformat("%s/%s", dir_name, dir_ent->name);
-            do_scan(subdir_name, dirs, filter, sort_cmp);
+            do_scan(dirs, subdir_name, filter, sort_cmp);
 //            mx_strdel(&subdir_name);
         }
         entities = entities->next;
     }
 }
 
-t_list *mx_fetch_recursive(const char *dir_name,
-                           SD_FILTER(filter), SD_COMPAR(sort_cmp)) {
+t_list *mx_fetch_recursive(FETCH_PARAMS) {
     t_list *dirs = 0;
-    do_scan(dir_name, &dirs, filter, sort_cmp);
+    do_scan(&dirs, dir_name, filter, sort_cmp);
     return dirs;
 }
