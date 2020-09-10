@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <pwd.h>
+#include <grp.h>
 
 void mx_print_permissions(mode_t mode) {
 	char perms[11];
@@ -53,11 +55,33 @@ int mx_find_blocks(t_list *entities, int files_count) {
 	return blocks;
 }
 
+char *mx_get_owner(uid_t st_uid) {
+	char *owner = NULL;
+	struct passwd *pass;
+
+	if ((pass = getpwuid(st_uid)) == NULL)
+		owner = mx_itoa(st_uid);
+	else
+		owner = mx_strdup(pass->pw_name);
+	return owner;
+}
+
+char *mx_get_group(gid_t st_gid) {
+	char *group;
+	struct group *buf;
+
+	if ((buf = getgrgid(st_gid)) == NULL)
+		group = mx_itoa(st_gid);
+	else
+		group = mx_strdup(buf->gr_name);
+	return group;
+}
+
 
 void mx_print_dir_long_format(t_list *entities, const char *delim) {
 	struct stat buf;
 	int files_count = mx_get_num_files(entities);
-	
+
 	mx_printstr("total: ");
 	mx_printstr(mx_itoa(mx_find_blocks(entities, files_count)));
 	mx_printstr("\n");
@@ -65,6 +89,11 @@ void mx_print_dir_long_format(t_list *entities, const char *delim) {
 		lstat(mx_find_index(entities, i), &buf);
 		mx_print_permissions(buf.st_mode);
 		mx_printstr(delim);
+		mx_printstr(mx_get_owner(buf.st_uid));
+		mx_printstr(delim);
+		mx_printstr(mx_get_group(buf.st_gid));
+		mx_printstr(delim);
+		mx_printstr(mx_find_index(entities, i));
 		mx_printstr("\n");
 	}
 }
