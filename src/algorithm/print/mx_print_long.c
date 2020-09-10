@@ -43,10 +43,23 @@ void mx_print_permissions(mode_t mode) {
 
 }
 
+int mx_find_blocks(t_list *entities, int files_count) {
+	struct stat buf;
+	int blocks = 0;
+	for (int i = 0; i < files_count; i++) {
+		lstat(mx_find_index(entities, i), &buf);
+		blocks += buf.st_blocks;
+	}
+	return blocks;
+}
+
+
 void mx_print_dir_long_format(t_list *entities, const char *delim) {
 	struct stat buf;
 	int files_count = mx_get_num_files(entities);
+	
 	mx_printstr("total: ");
+	mx_printstr(mx_itoa(mx_find_blocks(entities, files_count)));
 	mx_printstr("\n");
 	for (int i = 0; i < files_count; i++) {
 		lstat(mx_find_index(entities, i), &buf);
