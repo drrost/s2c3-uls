@@ -17,8 +17,8 @@ void mx_print_dir_long_format(t_list *entities, const char *delim) {
 		lstat(mx_find_index(entities, i), &buf);
 		mx_print_permissions(buf.st_mode);
 		mx_printstr(delim);
-		//mx_printstr(mx_get_size(buf));
-		//mx_printstr(delim);
+		mx_printint(buf.st_nlink);
+		mx_printstr(" ");
 		mx_printstr(mx_get_owner(buf.st_uid));
 		mx_printstr(delim);
 		mx_printstr(mx_get_group(buf.st_gid));
