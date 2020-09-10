@@ -82,6 +82,7 @@ enum e_error {
 
 typedef struct s_flags {
     bool flag_l;
+    bool flag_A;
     bool flag_a;
     bool flag_R;
     bool flag_1;

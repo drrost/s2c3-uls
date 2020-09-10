@@ -65,6 +65,11 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 algorithm->fetcher.filter = mx_select_all;
                 algorithm->printer = mx_print_multicolumn_all;
             }
+            if (mx_get_char_index(flags, 'A') != -1) {
+                uls_flags->flag_A = true;
+                algorithm->fetcher.fetch = mx_fetch_one_dir;
+                algorithm->printer = mx_print_multicolumn_all;
+            }
             if (mx_get_char_index(flags, 'l') != -1) {
                 uls_flags->flag_l = true;
                 algorithm->fetcher.fetch = mx_fetch_one_dir;
