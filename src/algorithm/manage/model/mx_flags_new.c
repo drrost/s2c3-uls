@@ -11,6 +11,7 @@ t_flags *mx_flags_new() {
     flags->flag_1 = false;
     flags->flag_m = false;
     flags->flag_o = false;
+    flags->flag_F = false;
     
     mx_memset(flags, 0, sizeof(t_flags));
     return flags;

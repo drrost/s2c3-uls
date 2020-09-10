@@ -49,6 +49,7 @@
 #define MX_ISFIFO(m) (((m) & MX_IFMT) == MX_IFIFO)
 #define MX_ISREG(m) (((m) & MX_IFMT) == MX_IFREG)
 #define MX_ISLNK(m) (((m) & MX_IFMT) == MX_IFLNK)
+#define MX_ISXEC(m) ((m) & S_IXUSR)
 #define MX_ISSOCK(m) (((m) & MX_IFMT) == MX_IFSOCK)
 
 #define MX_GETMAJOR(x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff)) \
@@ -88,6 +89,7 @@ typedef struct s_flags {
     bool flag_1;
     bool flag_m;
     bool flag_o;
+    bool flag_F;
 }              t_flags;
 
 typedef struct s_info {
@@ -176,6 +178,9 @@ void mx_print_multicolumn_all(t_list *dirs, const char *delim);
 
 void mx_print_dir_long_format_o(t_list *entities, const char *delim);
 void mx_print_long_o(t_list *dirs, const char *delim);
+void mx_print_multicolumn_F(t_list *dirs, const char *delim);
+void mx_print_dir_multicolumn_F(t_list *entities, const char *delim);
+
 
 int get_window_size(void);
 

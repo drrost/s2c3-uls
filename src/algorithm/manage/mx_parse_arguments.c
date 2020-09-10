@@ -82,6 +82,11 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_long_o;
             }
+            if (mx_get_char_index(flags, 'F') != -1) {
+                uls_flags->flag_F = true;
+                algorithm->fetcher.fetch = mx_fetch_one_dir;
+                algorithm->printer = mx_print_multicolumn_F;
+            }
             path_idx++;
         }
     }
