@@ -13,6 +13,8 @@ static char *delim(t_flags *flags) {
         delim = "\n";
     else if (flags->flag_l)
         delim = "  ";
+    else if (flags->flag_o)
+        delim = " ";
     else
         delim = isatty(STDOUT_FILENO) ? "\t" : "\n";
     return mx_strdup(delim);
@@ -74,6 +76,11 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 uls_flags->flag_l = true;
                 algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_long;
+            }
+            if (mx_get_char_index(flags, 'o') != -1) {
+                uls_flags->flag_o = true;
+                algorithm->fetcher.fetch = mx_fetch_one_dir;
+                algorithm->printer = mx_print_long_o;
             }
             path_idx++;
         }

@@ -87,7 +87,7 @@ typedef struct s_flags {
     bool flag_R;
     bool flag_1;
     bool flag_m;
-    bool flag_G;
+    bool flag_o;
 }              t_flags;
 
 typedef struct s_info {
@@ -129,6 +129,8 @@ void mx_print_permissions(mode_t mode);
 void mx_print_space(int n);
 int mx_get_maxsize(t_list *entities);
 int mx_get_maxlinks(t_list *entities);
+void mx_print_space_size(int max, const char *size);
+void mx_print_total(t_list *entities, int files_count);
 
 int mx_get_maxlen_all(t_list *entities);
 int mx_get_num_files_all(t_list *entities);
@@ -171,6 +173,9 @@ void mx_print_long(t_list *dirs, const char *delim);
 void mx_print_dir_long_format(t_list *entities, const char *delim);
 void mx_print_dir_multicolumn_all(t_list *entities, const char *delim);
 void mx_print_multicolumn_all(t_list *dirs, const char *delim);
+
+void mx_print_dir_long_format_o(t_list *entities, const char *delim);
+void mx_print_long_o(t_list *dirs, const char *delim);
 
 int get_window_size(void);
 
