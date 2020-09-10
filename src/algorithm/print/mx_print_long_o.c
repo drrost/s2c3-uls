@@ -29,7 +29,7 @@ void mx_print_dir_long_format_o(t_list *entities, const char *delim) {
 	mx_print_total(entities, files_count);
 	for (int i = 0; i < files_count; i++) {
 		lstat(mx_find_index(entities, i), &buf);
-		mx_print_permissions(buf.st_mode);
+		mx_printstr(mx_get_permissions(buf.st_mode));
 		mx_print_space((max_links - mx_strlen(mx_itoa(buf.st_nlink))) + 2);
 		mx_printint(buf.st_nlink);
 		mx_printstr(delim);
