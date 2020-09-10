@@ -27,8 +27,15 @@ static void set_defaults(t_algorithm *algorithm) {
     if (algorithm->fetcher.filter == 0)
         algorithm->fetcher.filter = mx_select_exclude_dot_dirs;
 
-    if (algorithm->fetcher.sort_cmp == 0)
-        algorithm->fetcher.sort_cmp = mx_alphasort;
+    if (algorithm->fetcher.fetch == 0)
+        algorithm->fetcher.fetch = mx_fetch_one_dir;
+
+    if (algorithm->fetcher.comparator.cmp == 0) {
+        algorithm->fetcher.comparator.cmp = mx_alphasort;
+    }
+
+    if (algorithm->printer == 0)
+        algorithm->printer = mx_print_single_column;
 }
 
 static bool has_flag(const char *flags, char ch) {
@@ -39,6 +46,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     t_algorithm *algorithm = mx_algorithm_new();
     t_flags *uls_flags = mx_flags_new();
     int path_idx = 1;
+    algorithm->fetcher.comparator.reverse = false;
 
     if (argc == 1) {
         algorithm->fetcher.fetch = mx_fetch_one_dir;
@@ -94,7 +102,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
 
             // Sorters
             if (has_flag(flags, 'r'))
-                algorithm->fetcher.sort_cmp = mx_alphasort;
+                algorithm->fetcher.comparator.reverse = true;
 
             path_idx++;
         }

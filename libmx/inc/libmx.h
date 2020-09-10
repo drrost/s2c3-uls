@@ -139,5 +139,10 @@ void mx_dirdelete(t_dir **dir);
 #define SD_FILTER(name) int (*name)(const struct dirent *)
 #define SD_COMPAR(name) int (*name)(t_dirent *, t_dirent *)
 
+typedef struct s_comparator {
+    bool reverse;
+    SD_COMPAR(cmp);
+}              t_comparator;
+
 int mx_scandir(const char *dirname, t_list **dirs,
-               SD_FILTER(filter), SD_COMPAR(cmp));
+               SD_FILTER(filter), t_comparator comparator);

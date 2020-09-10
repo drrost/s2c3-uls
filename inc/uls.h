@@ -112,8 +112,6 @@ typedef struct s_input {
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
-void mx_basic(const char *dir_name);
-
 // Utils
 void mx_delete_dirent_arr(struct dirent ***arr);
 int mx_get_num_files(t_list *entities);
@@ -139,13 +137,13 @@ int mx_get_num_files_all(t_list *entities);
 void mx_count_spaces_all(t_list *entities, int max, int j, const char *delim);
 char *mx_find_index_all(t_list *entities, int index);
 // Fetchers
-#define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), SD_COMPAR (cmp)
+#define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), t_comparator cmp
 #define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
 
 typedef struct s_fetcher {
     FETCHER(fetch);
     SD_FILTER(filter);
-    SD_COMPAR(sort_cmp);
+    t_comparator comparator;
 }              t_fetcher;
 
 // list of `t_dir`

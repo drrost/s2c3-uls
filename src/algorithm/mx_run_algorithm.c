@@ -5,7 +5,7 @@
 #include <uls.h>
 
 static t_list *run_fetcher(const char *path, t_fetcher fetcher) {
-    return fetcher.fetch(path, fetcher.filter, fetcher.sort_cmp);
+    return fetcher.fetch(path, fetcher.filter, fetcher.comparator);
 }
 
 void mx_run_algorithm(t_algorithm *algorithm) {
