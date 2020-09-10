@@ -59,11 +59,12 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_dirs_m;
             }
-            // if (mx_get_char_index(flags, 'G') != -1) {
-            //     uls_flags->flag_G = true;
-            //     algorithm->fetcher = mx_fetch_one_dir;
-            //     algorithm->printer = mx_print_colors;
-            // }
+            if (mx_get_char_index(flags, 'a') != -1) {
+                uls_flags->flag_a = true;
+                algorithm->fetcher.fetch = mx_fetch_one_dir;
+                algorithm->fetcher.filter = mx_select_all;
+                algorithm->printer = mx_print_multicolumn_all;
+            }
             if (mx_get_char_index(flags, 'l') != -1) {
                 uls_flags->flag_l = true;
                 algorithm->fetcher.fetch = mx_fetch_one_dir;

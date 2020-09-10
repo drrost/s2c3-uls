@@ -18,7 +18,6 @@ void mx_print_dir_multicolumn(t_list *entities, const char *delim) {
                 else
 		    mx_count_spaces(entities, longest, j, delim);
             }
-    //mx_printstr(delim);//TO DO: MUST be removed
 }
 
 void mx_print_multicolumn(t_list *dirs, const char *delim) {

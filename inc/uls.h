@@ -129,6 +129,10 @@ void mx_print_space(int n);
 int mx_get_maxsize(t_list *entities);
 int mx_get_maxlinks(t_list *entities);
 
+int mx_get_maxlen_all(t_list *entities);
+int mx_get_num_files_all(t_list *entities);
+void mx_count_spaces_all(t_list *entities, int max, int j, const char *delim);
+char *mx_find_index_all(t_list *entities, int index);
 // Fetchers
 #define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), SD_COMPAR (cmp)
 #define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
@@ -164,6 +168,8 @@ void mx_print_multicolumn(t_list *dirs, const char *delim);
 void mx_print_dir_multicolumn(t_list *entities, const char *delim);
 void mx_print_long(t_list *dirs, const char *delim);
 void mx_print_dir_long_format(t_list *entities, const char *delim);
+void mx_print_dir_multicolumn_all(t_list *entities, const char *delim);
+void mx_print_multicolumn_all(t_list *dirs, const char *delim);
 
 int get_window_size(void);
 
