@@ -57,6 +57,19 @@
 #define MX_GETMINOR(x) ((int32_t)((x) & 0xffffff)) \
 //minor number refers to an instance
 
+
+//color output
+#define MX_COLOR_RESET "\x1B[0m"
+#define MX_BLACK 0
+#define MX_RED 1
+#define MX_GREEN 2
+#define MX_YELLOW 3
+#define MX_BLUE 4
+#define MX_MAGENTA 5
+#define MX_CYAN 6
+#define MX_WHITE 7
+#define MX_DEFAULT 9
+
 // README.md
 //
 // `_e' suffix in functions name means that function may exit in a case
@@ -90,6 +103,7 @@ typedef struct s_flags {
     bool flag_m;
     bool flag_o;
     bool flag_F;
+    bool flag_G;
 }              t_flags;
 
 typedef struct s_info {
@@ -127,7 +141,7 @@ char *mx_get_time(struct stat buf);
 char *mx_get_owner(uid_t st_uid);
 char *mx_get_group(gid_t st_gid);
 int mx_find_blocks(t_list *entities, int files_count);
-void mx_print_permissions(mode_t mode);
+char *mx_get_permissions(mode_t mode);
 void mx_print_space(int n);
 int mx_get_maxsize(t_list *entities);
 int mx_get_maxlinks(t_list *entities);
@@ -138,6 +152,11 @@ int mx_get_maxlen_all(t_list *entities);
 int mx_get_num_files_all(t_list *entities);
 void mx_count_spaces_all(t_list *entities, int max, int j, const char *delim);
 char *mx_find_index_all(t_list *entities, int index);
+
+int mx_color_set(unsigned char a, unsigned char b);
+int mx_color_reset();
+unsigned char mx_acl_bkcol(char *acl);
+unsigned char mx_acl_strcol(char *acl);
 // Fetchers
 #define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), SD_COMPAR (cmp)
 #define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
@@ -180,6 +199,7 @@ void mx_print_dir_long_format_o(t_list *entities, const char *delim);
 void mx_print_long_o(t_list *dirs, const char *delim);
 void mx_print_multicolumn_F(t_list *dirs, const char *delim);
 void mx_print_dir_multicolumn_F(t_list *entities, const char *delim);
+void mx_print_multicolumn_color(t_list *dirs, const char *delim);
 
 
 int get_window_size(void);

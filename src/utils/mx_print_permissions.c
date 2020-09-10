@@ -5,7 +5,7 @@
 #include <uls.h>
 #include <sys/types.h>
 
-void mx_print_permissions(mode_t mode) {
+char *mx_get_permissions(mode_t mode) {
 	char perms[11];
 	if (MX_ISREG(mode))
 		perms[0] = '-';
@@ -37,5 +37,5 @@ void mx_print_permissions(mode_t mode) {
 	perms[9] = (mode & MX_IXOTH) ? 'x' : '-';
 	perms[9] = (mode & MX_ISVTX) ? 't' : perms[9];
 	perms[10] = '\0';
-	mx_printstr(perms);
+	return mx_strdup(perms);
 }

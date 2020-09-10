@@ -13,7 +13,7 @@ static char *delim(t_flags *flags) {
         delim = "\n";
     else if (flags->flag_l)
         delim = "  ";
-    else if (flags->flag_o)
+    else if (flags->flag_o || flags->flag_G)
         delim = " ";
     else
         delim = isatty(STDOUT_FILENO) ? "\t" : "\n";
@@ -86,6 +86,11 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 uls_flags->flag_F = true;
                 algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_multicolumn_F;
+            }
+            if (mx_get_char_index(flags, 'G') != -1) {
+                uls_flags->flag_G = true;
+                algorithm->fetcher.fetch = mx_fetch_one_dir;
+                algorithm->printer = mx_print_multicolumn_color;
             }
             path_idx++;
         }
