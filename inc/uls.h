@@ -2,6 +2,7 @@
 #define ULS_H
 
 #include <libmx.h>
+#include <sys/stat.h>
 
 // Macros
 #define USAGE "usage: uls [-l] [file ...]\n"
@@ -50,9 +51,9 @@
 #define MX_ISLNK(m) (((m) & MX_IFMT) == MX_IFLNK)
 #define MX_ISSOCK(m) (((m) & MX_IFMT) == MX_IFSOCK)
 
-#define MX_MAJOR(x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff)) \
+#define MX_GETMAJOR(x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff)) \
 //major number identifies the driver associated with the device
-#define MX_MINOR(x) ((int32_t)((x) & 0xffffff)) \
+#define MX_GETMINOR(x) ((int32_t)((x) & 0xffffff)) \
 //minor number refers to an instance
 
 // README.md
@@ -118,6 +119,12 @@ void mx_count_spaces(t_list *entities, int max, int j, const char *delim);
 int mx_get_maxlen(t_list *entities);
 int mx_get_max_spaces(int longest);
 int mx_lines_count(int files_count, int longest);
+char *mx_get_size(struct stat buf);
+char *mx_get_time(struct stat buf);
+char *mx_get_owner(uid_t st_uid);
+char *mx_get_group(gid_t st_gid);
+int mx_find_blocks(t_list *entities, int files_count);
+void mx_print_permissions(mode_t mode);
 
 // Fetchers
 #define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), SD_COMPAR (cmp)
