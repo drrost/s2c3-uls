@@ -127,6 +127,7 @@ int mx_find_blocks(t_list *entities, int files_count);
 void mx_print_permissions(mode_t mode);
 void mx_print_space(int n);
 int mx_get_maxsize(t_list *entities);
+int mx_get_maxlinks(t_list *entities);
 
 // Fetchers
 #define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), SD_COMPAR (cmp)
