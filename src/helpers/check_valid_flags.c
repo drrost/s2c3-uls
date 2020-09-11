@@ -13,7 +13,7 @@ static void mx_invalid_flags(char c) {
 
 bool check_valid_flags(const char *flags) {
     for (int i = 1; flags[i]; i++) {
-        if (!has_flag(FLAGS, flags[i])) {
+        if (!mx_has_flag(FLAGS, flags[i])) {
             mx_invalid_flags(flags[i]);
             return false;
         }

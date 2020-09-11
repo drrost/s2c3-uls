@@ -9,7 +9,7 @@
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
-#define FLAGS "AFGRalmor1"
+#define FLAGS "AFGRalmotr1"
 
 //File types
 
@@ -95,16 +95,17 @@ enum e_error {
 };
 
 typedef struct s_flags {
-    bool flag_l;
-    bool flag_A;
-    bool flag_a;
-    bool flag_R;
-    bool flag_1;
-    bool flag_m;
-    bool flag_o;
-    bool flag_F;
-    bool flag_G;
-    bool flag_r;
+    bool A;
+    bool G;
+    bool F;
+    bool R;
+    bool a;
+    bool l;
+    bool m;
+    bool o;
+    bool r;
+    bool t;
+    bool _1;
 }              t_flags;
 
 typedef struct s_info {
@@ -158,7 +159,7 @@ unsigned char mx_acl_bkcol(char *acl);
 unsigned char mx_acl_strcol(char *acl);
 
 bool check_valid_flags(const char *flags);
-bool has_flag(const char *flags, char ch);
+
 // Fetchers
 #define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), t_comparator cmp
 #define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
@@ -219,10 +220,10 @@ typedef struct s_algorithm {
 }              t_algorithm;
 
 t_algorithm *mx_parse_arguments(int argc, char *argv[]);
+bool mx_has_flag(const char *flags, char ch);
+t_flags mx_parse_flags(const char *line);
 void mx_run_algorithm(t_algorithm *algorithm);
 t_algorithm *mx_algorithm_new();
-t_flags *mx_flags_new();
-void mx_flags_delete(t_flags **flags);
 void mx_algorithm_del(t_algorithm **algorithm);
 
 #endif
