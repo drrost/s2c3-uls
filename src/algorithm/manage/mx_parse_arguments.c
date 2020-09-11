@@ -108,6 +108,8 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
             // Sorters
             if (has_flag(flags, 'r'))
                 algorithm->fetcher.comparator.reverse = true;
+            if (has_flag(flags, 't'))
+                algorithm->fetcher.comparator.cmp = mx_timesort;
 
             path_idx++;
         }

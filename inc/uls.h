@@ -171,6 +171,7 @@ t_list *mx_fetch_recursive(FETCH_PARAMS);
 
 // Sort comparators
 int mx_alphasort(t_dirent *d1, t_dirent *d2);
+int mx_timesort(t_dirent *d1, t_dirent *d2);
 
 // Filters
 int mx_select_all(const struct dirent *dirent);
