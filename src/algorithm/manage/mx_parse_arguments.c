@@ -112,8 +112,12 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
             }
 
             if (uls_flags->flag_m) {
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
+                if (uls_flags->flag_a || uls_flags->flag_A) {
+                    algorithm->printer = mx_print_dirs_m_all; 
+                }
+                else {
                     algorithm->printer = mx_print_dirs_m;
+                }
             }
             if (uls_flags->flag_a && algorithm->printer == 0) {
                 algorithm->printer = mx_print_multicolumn_all;
