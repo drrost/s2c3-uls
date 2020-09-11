@@ -43,6 +43,43 @@ bool has_flag(const char *flags, char ch) {
     return mx_get_char_index(flags, ch) != -1;
 }
 
+t_flags *disable_flags(t_flags *flags, const char *argv) {
+    if (flags->flag_1 && flags->flag_m && flags->flag_l) {
+        if (argv[mx_strlen(argv) - 1] == 'm') {
+            flags->flag_1 = false;
+            flags->flag_l = false;
+        }
+        if (argv[mx_strlen(argv) - 1] == '1') {
+            flags->flag_m = false;
+            flags->flag_l = false;
+        }
+        if (argv[mx_strlen(argv) - 1] == 'l') {
+            flags->flag_1 = false;
+            flags->flag_m = false;
+        }
+    }
+    if (flags->flag_1 && flags->flag_m) {
+        if (argv[mx_strlen(argv) - 1] == 'm')
+            flags->flag_1 = false;
+        else
+            flags->flag_m = false;
+    }
+    if (flags->flag_m && flags->flag_l) {
+        if (argv[mx_strlen(argv) - 1] == 'm')
+            flags->flag_l = false;
+        else
+            flags->flag_m = false;
+    }
+    if (flags->flag_l && flags->flag_1) {
+        if (argv[mx_strlen(argv) - 1] == 'l')
+            flags->flag_1 = false;
+        else
+            flags->flag_l = false;
+    }
+
+    return flags;
+}
+
 t_flags *set_flags(t_flags *flags, const char *argv) {
     if (has_flag(argv, 'm'))
         flags->flag_m = true;
@@ -66,7 +103,7 @@ t_flags *set_flags(t_flags *flags, const char *argv) {
         flags->flag_r = true;
     if (has_flag(argv, 'l'))
         flags->flag_l = true;
-    //flags = disable_flags(flags);
+    flags = disable_flags(flags, argv);
     return flags;
 }
 
@@ -86,7 +123,10 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     }
     else {
         if (argv[1][0] == '-') {
+            //TO DO: The -1, -m and -l options override each other; the last one spec-
+     //ified determines the format used.
             char *flags = argv[1];
+            //printf("last character is %c\n", flags[mx_strlen(flags) - 1]);
 
             if (!check_valid_flags(flags))
                 exit(1);
@@ -126,19 +166,15 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 algorithm->printer = mx_print_multicolumn_all;
             }
             if (uls_flags->flag_l) {
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_long;
             }
             if (uls_flags->flag_o) {
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_long_o;
             }
             if (uls_flags->flag_F) {
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_multicolumn_F;
             }
             if (uls_flags->flag_G) {
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_multicolumn_color;
             }
 
