@@ -20,14 +20,6 @@ static void do_print(t_list *entities, const char *delim) {
             }
 }
 
-static void print_dirs(t_list *dirs, const char *delim, PRINTER(printer)) {
-    while (dirs) {
-        t_dir *dir = (t_dir *)dirs->data;
-        printer(dir->entities, delim);
-        dirs = dirs->next;
-    }
-}
-
 void mx_print_multicolumn(t_list *dirs, const char *delim) {
-    print_dirs(dirs, delim, do_print);
+    mx_print_dirs(dirs, delim, do_print);
 }

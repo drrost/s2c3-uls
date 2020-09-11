@@ -185,6 +185,8 @@ int mx_select_exclude_dot_dirs(const struct dirent *dirent);
 // Printers
 #define PRINTER(name) void (*name)(t_list *, const char *) // list of t_dirs
 
+void mx_print_dirs(t_list *dirs, const char *delim, PRINTER(printer));
+
 void mx_print_dirs_recursive(t_list *dirs, const char *delim);
 void mx_print_dir_content(t_list *entities, const char *delim);
 void mx_print_single_column(t_list *entities, const char *delim);
