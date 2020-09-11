@@ -77,8 +77,12 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     algorithm->fetcher.comparator.reverse = false;
 
     if (argc == 1) {
-        algorithm->fetcher.fetch = mx_fetch_one_dir;
-        algorithm->printer = mx_print_multicolumn;
+        if (!isatty(STDOUT_FILENO)) {
+            algorithm->printer = mx_print_single_column;
+        }
+        else {
+            algorithm->printer = mx_print_multicolumn;
+        }
     }
     else {
         if (argv[1][0] == '-') {
