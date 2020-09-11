@@ -4,6 +4,7 @@
 
 #include <uls.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 static char *delim(t_flags *flags) {
     char *delim;
@@ -38,8 +39,72 @@ static void set_defaults(t_algorithm *algorithm) {
         algorithm->printer = mx_print_single_column;
 }
 
-static bool has_flag(const char *flags, char ch) {
+bool has_flag(const char *flags, char ch) {
     return mx_get_char_index(flags, ch) != -1;
+}
+
+t_flags *disable_flags(t_flags *flags, const char *argv) {
+    if (flags->flag_1 && flags->flag_m && flags->flag_l) {
+        if (argv[mx_strlen(argv) - 1] == 'm') {
+            flags->flag_1 = false;
+            flags->flag_l = false;
+        }
+        if (argv[mx_strlen(argv) - 1] == '1') {
+            flags->flag_m = false;
+            flags->flag_l = false;
+        }
+        if (argv[mx_strlen(argv) - 1] == 'l') {
+            flags->flag_1 = false;
+            flags->flag_m = false;
+        }
+    }
+    if (flags->flag_1 && flags->flag_m) {
+        if (argv[mx_strlen(argv) - 1] == 'm')
+            flags->flag_1 = false;
+        else
+            flags->flag_m = false;
+    }
+    if (flags->flag_m && flags->flag_l) {
+        if (argv[mx_strlen(argv) - 1] == 'm')
+            flags->flag_l = false;
+        else
+            flags->flag_m = false;
+    }
+    if (flags->flag_l && flags->flag_1) {
+        if (argv[mx_strlen(argv) - 1] == 'l')
+            flags->flag_1 = false;
+        else
+            flags->flag_l = false;
+    }
+
+    return flags;
+}
+
+t_flags *set_flags(t_flags *flags, const char *argv) {
+    if (has_flag(argv, 'm'))
+        flags->flag_m = true;
+    if (has_flag(argv, 'R'))
+        flags->flag_R = true;
+    if (has_flag(argv, 'r'))
+        flags->flag_r = true;
+    if (has_flag(argv, '1'))
+        flags->flag_1 = true;
+    if (has_flag(argv, 'o'))
+        flags->flag_o = true;
+    if (has_flag(argv, 'F'))
+        flags->flag_F = true;
+    if (has_flag(argv, 'G'))
+        flags->flag_G = true;
+    if (has_flag(argv, 'a'))
+        flags->flag_a = true;
+    if (has_flag(argv, 'A'))
+        flags->flag_A = true;
+    if (has_flag(argv, 'r'))
+        flags->flag_r = true;
+    if (has_flag(argv, 'l'))
+        flags->flag_l = true;
+    flags = disable_flags(flags, argv);
+    return flags;
 }
 
 t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
@@ -49,69 +114,78 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     algorithm->fetcher.comparator.reverse = false;
 
     if (argc == 1) {
-        algorithm->fetcher.fetch = mx_fetch_one_dir;
-        algorithm->printer = mx_print_multicolumn;
+        if (!isatty(STDOUT_FILENO)) {
+            algorithm->printer = mx_print_single_column;
+        }
+        else {
+            algorithm->printer = mx_print_multicolumn;
+        }
     }
     else {
         if (argv[1][0] == '-') {
+            //TO DO: The -1, -m and -l options override each other; the last one spec-
+     //ified determines the format used.
             char *flags = argv[1];
+            //printf("last character is %c\n", flags[mx_strlen(flags) - 1]);
 
-            if (has_flag(flags, 'R')) {
-                uls_flags->flag_R = true;
-                algorithm->fetcher.fetch = mx_fetch_recursive;
-                algorithm->printer = mx_print_dirs_recursive;
-            }
+            if (!check_valid_flags(flags))
+                exit(1);
+            uls_flags = set_flags(uls_flags, flags);
 
-            if (has_flag(flags, '1')) {
-                uls_flags->flag_1 = true;
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
-                algorithm->printer = mx_print_single_column;
-            }
-
-            if (has_flag(flags, 'm')) {
-                uls_flags->flag_m = true;
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
-                algorithm->printer = mx_print_dirs_m;
-            }
-            if (has_flag(flags, 'a')) {
-                uls_flags->flag_a = true;
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
+            if (uls_flags->flag_a)
                 algorithm->fetcher.filter = mx_select_all;
+            if (uls_flags->flag_A)
+                algorithm->fetcher.filter = mx_select_exclude_dot_dirs;
+
+            if (uls_flags->flag_R) {
+                algorithm->fetcher.fetch = mx_fetch_recursive;
+                algorithm->printer = mx_print_dirs_recursive;                
+            }
+
+            if (uls_flags->flag_1) {
+                if (uls_flags->flag_a || uls_flags->flag_A) {
+                    algorithm->printer = mx_print_single_column_all; 
+                } 
+                else {
+                    algorithm->printer = mx_print_single_column;
+                }
+            }
+
+            if (uls_flags->flag_m) {
+                if (uls_flags->flag_a || uls_flags->flag_A) {
+                    algorithm->printer = mx_print_dirs_m_all; 
+                }
+                else {
+                    algorithm->printer = mx_print_dirs_m;
+                }
+            }
+            if (uls_flags->flag_a && algorithm->printer == 0) {
                 algorithm->printer = mx_print_multicolumn_all;
             }
-            if (has_flag(flags, 'A')) {
-                uls_flags->flag_A = true;
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
+            if (uls_flags->flag_A && algorithm->printer == 0) {
                 algorithm->printer = mx_print_multicolumn_all;
             }
-            if (has_flag(flags, 'l')) {
-                uls_flags->flag_l = true;
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
+            if (uls_flags->flag_l) {
                 algorithm->printer = mx_print_long;
             }
-            if (has_flag(flags, 'o')) {
-                uls_flags->flag_o = true;
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
+            if (uls_flags->flag_o) {
                 algorithm->printer = mx_print_long_o;
             }
-            if (has_flag(flags, 'F')) {
-                uls_flags->flag_F = true;
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
+            if (uls_flags->flag_F) {
                 algorithm->printer = mx_print_multicolumn_F;
             }
-            if (mx_get_char_index(flags, 'G') != -1) {
-                uls_flags->flag_G = true;
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
+            if (uls_flags->flag_G) {
                 algorithm->printer = mx_print_multicolumn_color;
             }
 
-            // Sorters
-            if (has_flag(flags, 'r'))
+                // Sorters
+            if (uls_flags->flag_r)
                 algorithm->fetcher.comparator.reverse = true;
             if (has_flag(flags, 't'))
                 algorithm->fetcher.comparator.cmp = mx_timesort;
 
             path_idx++;
+            
         }
     }
 
