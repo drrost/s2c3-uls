@@ -88,27 +88,33 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 exit(1);
             uls_flags = set_flags(uls_flags, flags);
 
+            if (uls_flags->flag_a)
+                algorithm->fetcher.filter = mx_select_all;
+            if (uls_flags->flag_A)
+                algorithm->fetcher.filter = mx_select_exclude_dot_dirs;
+
             if (uls_flags->flag_R) {
                 algorithm->fetcher.fetch = mx_fetch_recursive;
                 algorithm->printer = mx_print_dirs_recursive;                
             }
 
             if (uls_flags->flag_1) {
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
-                algorithm->printer = mx_print_single_column;
+                if (uls_flags->flag_a || uls_flags->flag_A) {
+                    algorithm->printer = mx_print_single_column_all; 
+                } 
+                else {
+                    algorithm->printer = mx_print_single_column;
+                }
             }
 
             if (uls_flags->flag_m) {
                 algorithm->fetcher.fetch = mx_fetch_one_dir;
                     algorithm->printer = mx_print_dirs_m;
             }
-            if (uls_flags->flag_a) {
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
-                algorithm->fetcher.filter = mx_select_all;
+            if (uls_flags->flag_a && algorithm->printer == 0) {
                 algorithm->printer = mx_print_multicolumn_all;
             }
-            if (uls_flags->flag_A) {
-                algorithm->fetcher.fetch = mx_fetch_one_dir;
+            if (uls_flags->flag_A && algorithm->printer == 0) {
                 algorithm->printer = mx_print_multicolumn_all;
             }
             if (uls_flags->flag_l) {
