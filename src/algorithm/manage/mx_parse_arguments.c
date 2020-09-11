@@ -7,14 +7,14 @@
 
 static char *delim(t_flags flags) {
     char *delim;
-    if (flags.m)
+    if (flags.o || (flags.o && flags.m) || flags.G)
+        delim = " ";
+    else if (flags.m)
         delim = ", ";
     else if (flags._1)
         delim = "\n";
     else if (flags.l)
         delim = "  ";
-    else if (flags.o || flags.G)
-        delim = " ";
     else
         delim = isatty(STDOUT_FILENO) ? "\t" : "\n";
     return mx_strdup(delim);

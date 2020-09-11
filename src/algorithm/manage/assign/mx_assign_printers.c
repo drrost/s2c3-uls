@@ -49,13 +49,4 @@ void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
     if (flags->G) {
         algorithm->printer = mx_print_multicolumn_color;
     }
-
-//    if (argc == 1) {
-//        if (!isatty(STDOUT_FILENO)) {
-//            algorithm->printer = mx_print_single_column;
-//        }
-//        else {
-//            algorithm->printer = mx_print_multicolumn;
-//        }
-//    }
 }
