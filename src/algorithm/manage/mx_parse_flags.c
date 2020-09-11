@@ -4,47 +4,42 @@
 
 #include <uls.h>
 
-static void organize_flags(t_flags *flags) {
+static void organize_flags(t_flags *flags, const char *line) {
     if (flags->f)
         flags->a = true;
+    if (flags->_1 && flags->m && flags->l) {
+        if (line[mx_strlen(line) - 1] == 'm') {
+            flags->_1 = false;
+            flags->l = false;
+        }
+        if (line[mx_strlen(line) - 1] == '1') {
+            flags->m = false;
+            flags->l = false;
+        }
+        if (line[mx_strlen(line) - 1] == 'l') {
+            flags->_1 = false;
+            flags->m = false;
+        }
+    }
+    if (flags->_1 && flags->m) {
+        if (line[mx_strlen(line) - 1] == 'm')
+            flags->_1 = false;
+        else
+            flags->m = false;
+    }
+    if (flags->m && flags->l) {
+        if (line[mx_strlen(line) - 1] == 'm')
+            flags->l = false;
+        else
+            flags->m = false;
+   }
+    if (flags->l && flags->_1) {
+        if (line[mx_strlen(line) - 1] == 'l')
+           flags->_1 = false;
+        else
+           flags->l = false;
+    }
 }
-
-//t_flags *disable_flags(t_flags *flags, const char *argv) {
-//    if (flags->flag_1 && flags->flag_m && flags->flag_l) {
-//        if (argv[mx_strlen(argv) - 1] == 'm') {
-//            flags->flag_1 = false;
-//            flags->flag_l = false;
-//        }
-//        if (argv[mx_strlen(argv) - 1] == '1') {
-//            flags->flag_m = false;
-//            flags->flag_l = false;
-//        }
-//        if (argv[mx_strlen(argv) - 1] == 'l') {
-//            flags->flag_1 = false;
-//            flags->flag_m = false;
-//        }
-//    }
-//    if (flags->flag_1 && flags->flag_m) {
-//        if (argv[mx_strlen(argv) - 1] == 'm')
-//            flags->flag_1 = false;
-//        else
-//            flags->flag_m = false;
-//    }
-//    if (flags->flag_m && flags->flag_l) {
-//        if (argv[mx_strlen(argv) - 1] == 'm')
-//            flags->flag_l = false;
-//        else
-//            flags->flag_m = false;
-//    }
-//    if (flags->flag_l && flags->flag_1) {
-//        if (argv[mx_strlen(argv) - 1] == 'l')
-//            flags->flag_1 = false;
-//        else
-//            flags->flag_l = false;
-//    }
-//
-//    return flags;
-//}
 
 t_flags mx_parse_flags(const char *line) {
     t_flags flags;
@@ -77,7 +72,7 @@ t_flags mx_parse_flags(const char *line) {
     if (mx_has_flag(line, '1'))
         flags._1 = true;
 
-    organize_flags(&flags);
+    organize_flags(&flags, line);
 
     return flags;
 }
