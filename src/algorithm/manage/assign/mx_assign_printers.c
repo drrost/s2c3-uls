@@ -13,52 +13,16 @@ void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
 
     if (flags->R)
         algorithm->printer = mx_print_dirs_recursive;
-
-    if (flags->_1) {
-        if (flags->a || flags->A) {
-            algorithm->printer = mx_print_single_column_all;
-        }
-        else {
-            algorithm->printer = mx_print_single_column;
-        }
-    }
-
-    if (flags->m) {
-        if (flags->a || flags->A) {
-            algorithm->printer = mx_print_dirs_m_all;
-        }
-        else {
-            algorithm->printer = mx_print_dirs_m;
-        }
-    }
-    if (flags->a && algorithm->printer == 0) {
-        algorithm->printer = mx_print_multicolumn_all;
-    }
-    if (flags->A && algorithm->printer == 0) {
-        algorithm->printer = mx_print_multicolumn_all;
-    }
-    if (flags->l) {
-        if (flags->a || flags->A)
-            algorithm->printer = mx_print_long_all;
-        else
-            algorithm->printer = mx_print_long;
-    }
-    if (flags->o) {
-        if (flags->a || flags->A)
-            algorithm->printer = mx_print_long_o_all;
-        else
-            algorithm->printer = mx_print_long_o;
-    }
-    if (flags->F) {
-        if (flags->a || flags->A)
-            algorithm->printer = mx_print_multicolumn_F_all;
-        else
-            algorithm->printer = mx_print_multicolumn_F;
-    }
-    if (flags->G) {
-        if (flags->a || flags->A)
-            algorithm->printer = mx_print_multicolumn_color_all;
-        else
-            algorithm->printer = mx_print_multicolumn_color;
-    }
+    if (flags->_1)
+        algorithm->printer = mx_print_single_column;
+    if (flags->m)
+        algorithm->printer = mx_print_dirs_m;
+    if (flags->l)
+        algorithm->printer = mx_print_long;
+    if (flags->o)
+        algorithm->printer = mx_print_long_o;
+    if (flags->F)
+        algorithm->printer = mx_print_multicolumn_F;
+    if (flags->G)
+        algorithm->printer = mx_print_multicolumn_color;
 }

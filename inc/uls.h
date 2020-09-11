@@ -131,23 +131,22 @@ void mx_printerr(const char *s);
 
 // Utils
 void mx_delete_dirent_arr(struct dirent ***arr);
-int mx_get_num_files(t_list *entities, bool print_hidden);
-char *mx_find_index(t_list *entities, int index, bool print_hidden);
-void mx_count_spaces(t_list *entities, int max, int j, const char *delim, bool print_hidden);
-int mx_get_maxlen(t_list *entities, bool print_hidden);
+char *mx_find_index(t_list *entities, int index);
+void mx_count_spaces(t_list *entities, int max, int j, const char *delim);
+int mx_get_maxlen(t_list *entities);
 int mx_get_max_spaces(int longest);
 int mx_lines_count(int files_count, int longest);
 char *mx_get_size(struct stat buf);
 char *mx_get_time(struct stat buf);
 char *mx_get_owner(uid_t st_uid);
 char *mx_get_group(gid_t st_gid);
-int mx_find_blocks(t_list *entities, int files_count, bool print_hidden);
+int mx_find_blocks(t_list *entities, int files_count);
 char *mx_get_permissions(mode_t mode);
 void mx_print_space(int n);
-int mx_get_maxsize(t_list *entities, bool print_hidden);
-int mx_get_maxlinks(t_list *entities, bool print_hidden);
+int mx_get_maxsize(t_list *entities);
+int mx_get_maxlinks(t_list *entities);
 void mx_print_space_size(int max, const char *size);
-void mx_print_total(t_list *entities, int files_count, bool print_hidden);
+void mx_print_total(t_list *entities, int files_count);
 
 int mx_get_maxlen_all(t_list *entities);
 int mx_get_num_files_all(t_list *entities);
@@ -185,34 +184,17 @@ int mx_select_exclude_dot_dirs(const struct dirent *dirent);
 
 // Printers
 #define PRINTER(name) void (*name)(t_list *, const char *) // list of t_dirs
-void mx_print_single_dir(t_list *entities, const char *delim);
+
 void mx_print_dirs_recursive(t_list *dirs, const char *delim);
-
 void mx_print_dir_content(t_list *entities, const char *delim);
-//void mx_print_dir_content_single_column(t_list *entities, const char *delim);
 void mx_print_single_column(t_list *entities, const char *delim);
-void mx_print_single_column_all(t_list *dirs, const char *delim);
-//void mx_print_dir_content_m(t_list *entities, const char *delim);
 void mx_print_dirs_m(t_list *dirs, const char *delim);
-void mx_print_dirs_m_all(t_list *dirs, const char *delim);
 void mx_print_multicolumn(t_list *dirs, const char *delim);
-//void mx_print_dir_multicolumn(t_list *entities, const char *delim);
 void mx_print_long(t_list *dirs, const char *delim);
-void mx_print_long_all(t_list *dirs, const char *delim); 
-//void mx_print_dir_long_format(t_list *entities, const char *delim);
-//void mx_print_dir_multicolumn_all(t_list *entities, const char *delim);
-void mx_print_multicolumn_all(t_list *dirs, const char *delim);
-//void mx_print_multicolumn(t_list *dirs, const char *delim)
 
-//void mx_print_dir_long_format_o(t_list *entities, const char *delim);
 void mx_print_long_o(t_list *dirs, const char *delim);
-void mx_print_long_o_all(t_list *dirs, const char *delim);
 void mx_print_multicolumn_F(t_list *dirs, const char *delim);
-void mx_print_multicolumn_F_all(t_list *dirs, const char *delim);
-//void mx_print_dir_multicolumn_F(t_list *entities, const char *delim);
 void mx_print_multicolumn_color(t_list *dirs, const char *delim);
-void mx_print_multicolumn_color_all(t_list *dirs, const char *delim);
-
 
 int get_window_size(void);
 

@@ -9,6 +9,7 @@ static void organize_flags(t_flags *flags, const char *line) {
         flags->a = true;
     if (flags->o)
         flags->l = false;
+
     if (flags->_1 && flags->m && flags->l) {
         if (line[mx_strlen(line) - 1] == 'm') {
             flags->_1 = false;
@@ -23,18 +24,21 @@ static void organize_flags(t_flags *flags, const char *line) {
             flags->m = false;
         }
     }
+
     if (flags->_1 && flags->m) {
         if (line[mx_strlen(line) - 1] == 'm')
             flags->_1 = false;
         else
             flags->m = false;
     }
+
     if (flags->m && flags->l) {
         if (line[mx_strlen(line) - 1] == 'm')
             flags->l = false;
         else
             flags->m = false;
    }
+
     if (flags->l && flags->_1) {
         if (line[mx_strlen(line) - 1] == 'l')
            flags->_1 = false;
