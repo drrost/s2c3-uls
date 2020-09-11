@@ -227,4 +227,10 @@ void mx_run_algorithm(t_algorithm *algorithm);
 t_algorithm *mx_algorithm_new();
 void mx_algorithm_del(t_algorithm **algorithm);
 
+// Assigners
+void mx_assign_fetchers(t_algorithm *algorithm, t_flags *flags);
+void mx_assign_sorters(t_algorithm *algorithm, t_flags *flags);
+void mx_assign_filters(t_algorithm *algorithm, t_flags *flags);
+void mx_assign_printers(t_algorithm *algorithm, t_flags *flags);
+
 #endif
