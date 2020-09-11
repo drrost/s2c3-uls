@@ -4,7 +4,7 @@
 
 #include <libmx.h>
 
-int mx_select_all(const struct dirent *dirent) {
+int mx_filter_none(const struct dirent *dirent) {
     dirent++;
     return 1;
 }

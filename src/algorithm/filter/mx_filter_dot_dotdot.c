@@ -4,7 +4,7 @@
 
 #include <libmx.h>
 
-int mx_select_exclude_dot_dirs(const struct dirent *dirent) {
+int mx_filter_dot_dotdot(const struct dirent *dirent) {
     if (mx_strcmp(dirent->d_name, ".") == 0 ||
         mx_strcmp(dirent->d_name, "..") == 0)
         return 0;

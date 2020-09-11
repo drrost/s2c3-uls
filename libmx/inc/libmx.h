@@ -144,5 +144,9 @@ typedef struct s_comparator {
     SD_COMPAR(cmp);
 }              t_comparator;
 
+typedef struct s_filter {
+    int (*filters[4]) (const struct dirent *);
+}              t_filter;
+
 int mx_scandir(const char *dirname, t_list **dirs,
-               SD_FILTER(filter), t_comparator comparator);
+               t_filter filter, t_comparator comparator);

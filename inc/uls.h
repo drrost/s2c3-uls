@@ -161,12 +161,12 @@ unsigned char mx_acl_strcol(char *acl);
 bool check_valid_flags(const char *flags);
 
 // Fetchers
-#define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), t_comparator cmp
+#define FETCH_PARAMS const char *dir_name, t_filter filter, t_comparator cmp
 #define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
 
 typedef struct s_fetcher {
     FETCHER(fetch);
-    SD_FILTER(filter);
+    t_filter filter;
     t_comparator comparator;
 }              t_fetcher;
 
@@ -179,13 +179,13 @@ int mx_alphasort(t_dirent *d1, t_dirent *d2);
 int mx_timesort(t_dirent *d1, t_dirent *d2);
 
 // Filters
-int mx_select_all(const struct dirent *dirent);
-int mx_select_exclude_dot_dirs(const struct dirent *dirent);
+int mx_filter_none(const struct dirent *dirent);
+int mx_filter_dot_dotdot(const struct dirent *dirent);
+int mx_filter_dots(const struct dirent *dirent);
 
 // Printers
-#define PRINTER(name) void (*name)(t_list *, const char *) // list of t_dirs
-
-void mx_print_dirs(t_list *dirs, const char *delim, PRINTER(printer));
+#define PRINTER(name) void (*name)(t_list *, const char *) // t_dir
+void mx_print_dirs(t_list *dirs, const char *delim, PRINTER(printer)); // t_dir
 
 void mx_print_dirs_recursive(t_list *dirs, const char *delim);
 void mx_print_dir_content(t_list *entities, const char *delim);

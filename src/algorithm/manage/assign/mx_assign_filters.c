@@ -5,10 +5,12 @@
 #include <uls.h>
 
 void mx_assign_filters(t_algorithm *algorithm, t_flags *flags) {
-    algorithm->fetcher.filter = mx_select_exclude_dot_dirs;
+    algorithm->fetcher.filter.filters[0] = mx_filter_none;
+    algorithm->fetcher.filter.filters[1] = mx_filter_dot_dotdot;
+    algorithm->fetcher.filter.filters[2] = mx_filter_dots;
 
-    if (flags->A)
-        algorithm->fetcher.filter = mx_select_exclude_dot_dirs;
     if (flags->a)
-        algorithm->fetcher.filter = mx_select_all;
+        algorithm->fetcher.filter.filters[1] = 0;
+    if (flags->A)
+        algorithm->fetcher.filter.filters[2] = 0;
 }
