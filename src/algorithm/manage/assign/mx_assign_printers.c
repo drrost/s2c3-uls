@@ -38,15 +38,27 @@ void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
         algorithm->printer = mx_print_multicolumn_all;
     }
     if (flags->l) {
-        algorithm->printer = mx_print_long;
+        if (flags->a || flags->A)
+            algorithm->printer = mx_print_long_all;
+        else
+            algorithm->printer = mx_print_long;
     }
     if (flags->o) {
-        algorithm->printer = mx_print_long_o;
+        if (flags->a || flags->A)
+            algorithm->printer = mx_print_long_o_all;
+        else
+            algorithm->printer = mx_print_long_o;
     }
     if (flags->F) {
-        algorithm->printer = mx_print_multicolumn_F;
+        if (flags->a || flags->A)
+            algorithm->printer = mx_print_multicolumn_F_all;
+        else
+            algorithm->printer = mx_print_multicolumn_F;
     }
     if (flags->G) {
-        algorithm->printer = mx_print_multicolumn_color;
+        if (flags->a || flags->A)
+            algorithm->printer = mx_print_multicolumn_color_all;
+        else
+            algorithm->printer = mx_print_multicolumn_color;
     }
 }

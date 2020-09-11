@@ -7,6 +7,8 @@
 static void organize_flags(t_flags *flags, const char *line) {
     if (flags->f)
         flags->a = true;
+    if (flags->o)
+        flags->l = false;
     if (flags->_1 && flags->m && flags->l) {
         if (line[mx_strlen(line) - 1] == 'm') {
             flags->_1 = false;

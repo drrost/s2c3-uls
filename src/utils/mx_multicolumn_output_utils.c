@@ -8,17 +8,19 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-char *mx_find_index(t_list *entities, int index) {
+char *mx_find_index(t_list *entities, int index, bool print_hidden) {
     t_dirent *entity = NULL;
     int i = 0;
-
-    while (entities) {
-        entity = (t_dirent *)entities->data;
-        if (entity->name[0] == '.') {
-            entities = entities->next;
+    if (!print_hidden) {
+        while (entities) {
+            entity = (t_dirent *)entities->data;
+            if (entity->name[0] == '.') {
+                entities = entities->next;
+            }
+            else
+                break;
         }
-        else
-            break;
+
     }
     while (entities != 0) {
         entity = (t_dirent *)entities->data;
@@ -32,8 +34,8 @@ char *mx_find_index(t_list *entities, int index) {
     return entity->name;
 } 
 
-void mx_count_spaces(t_list *entities, int max, int j, const char *delim) {
-    int cur_len = mx_strlen(mx_find_index(entities, j));
+void mx_count_spaces(t_list *entities, int max, int j, const char *delim, bool print_hidden) {
+    int cur_len = mx_strlen(mx_find_index(entities, j, print_hidden));
     int add = 8;
 
     if (cur_len < 8) {
@@ -48,14 +50,16 @@ void mx_count_spaces(t_list *entities, int max, int j, const char *delim) {
     }
 }
 
-int mx_get_maxlen(t_list *entities) {
+int mx_get_maxlen(t_list *entities, bool print_hidden) {
     int max_len = 0;
 
     while (entities->next != 0) {
         t_dirent *entity = (t_dirent *)entities->data;
-        if (entity->name[0] == '.') {
-            entities = entities->next;
-            continue;
+        if (!print_hidden) {
+            if (entity->name[0] == '.') {
+                entities = entities->next;
+                continue;
+            }
         }
         if (mx_strlen(entity->name) > max_len)
             max_len = mx_strlen(entity->name);
