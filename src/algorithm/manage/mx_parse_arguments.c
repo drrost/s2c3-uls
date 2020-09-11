@@ -28,7 +28,8 @@ static void set_defaults(t_algorithm *algorithm) {
 t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     t_algorithm *algorithm = mx_algorithm_new();
     int path_idx = argc > 1 && argv[1][0] == '-' ? 2 : 1;
-    const char *line = argc > 1 && argv[1][0] == '-' ? line = argv[1] : "";
+    const char *line = argc > 1 && argv[1][0] == '-' ? argv[1] : "";
+
     t_flags flags = mx_parse_flags(line);
 
     mx_assign_fetchers(algorithm, &flags);
