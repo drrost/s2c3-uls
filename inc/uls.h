@@ -100,6 +100,7 @@ typedef struct s_flags {
     bool F;
     bool R;
     bool a;
+    bool f;
     bool l;
     bool m;
     bool o;

@@ -4,6 +4,11 @@
 
 #include <uls.h>
 
+static void organize_flags(t_flags *flags) {
+    if (flags->f)
+        flags->a = true;
+}
+
 t_flags mx_parse_flags(const char *line) {
     t_flags flags;
     mx_memset(&flags, 0, sizeof(t_flags));
@@ -19,6 +24,8 @@ t_flags mx_parse_flags(const char *line) {
 
     if (mx_has_flag(line, 'a'))
         flags.a = true;
+    if (mx_has_flag(line, 'f'))
+        flags.f = true;
     if (mx_has_flag(line, 'l'))
         flags.l = true;
     if (mx_has_flag(line, 'm'))
@@ -32,5 +39,8 @@ t_flags mx_parse_flags(const char *line) {
 
     if (mx_has_flag(line, '1'))
         flags._1 = true;
+
+    organize_flags(&flags);
+
     return flags;
 }
