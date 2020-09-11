@@ -3,9 +3,13 @@
 //
 
 #include <uls.h>
+#include <unistd.h>
 
 void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
-    algorithm->printer = mx_print_single_column;
+    if (!isatty(STDOUT_FILENO))
+        algorithm->printer = mx_print_single_column;
+    else
+        algorithm->printer = mx_print_multicolumn;
 
     if (flags->R)
         algorithm->printer = mx_print_dirs_recursive;
