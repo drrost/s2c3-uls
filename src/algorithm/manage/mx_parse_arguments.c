@@ -4,6 +4,7 @@
 
 #include <uls.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 static char *delim(t_flags *flags) {
     char *delim;
@@ -38,7 +39,7 @@ static void set_defaults(t_algorithm *algorithm) {
         algorithm->printer = mx_print_single_column;
 }
 
-static bool has_flag(const char *flags, char ch) {
+bool has_flag(const char *flags, char ch) {
     return mx_get_char_index(flags, ch) != -1;
 }
 
@@ -56,10 +57,13 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
         if (argv[1][0] == '-') {
             char *flags = argv[1];
 
+            if (!check_valid_flags(flags))
+                exit(1);
+
             if (has_flag(flags, 'R')) {
                 uls_flags->flag_R = true;
                 algorithm->fetcher.fetch = mx_fetch_recursive;
-                algorithm->printer = mx_print_dirs_recursive;
+                algorithm->printer = mx_print_dirs_recursive;                
             }
 
             if (has_flag(flags, '1')) {
@@ -71,7 +75,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
             if (has_flag(flags, 'm')) {
                 uls_flags->flag_m = true;
                 algorithm->fetcher.fetch = mx_fetch_one_dir;
-                algorithm->printer = mx_print_dirs_m;
+                    algorithm->printer = mx_print_dirs_m;
             }
             if (has_flag(flags, 'a')) {
                 uls_flags->flag_a = true;
@@ -99,17 +103,18 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
                 algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_multicolumn_F;
             }
-            if (mx_get_char_index(flags, 'G') != -1) {
+            if (has_flag(flags, 'G')) {
                 uls_flags->flag_G = true;
                 algorithm->fetcher.fetch = mx_fetch_one_dir;
                 algorithm->printer = mx_print_multicolumn_color;
             }
 
-            // Sorters
+                // Sorters
             if (has_flag(flags, 'r'))
                 algorithm->fetcher.comparator.reverse = true;
 
             path_idx++;
+            
         }
     }
 

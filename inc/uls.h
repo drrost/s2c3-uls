@@ -5,11 +5,11 @@
 #include <sys/stat.h>
 
 // Macros
-#define USAGE "usage: uls [-l] [file ...]\n"
+#define USAGE "usage: uls [-AFGRalmor1] [file ...]\n"
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
-#define FLAGS "al"
+#define FLAGS "AFGRalmor1"
 
 //File types
 
@@ -104,6 +104,7 @@ typedef struct s_flags {
     bool flag_o;
     bool flag_F;
     bool flag_G;
+    bool flag_r;
 }              t_flags;
 
 typedef struct s_info {
@@ -155,6 +156,9 @@ int mx_color_set(unsigned char a, unsigned char b);
 int mx_color_reset();
 unsigned char mx_acl_bkcol(char *acl);
 unsigned char mx_acl_strcol(char *acl);
+
+bool check_valid_flags(const char *flags);
+bool has_flag(const char *flags, char ch);
 // Fetchers
 #define FETCH_PARAMS const char *dir_name, SD_FILTER(filter), t_comparator cmp
 #define FETCHER(name) t_list *(*name)(FETCH_PARAMS)
