@@ -121,7 +121,8 @@ typedef struct s_dirent {
     char *group;
     char *size_b;
     int total_size; // blocks
-    long m_time; // time of the last modification
+    long mod_time; // time of the last modification
+    long acc_time; // time of the last access
 }              t_dirent;
 
 t_dirent *mx_dirent_new(char *name, int type);
