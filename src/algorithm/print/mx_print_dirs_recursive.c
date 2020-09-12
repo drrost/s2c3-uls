@@ -16,7 +16,8 @@ void mx_print_dirs_recursive(t_list *dirs, const char *delim,
         }
 
         t_list *entities = (t_list *)dir->entities;
-        printer(entities, delim);
+        if (entities)
+            printer(entities, delim);
         if (entities && dirs->next) {
             mx_printstr("\n\n");
         } else {
