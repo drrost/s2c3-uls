@@ -17,7 +17,7 @@ void mx_print_total(t_list *entities, int files_count) {
     mx_printstr("\n");
 }
 
-static void do_print(t_list *entities, const char *delim) {
+void mx_print_long(t_list *entities, const char *delim) {
     struct stat buf;
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
@@ -41,8 +41,4 @@ static void do_print(t_list *entities, const char *delim) {
         mx_printstr(mx_find_index(entities, i));
         mx_printstr("\n");
     }
-}
-
-void mx_print_long(t_list *dirs, const char *delim) {
-    mx_print_dirs(dirs, delim, do_print);
 }

@@ -7,22 +7,22 @@
 
 void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
     if (!isatty(STDOUT_FILENO))
-        algorithm->printer = mx_print_single_column;
+        algorithm->printer.printer = mx_print_single_column;
     else
-        algorithm->printer = mx_print_multicolumn;
+        algorithm->printer.printer = mx_print_multicolumn;
 
     if (flags->R)
-        algorithm->printer = mx_print_dirs_recursive;
+        algorithm->printer.is_recursive = true;
     if (flags->_1)
-        algorithm->printer = mx_print_single_column;
+        algorithm->printer.printer = mx_print_single_column;
     if (flags->m)
-        algorithm->printer = mx_print_dirs_m;
+        algorithm->printer.printer = mx_print_dirs_m;
     if (flags->l)
-        algorithm->printer = mx_print_long;
+        algorithm->printer.printer = mx_print_long;
     if (flags->o)
-        algorithm->printer = mx_print_long_o;
+        algorithm->printer.printer = mx_print_long_o;
     if (flags->F)
-        algorithm->printer = mx_print_multicolumn_F;
+        algorithm->printer.printer = mx_print_multicolumn_F;
     if (flags->G)
-        algorithm->printer = mx_print_multicolumn_color;
+        algorithm->printer.printer = mx_print_multicolumn_color;
 }

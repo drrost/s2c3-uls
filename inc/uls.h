@@ -184,11 +184,16 @@ int mx_filter_dot_dotdot(const struct dirent *dirent);
 int mx_filter_dots(const struct dirent *dirent);
 
 // Printers
-#define PRINTER(name) void (*name)(t_list *, const char *) // t_dir
-void mx_print_dirs(t_list *dirs, const char *delim, PRINTER(printer)); // t_dir
+#define PRINTER_PARAMS t_list *, const char *
+#define PRINTER(name) void (*name)(PRINTER_PARAMS) // t_dir
 
-void mx_print_dirs_recursive(t_list *dirs, const char *delim);
-void mx_print_dir_content(t_list *entities, const char *delim);
+typedef struct s_printer {
+    PRINTER(printer);
+    bool is_recursive;
+    char delim[10];
+}              t_printer;
+
+void mx_print_dirs_recursive(t_list *dirs, const char *delim, PRINTER(printer));
 void mx_print_single_column(t_list *entities, const char *delim);
 void mx_print_dirs_m(t_list *dirs, const char *delim);
 void mx_print_multicolumn(t_list *dirs, const char *delim);
@@ -204,9 +209,8 @@ int get_window_size(void);
 
 typedef struct s_algorithm {
     t_fetcher fetcher;
-    PRINTER(printer);
+    t_printer printer;
     t_list *paths;
-    char *delim;
 }              t_algorithm;
 
 t_algorithm *mx_parse_arguments(int argc, char *argv[]);

@@ -4,7 +4,8 @@
 
 #include <uls.h>
 
-void mx_print_dirs_recursive(t_list *dirs, const char *delim) {
+void mx_print_dirs_recursive(t_list *dirs, const char *delim,
+                             PRINTER(printer)) {
     int count = 0;
 
     while (dirs) {
@@ -15,7 +16,7 @@ void mx_print_dirs_recursive(t_list *dirs, const char *delim) {
         }
 
         t_list *entities = (t_list *)dir->entities;
-        mx_print_dir_content(entities, delim);
+        printer(entities, delim);
         if (entities && dirs->next) {
             mx_printstr("\n\n");
         } else {

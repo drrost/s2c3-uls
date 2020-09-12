@@ -5,7 +5,6 @@
 #include <uls.h>
 
 void mx_algorithm_del(t_algorithm **algorithm) {
-    mx_strdel(&((*algorithm)->delim));
     t_list *work = (*algorithm)->paths;
     while (work) {
         char *s = (char *)work->data;

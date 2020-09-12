@@ -37,7 +37,9 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     mx_assign_filters(algorithm, &flags);
     mx_assign_printers(algorithm, &flags);
 
-    algorithm->delim = delim(flags);
+    char *delimiter = delim(flags);
+    mx_strcpy(algorithm->printer.delim, delimiter);
+    mx_strdel(&delimiter);
 
     for (int i = path_idx; i < argc; i++)
         mx_push_back(&(algorithm->paths), mx_strdup(argv[i]));
