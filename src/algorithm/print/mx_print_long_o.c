@@ -4,7 +4,7 @@
 
 #include <uls.h>
 
-void mx_print_long_o(t_list *entities, const char *delim) {
+static void do_print(t_list *entities, const char *delim) {
     struct stat buf;
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
@@ -26,4 +26,8 @@ void mx_print_long_o(t_list *entities, const char *delim) {
         mx_printstr(mx_find_index(entities, i));
         mx_printstr("\n");
     }
+}
+
+void mx_print_long_o(t_list *dirs, const char *delim) {
+    mx_print_dirs(dirs, delim, do_print);
 }

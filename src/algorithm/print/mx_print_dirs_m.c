@@ -1,6 +1,6 @@
 #include <uls.h>
 
-void mx_print_dirs_m(t_list *entities, const char *delim) {
+static void do_print(t_list *entities, const char *delim) {
     int counter = mx_list_size(entities);
     int i = 0;
 
@@ -12,4 +12,8 @@ void mx_print_dirs_m(t_list *entities, const char *delim) {
         i++;
         entities = entities->next;
     }
+}
+
+void mx_print_dirs_m(t_list *dirs, const char *delim) {
+    mx_print_dirs(dirs, delim, do_print);
 }

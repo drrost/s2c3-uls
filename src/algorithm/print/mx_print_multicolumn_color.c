@@ -4,7 +4,7 @@
 
 #include <uls.h>
 
-void mx_print_multicolumn_color(t_list *entities, const char *delim) {
+static void do_print(t_list *entities, const char *delim) {
     int longest = mx_get_maxlen(entities);
     int files_count = mx_list_size(entities);
     int lines = mx_lines_count(files_count, longest);
@@ -26,4 +26,8 @@ void mx_print_multicolumn_color(t_list *entities, const char *delim) {
                 else
                     mx_count_spaces(entities, longest, j, delim);
             }
+}
+
+void mx_print_multicolumn_color(t_list *dirs, const char *delim) {
+    mx_print_dirs(dirs, delim, do_print);
 }
