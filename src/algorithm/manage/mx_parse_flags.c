@@ -73,7 +73,7 @@ t_flags mx_parse_flags(const char *line) {
     if (mx_has_flag(line, 'r'))
         flags.r = true;
     if (mx_has_flag(line, 't'))
-        flags.r = true;
+        flags.t = true;
 
     if (mx_has_flag(line, '1'))
         flags._1 = true;

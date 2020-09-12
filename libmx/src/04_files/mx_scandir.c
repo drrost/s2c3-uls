@@ -3,6 +3,7 @@
 //
 
 #include <libmx.h>
+#include <sys/stat.h>
 
 static int run_filters(t_filter filter, struct dirent *dir_ent) {
     for (int i = 0; filter.filters[i]; i++) {
@@ -21,6 +22,11 @@ static t_list *read_dir(const char *dirname, t_filter filter) {
         if (run_filters(filter, dir_ent)) {
             t_dirent *custom_dirent = mx_dirent_new(
                 dir_ent->d_name, dir_ent->d_type);
+
+            struct stat i_stat;
+            lstat(custom_dirent->name, &i_stat);
+            custom_dirent->m_time = i_stat.st_mtimespec.tv_nsec;
+
             mx_push_back(&work, custom_dirent);
         }
     closedir(dir);
