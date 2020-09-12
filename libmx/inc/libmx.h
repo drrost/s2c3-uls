@@ -119,8 +119,7 @@ typedef struct s_dirent {
     char *path_link;
     char *owner_name;
     char *group;
-    char *size_b;
-    int total_size; // blocks
+    int size;
     long mod_time; // time of the last modification
     long acc_time; // time of the last access
     long change_time; // time of the last changed
