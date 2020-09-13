@@ -4,6 +4,13 @@
 
 #include <uls.h>
 
+static char *add_path(const char *s1, const char *s2) {
+    char *work_1 = mx_strjoin(s1, "/");
+    char *work_2 = mx_strjoin(work_1, s2);
+    mx_strdel(&work_1);
+    return work_2;
+}
+
 static void do_scan(t_list **dirs, FETCH_PARAMS) {
     mx_scandir(dir_name, dirs, filter, cmp);
 
@@ -15,9 +22,9 @@ static void do_scan(t_list **dirs, FETCH_PARAMS) {
         t_dirent *dir_ent = (t_dirent *)entities->data;
 
         if (dir_ent->type == DT_DIR) {
-            char *subdir_name = mx_strformat("%s/%s", dir_name, dir_ent->name);
+            char *subdir_name = add_path(dir_name, dir_ent->name);
             do_scan(dirs, subdir_name, filter, cmp);
-//            mx_strdel(&subdir_name);
+            mx_strdel(&subdir_name);
         }
         entities = entities->next;
     }
