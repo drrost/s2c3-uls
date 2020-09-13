@@ -27,6 +27,6 @@ void mx_run_algorithm(t_algorithm *algorithm) {
     while (dirs) {
         t_dir *dir = (t_dir *)dirs->data;
         mx_dirdelete(&dir);
-        dirs = dirs->next;
+        mx_pop_front(&dirs);
     }
 }
