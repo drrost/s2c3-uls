@@ -4,6 +4,7 @@
 
 #include <libmx.h>
 
+// WARNING: Worns incorrectly. Has memory leaks.
 // TODO: Split to several functions
 
 char *mx_strformat(const char *f, ...) {

@@ -17,16 +17,17 @@ static void run_printer(t_printer printer, t_list *dirs) {
         mx_print_dirs_recursive(dirs, printer.delim, printer.printer);
 }
 
+static void delete_dirs_list(t_list **dirs) {
+    while (*dirs) {
+        t_dir *dir = (t_dir *)((*dirs)->data);
+        mx_dirdelete(&dir);
+        mx_pop_front(dirs);
+    }
+}
+
 void mx_run_algorithm(t_algorithm *algorithm) {
     char *path = (char *)algorithm->paths->data;
     t_list *dirs = run_fetcher(path, algorithm->fetcher);
-
     run_printer(algorithm->printer, dirs);
-
-    // TODO: Move to a separate method
-    while (dirs) {
-        t_dir *dir = (t_dir *)dirs->data;
-        mx_dirdelete(&dir);
-        mx_pop_front(&dirs);
-    }
+    delete_dirs_list(&dirs);
 }
