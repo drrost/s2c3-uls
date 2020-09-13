@@ -3,6 +3,7 @@
 //
 
 #include <uls.h>
+#include <stdlib.h>
 
 void mx_algorithm_del(t_algorithm **algorithm) {
     t_list *work = (*algorithm)->paths;
@@ -11,4 +12,6 @@ void mx_algorithm_del(t_algorithm **algorithm) {
         mx_strdel(&s);
         mx_pop_front(&work);
     }
+    free(*algorithm);
+    *algorithm = 0;
 }
