@@ -13,7 +13,9 @@ void mx_print_space_size(int max, const char *size) {
 
 void mx_print_total(t_list *entities, int files_count) {
     mx_printstr("total ");
-    mx_printstr(mx_itoa(mx_find_blocks(entities, files_count)));
+    char *s = mx_itoa(mx_find_blocks(entities, files_count));
+    mx_printstr(s);
+    mx_strdel(&s);
     mx_printstr("\n");
 }
 
@@ -46,6 +48,7 @@ void mx_print_long(t_list *entities, const char *delim) {
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
     int max_links = mx_get_maxlinks(entities);
+    char *s = 0;
     //int max_owner = mx_get_maxowner(entities);
     //int max_group = mx_get_maxgroup(entities);
 
@@ -54,14 +57,27 @@ void mx_print_long(t_list *entities, const char *delim) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
         struct stat i_stat = custom_dirent->file_stat;
 
-        mx_printstr(mx_get_permissions(i_stat.st_mode));
-        mx_print_space((max_links - mx_strlen(mx_itoa(i_stat.st_nlink))) + 2);
+        s = mx_get_permissions(i_stat.st_mode);
+        mx_printstr(s);
+        mx_strdel(&s);
+
+        char *s = mx_itoa(i_stat.st_nlink);
+        mx_print_space((max_links - mx_strlen(s)) + 2);
+        mx_strdel(&s);
+
         mx_printint(i_stat.st_nlink);
         mx_printstr(" ");
         //mx_print_spaceown(max_owner, mx_get_owner(buf.st_uid));
-        mx_printstr(mx_get_owner(i_stat.st_uid));
+
+        s = mx_get_owner(i_stat.st_uid);
+        mx_printstr(s);
+        mx_strdel(&s);
+
         mx_printstr(delim);
-        mx_printstr(mx_get_group(i_stat.st_gid));
+
+        s = mx_get_group(i_stat.st_gid);
+        mx_printstr(s);
+        mx_strdel(&s);
 
         char *size_str = mx_get_size(i_stat);
         mx_print_space_size(max_size, size_str);
@@ -69,7 +85,11 @@ void mx_print_long(t_list *entities, const char *delim) {
         mx_strdel(&size_str);
 
         mx_printstr(" ");
-        mx_printstr(mx_get_time(i_stat));
+
+        s = mx_get_time(i_stat);
+        mx_printstr(s);
+        mx_strdel(&s);
+
         mx_printstr(" ");
         mx_printstr(custom_dirent->name);
         mx_printstr("\n");

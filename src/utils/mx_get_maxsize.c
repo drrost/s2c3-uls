@@ -21,13 +21,15 @@ int mx_get_maxsize(t_list *entities) {
         i++;
         int len = get_size(&buf);
         if (max < len) {
-            if (mx_get_char_index(mx_get_size(buf), ',') > 0) {
+            char *s = mx_get_size(buf);
+            if (mx_get_char_index(s, ',') > 0) {
                 if (max <= 8)
                     max = 8;
             }
             else {
                 max = len;
             }
+            mx_strdel(&s);
         }
     }
     return max;
