@@ -43,7 +43,6 @@ void mx_print_total(t_list *entities, int files_count) {
 // }
 
 void mx_print_long(t_list *entities, const char *delim) {
-    struct stat buf;
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
     int max_links = mx_get_maxlinks(entities);
@@ -54,7 +53,8 @@ void mx_print_long(t_list *entities, const char *delim) {
     int i = 0;
     while (entities) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
-        lstat(mx_find_index(entities, i), &buf);
+        struct stat buf = custom_dirent->file_stat;
+
         mx_printstr(mx_get_permissions(buf.st_mode));
         mx_print_space((max_links - mx_strlen(mx_itoa(buf.st_nlink))) + 2);
         mx_printint(buf.st_nlink);

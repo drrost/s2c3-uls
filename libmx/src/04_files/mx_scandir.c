@@ -52,12 +52,10 @@ static void swap_dirent(t_list *d1, t_list *d2) {
 
 static int run_comparator(t_comparator comparator,
                           t_dirent *d1, t_dirent *d2) {
-    if (comparator.reverse == false) {
+    if (comparator.reverse == false)
         return comparator.cmp(d1, d2);
-    }
-    else {
+    else
         return comparator.cmp(d2, d1);
-    }
 }
 
 static void sort_dirents(t_list *dirs, t_comparator comparator) {
