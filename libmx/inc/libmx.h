@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <wchar.h>
 #include <dirent.h>
+#include <sys/stat.h>
 
 typedef struct s_list {
     void *data;
@@ -118,6 +119,7 @@ typedef struct s_dirent {
     long mod_time; // time of the last modification
     long acc_time; // time of the last access
     long change_time; // time of the last changed
+    struct stat file_stat;
 }              t_dirent;
 
 t_dirent *mx_dirent_new(char *name, int type);

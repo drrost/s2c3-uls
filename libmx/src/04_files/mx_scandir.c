@@ -29,6 +29,7 @@ static t_list *read_dir(const char *dirname, t_filter filter) {
             custom_dirent->acc_time = i_stat.st_atimespec.tv_nsec;
             custom_dirent->change_time = i_stat.st_ctimespec.tv_nsec;
             custom_dirent->size = i_stat.st_size;
+            custom_dirent->file_stat = i_stat;
 
             mx_push_back(&work, custom_dirent);
         }

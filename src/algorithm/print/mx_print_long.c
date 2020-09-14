@@ -51,7 +51,9 @@ void mx_print_long(t_list *entities, const char *delim) {
     //int max_group = mx_get_maxgroup(entities);
 
     mx_print_total(entities, files_count);
-    for (int i = 0; i < files_count; i++) {
+    int i = 0;
+    while (entities) {
+        t_dirent *custom_dirent = (t_dirent *)entities->data;
         lstat(mx_find_index(entities, i), &buf);
         mx_printstr(mx_get_permissions(buf.st_mode));
         mx_print_space((max_links - mx_strlen(mx_itoa(buf.st_nlink))) + 2);
@@ -70,7 +72,9 @@ void mx_print_long(t_list *entities, const char *delim) {
         mx_printstr(" ");
         mx_printstr(mx_get_time(buf));
         mx_printstr(" ");
-        mx_printstr(mx_find_index(entities, i));
+        mx_printstr(custom_dirent->name);
         mx_printstr("\n");
+        i++;
+        entities = entities->next;
     }
 }
