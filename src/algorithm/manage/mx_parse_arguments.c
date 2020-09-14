@@ -8,11 +8,11 @@
 
 static char *delim(t_flags flags) {
     char *delim;
-    if (flags.o || (flags.o && flags.m) || flags.G || flags.g)
+    if (flags.o || (flags.o && flags.m) || flags.g)
         delim = " ";
     else if (flags.m)
         delim = ", ";
-    else if (flags._1)
+    else if (flags._1 || flags.G)
         delim = "\n";
     else if (flags.l)
         delim = "  ";
