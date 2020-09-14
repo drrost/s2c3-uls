@@ -50,31 +50,29 @@ void mx_print_long(t_list *entities, const char *delim) {
     //int max_group = mx_get_maxgroup(entities);
 
     mx_print_total(entities, files_count);
-    int i = 0;
     while (entities) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
-        struct stat buf = custom_dirent->file_stat;
+        struct stat i_stat = custom_dirent->file_stat;
 
-        mx_printstr(mx_get_permissions(buf.st_mode));
-        mx_print_space((max_links - mx_strlen(mx_itoa(buf.st_nlink))) + 2);
-        mx_printint(buf.st_nlink);
+        mx_printstr(mx_get_permissions(i_stat.st_mode));
+        mx_print_space((max_links - mx_strlen(mx_itoa(i_stat.st_nlink))) + 2);
+        mx_printint(i_stat.st_nlink);
         mx_printstr(" ");
         //mx_print_spaceown(max_owner, mx_get_owner(buf.st_uid));
-        mx_printstr(mx_get_owner(buf.st_uid));
+        mx_printstr(mx_get_owner(i_stat.st_uid));
         mx_printstr(delim);
-        mx_printstr(mx_get_group(buf.st_gid));
+        mx_printstr(mx_get_group(i_stat.st_gid));
 
-        char *size_str = mx_get_size(buf);
+        char *size_str = mx_get_size(i_stat);
         mx_print_space_size(max_size, size_str);
         mx_printstr(size_str);
         mx_strdel(&size_str);
 
         mx_printstr(" ");
-        mx_printstr(mx_get_time(buf));
+        mx_printstr(mx_get_time(i_stat));
         mx_printstr(" ");
         mx_printstr(custom_dirent->name);
         mx_printstr("\n");
-        i++;
         entities = entities->next;
     }
 }
