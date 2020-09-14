@@ -33,8 +33,12 @@ void mx_print_long(t_list *entities, const char *delim) {
         mx_printstr(mx_get_owner(buf.st_uid));
         mx_printstr(delim);
         mx_printstr(mx_get_group(buf.st_gid));
-        mx_print_space_size(max_size, mx_get_size(buf));
-        mx_printstr(mx_get_size(buf));
+
+        char *size_str = mx_get_size(buf);
+        mx_print_space_size(max_size, size_str);
+        mx_printstr(size_str);
+        mx_strdel(&size_str);
+
         mx_printstr(" ");
         mx_printstr(mx_get_time(buf));
         mx_printstr(" ");
