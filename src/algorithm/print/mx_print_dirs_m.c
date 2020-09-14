@@ -12,4 +12,5 @@ void mx_print_dirs_m(t_list *entities, const char *delim) {
         i++;
         entities = entities->next;
     }
+    mx_printstr("\n");
 }
