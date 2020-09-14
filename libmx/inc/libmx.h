@@ -73,6 +73,7 @@ bool mx_isdigit(int c);
 bool mx_isspace(int c);
 bool mx_isalpha(int c);
 char *mx_strformat(const char *f, ...);
+char *mx_add_path(const char *s1, const char *s2);
 
 // Memory pack
 //

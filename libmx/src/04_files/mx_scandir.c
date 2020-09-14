@@ -14,6 +14,21 @@ static int run_filters(t_filter filter, struct dirent *dir_ent) {
     return 1;
 }
 
+static void fill_stat(const char *dirname, t_dirent *dirent) {
+    struct stat i_stat;
+    char *full_path = mx_add_path(dirname, dirent->name);
+    lstat(full_path, &i_stat);
+    mx_strdel(&full_path);
+
+    // TODO: delete these fields
+    dirent->mod_time = i_stat.st_mtimespec.tv_nsec;
+    dirent->acc_time = i_stat.st_atimespec.tv_nsec;
+    dirent->change_time = i_stat.st_ctimespec.tv_nsec;
+    dirent->size = i_stat.st_size;
+
+    dirent->file_stat = i_stat;
+}
+
 static t_list *read_dir(const char *dirname, t_filter filter) {
     DIR *dir = opendir(dirname);
     t_list *work = 0;
@@ -22,15 +37,7 @@ static t_list *read_dir(const char *dirname, t_filter filter) {
         if (run_filters(filter, dir_ent)) {
             t_dirent *custom_dirent = mx_dirent_new(
                 dir_ent->d_name, dir_ent->d_type);
-
-            struct stat i_stat;
-            lstat(custom_dirent->name, &i_stat);
-            custom_dirent->mod_time = i_stat.st_mtimespec.tv_nsec;
-            custom_dirent->acc_time = i_stat.st_atimespec.tv_nsec;
-            custom_dirent->change_time = i_stat.st_ctimespec.tv_nsec;
-            custom_dirent->size = i_stat.st_size;
-            custom_dirent->file_stat = i_stat;
-
+            fill_stat(dirname, custom_dirent);
             mx_push_back(&work, custom_dirent);
         }
     closedir(dir);
