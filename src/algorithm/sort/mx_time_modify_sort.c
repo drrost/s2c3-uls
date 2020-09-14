@@ -5,5 +5,6 @@
 #include <libmx.h>
 
 int mx_time_modify_sort(t_dirent *d1, t_dirent *d2) {
-    return d1->mod_time < d2->mod_time;
+    return d1->file_stat.st_mtimespec.tv_nsec <
+           d1->file_stat.st_mtimespec.tv_nsec;
 }

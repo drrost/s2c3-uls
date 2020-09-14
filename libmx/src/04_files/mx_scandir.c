@@ -19,13 +19,6 @@ static void fill_stat(const char *dirname, t_dirent *dirent) {
     char *full_path = mx_add_path(dirname, dirent->name);
     lstat(full_path, &i_stat);
     mx_strdel(&full_path);
-
-    // TODO: delete these fields
-    dirent->mod_time = i_stat.st_mtimespec.tv_nsec;
-    dirent->acc_time = i_stat.st_atimespec.tv_nsec;
-    dirent->change_time = i_stat.st_ctimespec.tv_nsec;
-    dirent->size = i_stat.st_size;
-
     dirent->file_stat = i_stat;
 }
 
