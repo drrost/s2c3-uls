@@ -17,11 +17,38 @@ void mx_print_total(t_list *entities, int files_count) {
     mx_printstr("\n");
 }
 
+
+// void mx_print_spaceown(int max, const char *owner) {
+//     int sum = max - mx_strlen(owner);
+
+//     if (sum == mx_strlen(owner))
+//         mx_printstr("  ");
+//     else
+//         mx_print_space(sum);
+//     mx_printstr("  ");
+// }
+
+// int mx_get_maxowner(t_list *entities) {
+//     int max = 0;
+//     struct stat buf;
+//     int i = 0;
+
+//     for (; entities != 0; entities = entities->next) {
+//         lstat(mx_find_index(entities, i), &buf);
+//         i++;
+//         if (max < mx_strlen(mx_get_owner(buf.st_uid)))
+//             max = mx_strlen(mx_get_owner(buf.st_uid));
+//     }
+//     return max;
+// }
+
 void mx_print_long(t_list *entities, const char *delim) {
     struct stat buf;
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
     int max_links = mx_get_maxlinks(entities);
+    //int max_owner = mx_get_maxowner(entities);
+    //int max_group = mx_get_maxgroup(entities);
 
     mx_print_total(entities, files_count);
     for (int i = 0; i < files_count; i++) {
@@ -30,6 +57,7 @@ void mx_print_long(t_list *entities, const char *delim) {
         mx_print_space((max_links - mx_strlen(mx_itoa(buf.st_nlink))) + 2);
         mx_printint(buf.st_nlink);
         mx_printstr(" ");
+        //mx_print_spaceown(max_owner, mx_get_owner(buf.st_uid));
         mx_printstr(mx_get_owner(buf.st_uid));
         mx_printstr(delim);
         mx_printstr(mx_get_group(buf.st_gid));

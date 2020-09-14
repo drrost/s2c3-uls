@@ -9,7 +9,7 @@
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
-#define FLAGS "AFGRalmotr1"
+#define FLAGS "AFGRaglmotr1"
 
 //File types
 
@@ -101,6 +101,7 @@ typedef struct s_flags {
     bool R;
     bool a;
     bool f;
+    bool g;
     bool l;
     bool m;
     bool o;
@@ -202,6 +203,7 @@ void mx_print_multicolumn(t_list *dirs, const char *delim);
 void mx_print_long(t_list *dirs, const char *delim);
 
 void mx_print_long_o(t_list *dirs, const char *delim);
+void mx_print_long_g(t_list *entities, const char *delim);
 void mx_print_multicolumn_F(t_list *dirs, const char *delim);
 void mx_print_multicolumn_color(t_list *dirs, const char *delim);
 

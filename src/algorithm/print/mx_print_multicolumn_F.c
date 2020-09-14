@@ -19,7 +19,7 @@ static char *mx_get_info_F(char *name, struct stat buf) {
 }
 
 void mx_print_multicolumn_F(t_list *entities, const char *delim) {
-    int longest = mx_get_maxlen(entities);
+    int longest = mx_get_maxlen(entities); // ssss
     int files_count = mx_list_size(entities);
     int lines = mx_lines_count(files_count, longest);
     struct stat buf;
