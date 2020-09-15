@@ -31,6 +31,7 @@ static t_list *read_dir(const char *dirname, t_filter filter) {
             t_dirent *custom_dirent = mx_dirent_new(
                 dir_ent->d_name, dir_ent->d_type);
             fill_stat(dirname, custom_dirent);
+            custom_dirent->path = mx_strdup(dirname);
             mx_push_back(&work, custom_dirent);
         }
     closedir(dir);

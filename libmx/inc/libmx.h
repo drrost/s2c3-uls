@@ -115,6 +115,7 @@ t_list *mx_list_get_last(t_list *list);
 //
 typedef struct s_dirent {
     char *name;
+    char *path;
     int type;
     struct stat file_stat;
 }              t_dirent;

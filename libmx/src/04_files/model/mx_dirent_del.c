@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 void mx_dirent_del(t_dirent **dir_ent) {
+    mx_strdel(&(*dir_ent)->path);
     mx_strdel(&(*dir_ent)->name);
     free(*dir_ent);
     *dir_ent = 0;
