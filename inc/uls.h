@@ -9,7 +9,7 @@
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
-#define FLAGS "AFGRaglmotr1"
+#define FLAGS "AFGRaglmoptr1"
 
 //File types
 
@@ -105,6 +105,7 @@ typedef struct s_flags {
     bool l;
     bool m;
     bool o;
+    bool p;
     bool r;
     bool t;
     bool u;
@@ -190,6 +191,7 @@ void mx_print_dirs_recursive(t_list *dirs, const char *delim, PRINTER(printer));
 void mx_print_single_column(t_list *entities, const char *delim);
 void mx_print_dirs_m(t_list *dirs, const char *delim);
 void mx_print_multicolumn(t_list *dirs, const char *delim);
+void mx_print_multicolumn_p(t_list *entities, const char *delim);
 void mx_print_long(t_list *dirs, const char *delim);
 
 void mx_print_long_o(t_list *dirs, const char *delim);

@@ -27,4 +27,6 @@ void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
         algorithm->printer.printer = mx_print_multicolumn_F;
     if (flags->G)
         algorithm->printer.printer = mx_print_multicolumn_color;
+    if (flags->p)
+        algorithm->printer.printer = mx_print_multicolumn_p;
 }
