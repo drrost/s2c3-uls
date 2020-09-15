@@ -15,7 +15,7 @@ static char *delim(t_flags flags) {
     else if (flags._1 || flags.G)
         delim = "\n";
     else if (flags.l)
-        delim = "  ";
+        delim = " ";
     else
         delim = isatty(STDOUT_FILENO) ? "\t" : "\n";
     return mx_strdup(delim);
