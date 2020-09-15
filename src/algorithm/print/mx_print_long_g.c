@@ -8,6 +8,7 @@ void mx_print_long_g(t_list *entities, const char *delim) {
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
     int max_links = mx_get_maxlinks(entities);
+    int max_group = mx_get_maxgroup(entities);
     char *s = 0;
 
     mx_print_total(entities, files_count);
@@ -20,25 +21,26 @@ void mx_print_long_g(t_list *entities, const char *delim) {
         mx_strdel(&s);
 
         char *s = mx_itoa(i_stat.st_nlink);
-        if (mx_strcmp(custom_dirent->path, "."))
-            mx_print_space((max_links - mx_strlen(s)) + 2);
-        else
+        if (!mx_strcmp(custom_dirent->path, "."))
             mx_print_space((max_links - mx_strlen(s)) + 1);
+        else
+            mx_print_space((max_links - mx_strlen(s)) + 2);
         mx_strdel(&s);
 
         mx_printint(i_stat.st_nlink);
-        mx_printstr(delim);
+        mx_printstr(" ");
 
         s = mx_get_group(i_stat.st_gid);
         mx_printstr(s);
+        mx_print_space(max_group - mx_strlen(s));
+        mx_printstr("  ");
         mx_strdel(&s);
 
         char *size_str = mx_get_size(i_stat);
         mx_print_space_size(max_size, size_str);
         mx_printstr(size_str);
+        mx_printstr(" ");
         mx_strdel(&size_str);
-
-        mx_printstr(delim);
 
         s = mx_get_time(i_stat);
         mx_printstr(s);

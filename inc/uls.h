@@ -133,6 +133,9 @@ char mx_get_attr(const char *path, char *name);
 void mx_print_space(int n);
 int mx_get_maxsize(t_list *entities);
 int mx_get_maxlinks(t_list *entities);
+void mx_print_space_owner(int max, const char *owner);
+int mx_get_maxowner(t_list *entities);
+int mx_get_maxgroup(t_list *entities);
 void mx_print_space_size(int max, const char *size);
 void mx_print_total(t_list *entities, int files_count);
 

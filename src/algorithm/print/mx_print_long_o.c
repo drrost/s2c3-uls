@@ -7,6 +7,7 @@
 void mx_print_long_o(t_list *entities, const char *delim) {
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
+    int max_owner = mx_get_maxowner(entities);
     int max_links = mx_get_maxlinks(entities);
     char *s = 0;
 
@@ -20,10 +21,10 @@ void mx_print_long_o(t_list *entities, const char *delim) {
         mx_strdel(&s);
 
         char *s = mx_itoa(i_stat.st_nlink);
-        if (mx_strcmp(custom_dirent->path, "."))
-            mx_print_space((max_links - mx_strlen(s)) + 2);
-        else
+        if (!mx_strcmp(custom_dirent->path, "."))
             mx_print_space((max_links - mx_strlen(s)) + 1);
+        else
+            mx_print_space((max_links - mx_strlen(s)) + 2);
         mx_strdel(&s);
 
         mx_printint(i_stat.st_nlink);
@@ -31,22 +32,20 @@ void mx_print_long_o(t_list *entities, const char *delim) {
 
         s = mx_get_owner(i_stat.st_uid);
         mx_printstr(s);
+        mx_print_space_owner(max_owner, s);
         mx_strdel(&s);
-
-        mx_printstr(delim);
 
         char *size_str = mx_get_size(i_stat);
         mx_print_space_size(max_size, size_str);
         mx_printstr(size_str);
-        mx_strdel(&size_str);
-
         mx_printstr(" ");
+        mx_strdel(&size_str);
 
         s = mx_get_time(i_stat);
         mx_printstr(s);
         mx_strdel(&s);
 
-        mx_printstr(" ");
+        mx_printstr(delim);
         mx_printstr(custom_dirent->name);
         mx_printstr("\n");
         entities = entities->next;
