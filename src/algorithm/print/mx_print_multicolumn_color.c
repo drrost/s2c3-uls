@@ -34,15 +34,14 @@ void mx_print_multicolumn_color(t_list *entities, const char *delim) {
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j + i < size; j+= rows) {
-            // lstat(mx_find_index(entities, (j + i)), &buf);
             t_dirent *custom_dirent = (t_dirent *)entities->data;
             struct stat i_stat = custom_dirent->file_stat;
 
             mx_color_set(mx_acl_strcol(mx_get_permissions(i_stat.st_mode, custom_dirent->path, custom_dirent->name)),
             mx_acl_bkcol(mx_get_permissions(i_stat.st_mode, custom_dirent->path, custom_dirent->name)));
-            mx_printstr(mx_find_index(entities, (j + i)));
+            mx_printstr(custom_dirent->name);
             mx_color_reset();
-            len_str = mx_strlen(mx_find_index(entities, (j + i)));
+            len_str = mx_strlen(custom_dirent->name);
             if (j + rows + i < size)
                 mx_print_space((longest + 1) - len_str);
             entities = entities->next;
