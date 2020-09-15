@@ -48,6 +48,7 @@ void mx_print_long_g(t_list *entities, const char *delim) {
 
         mx_printstr(delim);
         mx_printstr(custom_dirent->name);
+        mx_print_link(entities);
         mx_printstr("\n");
         entities = entities->next;
     }

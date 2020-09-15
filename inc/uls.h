@@ -131,6 +131,7 @@ char *mx_get_permissions(mode_t mode, const char *path, char *name);
 const char *get_path(const char *dir, char *file);
 char mx_get_attr(const char *path, char *name);
 void mx_print_space(int n);
+void mx_print_link(t_list *entities);
 int mx_get_maxsize(t_list *entities);
 int mx_get_maxlinks(t_list *entities);
 void mx_print_space_owner(int max, const char *owner);
