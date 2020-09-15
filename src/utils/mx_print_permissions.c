@@ -39,7 +39,8 @@ char mx_get_attr(const char *path, char *name) {
 
 
 char *mx_get_permissions(mode_t mode, const char *path, char *name) {
-	char perms[12];
+	//char perms[12];
+	char *perms = mx_strnew(11);
 	if (MX_ISREG(mode))
 		perms[0] = '-';
 	else if (MX_ISDIR(mode))
@@ -70,6 +71,6 @@ char *mx_get_permissions(mode_t mode, const char *path, char *name) {
 	perms[9] = (mode & MX_IXOTH) ? 'x' : '-';
 	perms[9] = (mode & MX_ISVTX) ? 't' : perms[9];
 	perms[10] = mx_get_attr(path, name);
-	perms[11] = '\0';
+	//perms[11] = '\0';
 	return mx_strdup(perms);
 }
