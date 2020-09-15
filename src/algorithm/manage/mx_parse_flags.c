@@ -53,6 +53,8 @@ t_flags mx_parse_flags(const char *line) {
 
     if (mx_has_flag(line, 'A'))
         flags.A = true;
+    if (mx_has_flag(line, 'C'))
+        flags.C = true;
     if (mx_has_flag(line, 'G'))
         flags.G = true;
     if (mx_has_flag(line, 'F'))
