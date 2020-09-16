@@ -100,6 +100,7 @@ int mx_list_size(t_list *list);
 t_list *mx_sort_list(t_list *list, bool(*cmp)(void *a, void *b));
 t_list *mx_find_node(t_list *list, void *data,
                      bool(*is_equal)(void *data_1, void *data_2));
+t_list *mx_list_at(t_list *list, int index);
 void mx_foreach_list(t_list *list, void(*f)(t_list *node));
 t_list *mx_listdup(t_list *list, void *(*copy)(void *data));
 void *mx_list_data_at(t_list *list, int index);
