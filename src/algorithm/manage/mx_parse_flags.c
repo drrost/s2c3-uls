@@ -87,6 +87,8 @@ t_flags mx_parse_flags(const char *line) {
 
     if (mx_has_flag(line, '1'))
         flags._1 = true;
+    if (mx_has_flag(line, '@'))
+        flags.at = true;
 
     organize_flags(&flags, line);
 

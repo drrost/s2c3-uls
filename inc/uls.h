@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 
 // Macros
-#define USAGE "usage: uls [-ACFGRalmort1] [file ...]\n"
+#define USAGE "usage: uls [-ACFGRalmort1@] [file ...]\n"
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
@@ -111,6 +111,7 @@ typedef struct s_flags {
     bool t;
     bool u;
     bool _1;
+    bool at;
 }              t_flags;
 
 
@@ -197,6 +198,7 @@ void mx_print_long(t_list *dirs, const char *delim);
 void mx_print_multicolumn_C(t_list *entities, const char *delim);
 
 void mx_print_long_o(t_list *dirs, const char *delim);
+void mx_print_long_at(t_list *entities, const char *delim);
 void mx_print_long_g(t_list *entities, const char *delim);
 void mx_print_multicolumn_F(t_list *dirs, const char *delim);
 void mx_print_multicolumn_color(t_list *dirs, const char *delim);

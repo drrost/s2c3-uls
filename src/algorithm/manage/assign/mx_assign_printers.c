@@ -33,4 +33,9 @@ void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
         algorithm->printer.printer = mx_print_multicolumn_color;
     if (flags->p)
         algorithm->printer.printer = mx_print_multicolumn_p;
+    if (flags->at) {
+        algorithm->printer.printer = mx_print_multicolumn;
+        if (flags->l)
+            algorithm->printer.printer = mx_print_long_at;
+    }
 }
