@@ -1,27 +1,33 @@
 //
-// Created by Karina Barinova on 10.09.2020.
+// Created by Karina Barinova on 16.09.2020.
 //
 
 #include <uls.h>
 
-void mx_print_long(t_list *entities, const char *delim) {
+void mx_print_long_i(t_list *entities, const char *delim) {
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
     int max_links = mx_get_maxlinks(entities);
     int max_owner = mx_get_maxowner(entities);
     int max_group = mx_get_maxgroup(entities);
-    char *s = 0;
+    int max_inode = mx_get_maxinode(entities);
 
     mx_print_total(entities, files_count);
     while (entities) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
         struct stat i_stat = custom_dirent->file_stat;
 
+        char *s = mx_itoa(i_stat.st_ino);
+        mx_print_space(max_inode - mx_strlen(s));
+        mx_strdel(&s);
+        mx_printint(i_stat.st_ino);
+        mx_printstr(" ");
+
         s = mx_get_permissions(i_stat.st_mode, custom_dirent->path, custom_dirent->name);
         mx_printstr(s);
         mx_strdel(&s);
 
-        char *s = mx_itoa(i_stat.st_nlink);
+        s = mx_itoa(i_stat.st_nlink);
         mx_print_space((max_links - mx_strlen(s)) + 1);
         mx_strdel(&s);
 
