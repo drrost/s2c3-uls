@@ -120,7 +120,7 @@ typedef struct s_dirent {
     struct stat file_stat;
 }              t_dirent;
 
-t_dirent *mx_dirent_new(char *name, int type);
+t_dirent *mx_dirent_new(const char *name, int type);
 void mx_dirent_del(t_dirent **dir_ent);
 
 typedef struct s_dir {

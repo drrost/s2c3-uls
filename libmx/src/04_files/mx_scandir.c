@@ -23,8 +23,20 @@ static void fill_stat(const char *dirname, t_dirent *dirent) {
 }
 
 static t_list *read_dir(const char *dirname, t_filter filter) {
-    DIR *dir = opendir(dirname);
     t_list *work = 0;
+
+    struct stat stat;
+    lstat(dirname, &stat);
+    if (S_ISDIR(stat.st_mode) == 0) {
+        t_dirent *custom_dirent = mx_dirent_new(
+            dirname, stat.st_mode);
+        fill_stat("", custom_dirent);
+        custom_dirent->path = mx_strdup(dirname);
+        mx_push_back(&work, custom_dirent);
+        return work;
+    }
+
+    DIR *dir = opendir(dirname);
     struct dirent *dir_ent = 0;
     while ((dir_ent = readdir(dir)))
         if (run_filters(filter, dir_ent)) {

@@ -17,7 +17,6 @@ static char *mx_get_int(int size, char *res) {
             j++;
         }
     }
-    mx_strdel(&res);
     return hex;
 }
 
