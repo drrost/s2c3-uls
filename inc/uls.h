@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 
 // Macros
-#define USAGE "usage: uls [-ACFGRalmort1@] [file ...]\n"
+#define USAGE "usage: uls [-ACFGRaglmort1@] [file ...]\n"
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
