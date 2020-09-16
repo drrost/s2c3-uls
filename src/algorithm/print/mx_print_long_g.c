@@ -21,10 +21,7 @@ void mx_print_long_g(t_list *entities, const char *delim) {
         mx_strdel(&s);
 
         char *s = mx_itoa(i_stat.st_nlink);
-        if (!mx_strcmp(custom_dirent->path, "."))
-            mx_print_space((max_links - mx_strlen(s)) + 1);
-        else
-            mx_print_space((max_links - mx_strlen(s)) + 2);
+        mx_print_space((max_links - mx_strlen(s)) + 1);
         mx_strdel(&s);
 
         mx_printint(i_stat.st_nlink);

@@ -19,6 +19,8 @@ void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
         algorithm->printer.printer = mx_print_single_column;
     if (flags->m)
         algorithm->printer.printer = mx_print_dirs_m;
+    if (flags->t)
+        algorithm->printer.printer = mx_print_multicolumn;
     if (flags->l)
         algorithm->printer.printer = mx_print_long;
     if (flags->o)

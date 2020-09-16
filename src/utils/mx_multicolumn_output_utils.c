@@ -38,7 +38,7 @@ void mx_count_spaces(t_list *entities, int max, int j, const char *delim) {
 int mx_get_maxlen(t_list *entities) {
     int max_len = 0;
 
-    while (entities->next != 0) {
+    while (entities) {
         t_dirent *entity = (t_dirent *)entities->data;
         if (mx_strlen(entity->name) > max_len)
             max_len = mx_strlen(entity->name);
