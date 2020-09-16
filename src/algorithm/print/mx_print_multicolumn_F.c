@@ -27,6 +27,7 @@ void mx_print_multicolumn_F(t_list *entities, const char *delim) {
     for (int i = 0; i < lines; i++)
         for (int j = 0; j < files_count; j++)
             if (j == i || (j - i) % lines == 0) {
+                // TODO: remove this 'lstat' usage
                 lstat(mx_find_index(entities, j), &buf);
                 mx_printstr(
                     mx_get_info_F(mx_find_index(entities, j), buf));
