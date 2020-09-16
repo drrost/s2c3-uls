@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 
 // Macros
-#define USAGE "usage: uls [-ACFGRaglmort1@] [file ...]\n"
+#define USAGE "usage: uls [-ACFGRagilmort1@] [file ...]\n"
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
@@ -103,6 +103,7 @@ typedef struct s_flags {
     bool a;
     bool f;
     bool g;
+    bool i;
     bool l;
     bool m;
     bool o;
@@ -134,6 +135,7 @@ char *mx_get_permissions(mode_t mode, const char *path, char *name);
 const char *get_path(const char *dir, char *file);
 char mx_get_attr(const char *path, char *name);
 void mx_print_space(int n);
+int mx_get_maxinode(t_list *entities);
 void mx_print_link(t_list *entities);
 int mx_get_maxsize(t_list *entities);
 int mx_get_maxlinks(t_list *entities);
@@ -196,7 +198,7 @@ void mx_print_multicolumn(t_list *dirs, const char *delim);
 void mx_print_multicolumn_p(t_list *entities, const char *delim);
 void mx_print_long(t_list *dirs, const char *delim);
 void mx_print_multicolumn_C(t_list *entities, const char *delim);
-
+void mx_print_long_i(t_list *entities, const char *delim);
 void mx_print_long_o(t_list *dirs, const char *delim);
 void mx_print_long_at(t_list *entities, const char *delim);
 void mx_print_long_g(t_list *entities, const char *delim);
