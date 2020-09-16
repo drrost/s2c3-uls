@@ -18,7 +18,6 @@ void mx_print_total(t_list *entities, int files_count) {
     mx_printstr("\n");
 }
 
-
 void mx_print_space_owner(int max, const char *owner) {
     int sum = max - mx_strlen(owner);
 
