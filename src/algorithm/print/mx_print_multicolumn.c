@@ -3,6 +3,7 @@
 //
 
 #include <uls.h>
+#include <stdlib.h>
 
 static void reorder(t_list **list) {
     t_list *head = 0;
@@ -16,7 +17,9 @@ static void reorder(t_list **list) {
         else
             mx_push_back(&tail, work->data);
         i++;
+        t_list *node = work;
         work = work->next;
+        free(node);
     }
 
     mx_list_attach_back(&head, tail);
