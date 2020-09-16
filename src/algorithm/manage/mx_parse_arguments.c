@@ -14,7 +14,7 @@ static char *delim(t_flags flags) {
         delim = ", ";
     else if (flags._1 || flags.G)
         delim = "\n";
-    else if (flags.l || flags.at)
+    else if (flags.l || (flags.at && flags.l))
         delim = " ";
     else if (flags.C || flags.t)
         delim = "\t";
