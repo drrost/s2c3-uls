@@ -27,7 +27,7 @@ static t_list *read_dir(const char *dirname, t_filter filter) {
 
     struct stat stat;
     lstat(dirname, &stat);
-    if (S_ISDIR(stat.st_mode) == 0) {
+    if (S_ISDIR(stat.st_mode) == 0 && S_ISLNK(stat.st_mode) == 0) {
         t_dirent *custom_dirent = mx_dirent_new(
             dirname, stat.st_mode);
         fill_stat("", custom_dirent);
