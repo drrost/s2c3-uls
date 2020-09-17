@@ -37,7 +37,7 @@ void mx_print_multicolumn_color(t_list *entities, const char *delim) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < size; j++) {
             if (j == i || (j - i) % rows == 0) {
-                const char *my_path = get_path(custom_dirent->path, mx_find_index(entities, j));
+                char *my_path = get_path(custom_dirent->path, mx_find_index(entities, j));
                 lstat(my_path, &buf);
                 mx_color_set(mx_acl_strcol(mx_get_permissions(buf.st_mode, custom_dirent->path, mx_find_index(entities, j))),
                 mx_acl_bkcol(mx_get_permissions(buf.st_mode, custom_dirent->path, mx_find_index(entities, j))));
@@ -46,7 +46,7 @@ void mx_print_multicolumn_color(t_list *entities, const char *delim) {
                 len_str = mx_strlen(mx_find_index(entities, j));
                 if (j + rows < size)
                     mx_print_space((longest + 1) - len_str);
-                mx_strdel((char **)&my_path);
+                mx_strdel(&my_path);
             }
         }
         mx_printstr(delim);
