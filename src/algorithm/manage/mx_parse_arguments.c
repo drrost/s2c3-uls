@@ -4,7 +4,6 @@
 
 #include <uls.h>
 #include <unistd.h>
-#include <stdlib.h>
 
 static char *delim(t_flags flags) {
     char *delim;

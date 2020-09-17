@@ -175,6 +175,7 @@ t_list *mx_fetch_recursive(FETCH_PARAMS);
 int mx_alphasort(t_dirent *d1, t_dirent *d2);
 int mx_time_modify_sort(t_dirent *d1, t_dirent *d2);
 int mx_time_access_sort(t_dirent *d1, t_dirent *d2);
+int mx_no_sort(t_dirent *d1, t_dirent *d2);
 
 // Filters
 int mx_filter_none(const struct dirent *dirent);
