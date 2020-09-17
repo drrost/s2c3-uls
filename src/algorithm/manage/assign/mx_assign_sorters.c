@@ -17,4 +17,6 @@ void mx_assign_sorters(t_algorithm *algorithm, t_flags *flags) {
         algorithm->fetcher.comparator.cmp = mx_time_ctime_sort;
     if (flags->f)
         algorithm->fetcher.comparator.cmp = mx_no_sort;
+    if (flags->S)
+        algorithm->fetcher.comparator.cmp = mx_size_sort;
 }

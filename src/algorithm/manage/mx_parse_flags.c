@@ -56,6 +56,7 @@ t_flags mx_parse_flags(const char *line) {
     flags.G = mx_has_flag(line, 'G');
     flags.F = mx_has_flag(line, 'F');
     flags.R = mx_has_flag(line, 'R');
+    flags.S = mx_has_flag(line, 'S');
 
     flags.a = mx_has_flag(line, 'a');
     flags.c = mx_has_flag(line, 'c');

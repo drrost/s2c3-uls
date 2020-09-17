@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 
 // Macros
-#define USAGE "usage: uls [-ACFGRagilmort1@] [file ...]\n"
+#define USAGE "usage: uls [-ACFGRSacgilmortu1@] [file ...]\n"
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
@@ -100,6 +100,7 @@ typedef struct s_flags {
     bool G;
     bool F;
     bool R;
+    bool S;
     bool a;
     bool c;
     bool f;
@@ -178,6 +179,7 @@ int mx_time_modify_sort(t_dirent *d1, t_dirent *d2);
 int mx_time_access_sort(t_dirent *d1, t_dirent *d2);
 int mx_time_ctime_sort(t_dirent *d1, t_dirent *d2);
 int mx_no_sort(t_dirent *d1, t_dirent *d2);
+int mx_size_sort(t_dirent *d1, t_dirent *d2);
 
 // Filters
 int mx_filter_none(const struct dirent *dirent);
