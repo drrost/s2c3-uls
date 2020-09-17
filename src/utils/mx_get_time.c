@@ -78,3 +78,23 @@ char *mx_get_time_c(struct stat buf) {
     mx_strdel(&buff);
     return res;
 }
+
+char *mx_get_time_u(struct stat buf) {
+    time_t time_f;
+    char *buff = NULL;
+    char *res = NULL;
+    time_t current = time(NULL);
+    time_t sec_in_six_month = 15778368;
+
+    time_f = buf.st_atimespec.tv_sec;
+    buff = mx_strdup(ctime(&time_f));
+
+    if ((current - sec_in_six_month) > time_f ||
+        (current + sec_in_six_month) < time_f)
+        res = date_more(buff);
+    else
+        res = date_less(buff);
+    mx_strdel(&buff);
+    return res;
+}
+

@@ -4,7 +4,7 @@
 
 #include <uls.h>
 
-void mx_print_long_c(t_list *entities, const char *delim) {
+void mx_print_long_u(t_list *entities, const char *delim) {
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
     int max_links = mx_get_maxlinks(entities);
@@ -45,7 +45,7 @@ void mx_print_long_c(t_list *entities, const char *delim) {
         mx_printstr(" ");
         mx_strdel(&size_str);
 
-        s = mx_get_time_c(i_stat);
+        s = mx_get_time(i_stat);
         mx_printstr(s);
         mx_strdel(&s);
 
