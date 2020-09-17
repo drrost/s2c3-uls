@@ -12,7 +12,12 @@ void mx_print_long(t_list *entities, const char *delim) {
     int max_group = mx_get_maxgroup(entities);
     char *s = 0;
 
-    mx_print_total(entities, files_count);
+    t_dirent *custom_dirent = (t_dirent *)entities->data;
+    struct stat i_stat = custom_dirent->file_stat;
+    if (!MX_ISCHR(i_stat.st_mode)) {
+        mx_print_total(entities, files_count);
+    }
+    
     while (entities) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
         struct stat i_stat = custom_dirent->file_stat;
