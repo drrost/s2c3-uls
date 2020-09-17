@@ -19,21 +19,23 @@ static char *mx_get_info_F(char *name, struct stat buf) {
 }
 
 void mx_print_multicolumn_F(t_list *entities, const char *delim) {
-    int longest = mx_get_maxlen(entities); // ssss
+    int longest = mx_get_maxlen(entities);
     int files_count = mx_list_size(entities);
     int lines = mx_lines_count(files_count, longest);
     struct stat buf;
+    t_dirent *custom_dirent = (t_dirent *)entities->data;
 
     for (int i = 0; i < lines; i++)
         for (int j = 0; j < files_count; j++)
             if (j == i || (j - i) % lines == 0) {
                 // TODO: remove this 'lstat' usage
-                lstat(mx_find_index(entities, j), &buf);
-                mx_printstr(
-                    mx_get_info_F(mx_find_index(entities, j), buf));
+                const char *my_path = get_path(custom_dirent->path, mx_find_index(entities, j));
+                lstat(my_path, &buf);
+                mx_printstr(mx_get_info_F(mx_find_index(entities, j), buf));
                 if (j + lines >= files_count)
                     mx_printstr("\n");
                 else
                     mx_count_spaces(entities, longest, j, delim);
+                mx_strdel((char **)&my_path);
             }
 }
