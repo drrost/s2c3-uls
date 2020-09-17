@@ -11,10 +11,10 @@ static char *mx_get_info_F(char *name, struct stat buf) {
         name = mx_strjoin(name, "=");
     else if (MX_ISFIFO(buf.st_mode))
         name = mx_strjoin(name, "|");
-    else if (MX_ISXEC(buf.st_mode))
-        name = mx_strjoin(name, "*");
     else if (MX_ISLNK(buf.st_mode))
         name = mx_strjoin(name, "@");
+    else if (MX_ISXEC(buf.st_mode))
+        name = mx_strjoin(name, "*");
     return name;
 }
 
