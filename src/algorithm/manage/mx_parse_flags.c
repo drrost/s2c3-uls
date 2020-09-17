@@ -51,46 +51,27 @@ t_flags mx_parse_flags(const char *line) {
     t_flags flags;
     mx_memset(&flags, 0, sizeof(t_flags));
 
-    if (mx_has_flag(line, 'A'))
-        flags.A = true;
-    if (mx_has_flag(line, 'C'))
-        flags.C = true;
-    if (mx_has_flag(line, 'G'))
-        flags.G = true;
-    if (mx_has_flag(line, 'F'))
-        flags.F = true;
-    if (mx_has_flag(line, 'R'))
-        flags.R = true;
+    flags.A = mx_has_flag(line, 'A');
+    flags.C = mx_has_flag(line, 'C');
+    flags.G = mx_has_flag(line, 'G');
+    flags.F = mx_has_flag(line, 'F');
+    flags.R = mx_has_flag(line, 'R');
 
-    if (mx_has_flag(line, 'a'))
-        flags.a = true;
-    if (mx_has_flag(line, 'f'))
-        flags.f = true;
-    if (mx_has_flag(line, 'g'))
-        flags.g = true;
-    if (mx_has_flag(line, 'i'))
-        flags.i = true;
-    if (mx_has_flag(line, 'l'))
-        flags.l = true;
-    if (mx_has_flag(line, 'm'))
-        flags.m = true;
-    if (mx_has_flag(line, 'o'))
-        flags.o = true;
-    if (mx_has_flag(line, 'p'))
-        flags.p = true;
-    if (mx_has_flag(line, 'r'))
-        flags.r = true;
-    if (mx_has_flag(line, 't'))
-        flags.t = true;
-    if (mx_has_flag(line, 't'))
-        flags.t = true;
-    if (mx_has_flag(line, 'u'))
-        flags.u = true;
+    flags.a = mx_has_flag(line, 'a');
+    flags.c = mx_has_flag(line, 'c');
+    flags.f = mx_has_flag(line, 'f');
+    flags.g = mx_has_flag(line, 'g');
+    flags.i = mx_has_flag(line, 'i');
+    flags.l = mx_has_flag(line, 'l');
+    flags.m = mx_has_flag(line, 'm');
+    flags.o = mx_has_flag(line, 'o');
+    flags.p = mx_has_flag(line, 'p');
+    flags.r = mx_has_flag(line, 'r');
+    flags.t = mx_has_flag(line, 't');
+    flags.u = mx_has_flag(line, 'u');
 
-    if (mx_has_flag(line, '1'))
-        flags._1 = true;
-    if (mx_has_flag(line, '@'))
-        flags.at = true;
+    flags._1 = mx_has_flag(line, '1');
+    flags.at = mx_has_flag(line, '@');
 
     organize_flags(&flags, line);
 

@@ -101,6 +101,7 @@ typedef struct s_flags {
     bool F;
     bool R;
     bool a;
+    bool c;
     bool f;
     bool g;
     bool i;
@@ -175,6 +176,7 @@ t_list *mx_fetch_recursive(FETCH_PARAMS);
 int mx_alphasort(t_dirent *d1, t_dirent *d2);
 int mx_time_modify_sort(t_dirent *d1, t_dirent *d2);
 int mx_time_access_sort(t_dirent *d1, t_dirent *d2);
+int mx_time_ctime_sort(t_dirent *d1, t_dirent *d2);
 int mx_no_sort(t_dirent *d1, t_dirent *d2);
 
 // Filters
