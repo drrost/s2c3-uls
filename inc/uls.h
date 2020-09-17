@@ -122,6 +122,7 @@ void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 
 // Utils
+char *mx_get_time_u(struct stat buf);
 void mx_delete_dirent_arr(struct dirent ***arr);
 char *mx_find_index(t_list *entities, int index);
 void mx_count_spaces(t_list *entities, int max, int j, const char *delim);
@@ -209,6 +210,7 @@ void mx_print_long_at(t_list *entities, const char *delim);
 void mx_print_long_g(t_list *entities, const char *delim);
 void mx_print_multicolumn_F(t_list *dirs, const char *delim);
 void mx_print_multicolumn_color(t_list *dirs, const char *delim);
+void mx_print_long_c(t_list *entities, const char *delim);
 
 int get_window_size(void);
 
