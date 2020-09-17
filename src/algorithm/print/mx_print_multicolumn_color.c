@@ -24,27 +24,30 @@ static int get_rows(int size, int files_line) {
     return rows;
 }
 
+
 void mx_print_multicolumn_color(t_list *entities, const char *delim) {
     int longest = mx_get_maxlen(entities);
     int size = mx_list_size(entities);
     int files_line = get_files_line(longest + 1);
     int rows = get_rows(size, files_line);
-    //struct stat buf;
+    t_dirent *custom_dirent = (t_dirent *)entities->data;
+    struct stat buf;
     int len_str = 0;
 
     for (int i = 0; i < rows; i++) {
-        for (int j = 0; j + i < size; j+= rows) {
-            t_dirent *custom_dirent = (t_dirent *)entities->data;
-            struct stat i_stat = custom_dirent->file_stat;
-
-            mx_color_set(mx_acl_strcol(mx_get_permissions(i_stat.st_mode, custom_dirent->path, custom_dirent->name)),
-            mx_acl_bkcol(mx_get_permissions(i_stat.st_mode, custom_dirent->path, custom_dirent->name)));
-            mx_printstr(custom_dirent->name);
-            mx_color_reset();
-            len_str = mx_strlen(custom_dirent->name);
-            if (j + rows + i < size)
-                mx_print_space((longest + 1) - len_str);
-            entities = entities->next;
+        for (int j = 0; j < size; j++) {
+            if (j == i || (j - i) % rows == 0) {
+                const char *my_path = get_path(custom_dirent->path, mx_find_index(entities, j));
+                lstat(my_path, &buf);
+                mx_color_set(mx_acl_strcol(mx_get_permissions(buf.st_mode, custom_dirent->path, mx_find_index(entities, j))),
+                mx_acl_bkcol(mx_get_permissions(buf.st_mode, custom_dirent->path, mx_find_index(entities, j))));
+                mx_printstr(mx_find_index(entities, j));
+                mx_color_reset();
+                len_str = mx_strlen(mx_find_index(entities, j));
+                if (j + rows < size)
+                    mx_print_space((longest + 1) - len_str);
+                mx_strdel((char **)&my_path);
+            }
         }
         mx_printstr(delim);
     }

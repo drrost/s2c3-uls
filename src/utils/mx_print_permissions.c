@@ -8,7 +8,7 @@
 #include <sys/acl.h>
 #include <stdlib.h>
 
-const char *get_path(const char *dir, char *file) {
+char *get_path(const char *dir, char *file) {
 	const char *path = NULL;
 	char *tmp = NULL;
 
@@ -19,7 +19,7 @@ const char *get_path(const char *dir, char *file) {
 	path = mx_strjoin(tmp, file);
 	if (tmp != NULL)
 		free(tmp);
-	return path;
+	return (char *)path;
 }
 
 char mx_get_attr(const char *path, char *name) {

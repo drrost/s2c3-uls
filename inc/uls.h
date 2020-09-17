@@ -132,7 +132,7 @@ char *mx_get_owner(uid_t st_uid);
 char *mx_get_group(gid_t st_gid);
 int mx_find_blocks(t_list *entities, int files_count);
 char *mx_get_permissions(mode_t mode, const char *path, char *name);
-const char *get_path(const char *dir, char *file);
+char *get_path(const char *dir, char *file);
 char mx_get_attr(const char *path, char *name);
 void mx_print_space(int n);
 int mx_get_maxinode(t_list *entities);
