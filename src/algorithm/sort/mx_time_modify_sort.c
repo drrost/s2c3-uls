@@ -10,6 +10,6 @@ int mx_time_modify_sort(t_dirent *d1, t_dirent *d2) {
         return mx_strcmp(d1->name, d2->name);
     }
 
-    return d1->file_stat.st_mtimespec.tv_sec <
+    return d1->file_stat.st_mtimespec.tv_sec <=
            d2->file_stat.st_mtimespec.tv_sec;
 }
