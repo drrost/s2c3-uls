@@ -9,7 +9,7 @@
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
-#define FLAGS "AFGRaglmoptr1"
+#define FLAGS "ACFGRSacgilmoprtu1@"
 
 //File types
 
