@@ -213,6 +213,7 @@ void mx_print_multicolumn_F(t_list *dirs, const char *delim);
 void mx_print_multicolumn_color(t_list *dirs, const char *delim);
 void mx_print_long_c(t_list *entities, const char *delim);
 void mx_print_long_u(t_list *entities, const char *delim);
+void mx_print_long_link(t_list *entities, const char *delim);
 
 int get_window_size(void);
 
