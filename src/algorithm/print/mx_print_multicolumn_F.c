@@ -31,11 +31,13 @@ void mx_print_multicolumn_F(t_list *entities, const char *delim) {
                 // TODO: remove this 'lstat' usage
                 char *my_path = get_path(custom_dirent->path, mx_find_index(entities, j));
                 lstat(my_path, &buf);
-                mx_printstr(mx_get_info_F(mx_find_index(entities, j), buf));
+                char *info = mx_get_info_F(mx_find_index(entities, j), buf);
+                mx_printstr(info);
                 if (j + lines >= files_count)
                     mx_printstr("\n");
                 else
                     mx_count_spaces(entities, longest, j, delim);
+                mx_strdel(&info);
                 mx_strdel(&my_path);
             }
 }
