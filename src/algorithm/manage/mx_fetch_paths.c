@@ -9,6 +9,23 @@ static bool alphasort_local(void *s1, void *s2) {
     return mx_strcmp(s1, s2) > 0;
 }
 
+static bool files_first(void *s1, void *s2) {
+    char *s_1 = (char *)s1;
+    char *s_2 = (char *)s2;
+
+    struct stat stat_1;
+    struct stat stat_2;
+
+    lstat(s_1, &stat_1);
+    lstat(s_2, &stat_2);
+
+    if ((S_ISDIR(stat_1.st_mode) == 0 && S_ISDIR(stat_2.st_mode) == 0) ||
+        (S_ISREG(stat_1.st_mode) == 0 && S_ISREG(stat_2.st_mode) == 0))
+        return mx_strcmp(s1, s2) > 0;
+    else
+        return true;
+}
+
 static bool is_exists(char *path) {
     struct stat stat;
     int result = lstat(path, &stat);
@@ -42,6 +59,9 @@ t_list *mx_fetch_paths(int start_idx, int argc, char *argv[]) {
     mx_sort_list(result, alphasort_local);
 
     check_existance(result);
+
+    mx_sort_list(result, files_first);
+    mx_list_print(result, mx_printline);
 
     return result;
 }
