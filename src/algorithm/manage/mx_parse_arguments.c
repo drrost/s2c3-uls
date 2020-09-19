@@ -22,11 +22,6 @@ static char *delim(t_flags flags) {
     return mx_strdup(delim);
 }
 
-static void set_defaults(t_algorithm *algorithm) {
-    if (algorithm->paths == 0)
-        mx_push_back(&(algorithm->paths), mx_strdup("."));
-}
-
 t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     t_algorithm *algorithm = mx_algorithm_new();
     int path_idx = argc > 1 && argv[1][0] == '-' ? 2 : 1;
@@ -46,8 +41,6 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     mx_strdel(&delimiter);
 
     algorithm->paths = mx_fetch_paths(path_idx, argc, argv);
-
-    set_defaults(algorithm);
 
     return algorithm;
 }

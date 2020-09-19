@@ -26,6 +26,8 @@ static void delete_dirs_list(t_list **dirs) {
 }
 
 void mx_run_algorithm(t_algorithm *algorithm) {
+    if (algorithm->paths == 0)
+        return;
     char *path = (char *)algorithm->paths->data;
     t_list *dirs = run_fetcher(path, algorithm->fetcher);
     run_printer(algorithm->printer, dirs);

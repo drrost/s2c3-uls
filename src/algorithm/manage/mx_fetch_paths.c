@@ -39,13 +39,13 @@ static void delete_node(t_list **node) {
     *node = 0;
 }
 
-static void check_existance(t_list *list) {
-    t_list *work = list;
+static void check_existance(t_list **list) {
+    t_list *work = *list;
     while (work) {
         char *path = (char *)work->data;
         if (is_exists(path) == false) {
             mx_print_error_no_such_file((char *)work->data);
-            mx_list_remove(&list, work, delete_node);
+            mx_list_remove(list, work, delete_node);
         }
         work = work->next;
     }
@@ -53,13 +53,16 @@ static void check_existance(t_list *list) {
 
 t_list *mx_fetch_paths(int start_idx, int argc, char *argv[]) {
     t_list *result = 0;
+    if (start_idx == argc) {
+        mx_push_back(&result, mx_strdup("."));
+        return result;
+    }
 
     for (int i = start_idx; i < argc; i++)
         mx_push_back(&result, mx_strdup(argv[i]));
     mx_sort_list(result, alphasort_local);
 
-    check_existance(result);
-
+    check_existance(&result);
     mx_sort_list(result, files_first);
 
     return result;
