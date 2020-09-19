@@ -9,8 +9,13 @@ void mx_printerr(const char *s) {
 
 void mx_print_error_exit(enum e_error error, char *message) {
     switch (error) {
-        case ERROR_WRONG_PARAM_NUMBER:
-            mx_printerr("usage: ./pathfinder [filename]\n");
+        case ERROR_ILLEGAL_OPTION:
+            mx_printerr("uls: illegal option -- ");
+            mx_printerr(message);
+            mx_printerr("\n");
+            mx_printerr("usage: uls [-");
+            mx_printerr(FLAGS);
+            mx_printerr("] [file ...]\n");
             break;
         case ERROR_FILE_NOT_FOUND:
             mx_printerr("error: file ");
@@ -40,5 +45,5 @@ void mx_print_error_exit(enum e_error error, char *message) {
             mx_printerr("ERROR\n");
             break;
     }
-    exit(0);
+    exit(1);
 }
