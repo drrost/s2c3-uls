@@ -16,7 +16,7 @@ int mx_int_length(long long n) {
 }
 
 void mx_print_at(char *str, char *fname, const char *path) {
-    const char *my_path = get_path(path, fname);
+    char *my_path = get_path(path, fname);
     char value[1024];
     size_t size_attr = 0;
     int len = 24;
@@ -36,6 +36,7 @@ void mx_print_at(char *str, char *fname, const char *path) {
         mx_print_space(diff2);
         mx_printint(size_attr);
     }
+    mx_strdel(&my_path);
 }
 
 void mx_print_long_at(t_list *entities, const char *delim) {
