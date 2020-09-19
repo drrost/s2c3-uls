@@ -32,6 +32,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     int path_idx = argc > 1 && argv[1][0] == '-' ? 2 : 1;
     const char *line = argc > 1 && argv[1][0] == '-' ? argv[1] : "";
 
+    mx_check_options_e(line);
     t_flags flags = mx_parse_flags(line);
 
     mx_assign_fetchers(algorithm, &flags);

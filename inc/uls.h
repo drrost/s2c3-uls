@@ -223,6 +223,7 @@ typedef struct s_algorithm {
 t_algorithm *mx_parse_arguments(int argc, char *argv[]);
 bool mx_has_flag(const char *flags, char ch);
 t_flags mx_parse_flags(const char *line);
+void mx_check_options_e(const char *line);
 void mx_run_algorithm(t_algorithm *algorithm);
 t_algorithm *mx_algorithm_new();
 void mx_algorithm_del(t_algorithm **algorithm);

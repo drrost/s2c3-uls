@@ -48,15 +48,6 @@ static void organize_flags(t_flags *flags, const char *line) {
 }
 
 t_flags mx_parse_flags(const char *line) {
-    int size = mx_strlen(line);
-    char flag[2];
-    flag[1] = 0;
-    for (int i = 1; i < size; i++)
-        if (mx_has_flag(FLAGS, line[i]) == false) {
-            flag[0] = line[i];
-            mx_print_error_exit(ERROR_ILLEGAL_OPTION, flag);
-        }
-
     t_flags flags;
     mx_memset(&flags, 0, sizeof(t_flags));
 
