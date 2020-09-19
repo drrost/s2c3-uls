@@ -44,8 +44,8 @@ static void check_existance(t_list *list) {
     while (work) {
         char *path = (char *)work->data;
         if (is_exists(path) == false) {
+            mx_print_error_no_such_file((char *)work->data);
             mx_list_remove(&list, work, delete_node);
-            // Print error but not exit
         }
         work = work->next;
     }
@@ -61,7 +61,6 @@ t_list *mx_fetch_paths(int start_idx, int argc, char *argv[]) {
     check_existance(result);
 
     mx_sort_list(result, files_first);
-    mx_list_print(result, mx_printline);
 
     return result;
 }

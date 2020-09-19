@@ -120,6 +120,7 @@ typedef struct s_flags {
 
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
+void mx_print_error_no_such_file(char *name);
 
 // Utils
 char *mx_get_time_u(struct stat buf);
