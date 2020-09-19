@@ -23,7 +23,7 @@ char *get_path(const char *dir, char *file) {
 }
 
 char mx_get_attr(const char *path, char *name) {
-		const char *my_path = get_path(path, name);
+		char *my_path = get_path(path, name);
         ssize_t xattr;
         acl_t acl;
 
@@ -34,6 +34,7 @@ char mx_get_attr(const char *path, char *name) {
         	acl_free(acl);
         	return '+';
         }
+        mx_strdel(&my_path);
         return ' ';
 }
 
@@ -72,5 +73,5 @@ char *mx_get_permissions(mode_t mode, const char *path, char *name) {
 	perms[9] = (mode & MX_ISVTX) ? 't' : perms[9];
 	perms[10] = mx_get_attr(path, name);
 	//perms[11] = '\0';
-	return mx_strdup(perms);
+	return perms;
 }

@@ -39,13 +39,15 @@ void mx_print_multicolumn_color(t_list *entities, const char *delim) {
             if (j == i || (j - i) % rows == 0) {
                 char *my_path = get_path(custom_dirent->path, mx_find_index(entities, j));
                 lstat(my_path, &buf);
-                mx_color_set(mx_acl_strcol(mx_get_permissions(buf.st_mode, custom_dirent->path, mx_find_index(entities, j))),
-                mx_acl_bkcol(mx_get_permissions(buf.st_mode, custom_dirent->path, mx_find_index(entities, j))));
+                char* perms = mx_get_permissions(buf.st_mode, custom_dirent->path, mx_find_index(entities, j));
+                mx_color_set(mx_acl_strcol(perms),
+                mx_acl_bkcol(perms));
                 mx_printstr(mx_find_index(entities, j));
                 mx_color_reset();
                 len_str = mx_strlen(mx_find_index(entities, j));
                 if (j + rows < size)
                     mx_print_space((longest + 1) - len_str);
+                mx_strdel(&perms);
                 mx_strdel(&my_path);
             }
         }
