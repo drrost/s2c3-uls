@@ -5,7 +5,7 @@
 #include <uls.h>
 #include <stdlib.h>
 
-static bool alphasortg(const char *s1, const char *s2) {
+static bool alphasort_local(void *s1, void *s2) {
     return mx_strcmp(s1, s2) > 0;
 }
 
@@ -15,8 +15,9 @@ static bool is_exists(char *path) {
     return result == 0;
 }
 
-static delete_node(t_list **node) {
-    mx_strdel(&((*node)->data));
+static void delete_node(t_list **node) {
+    char *s = (char *)(*node)->data;
+    mx_strdel(&s);
     free(*node);
     *node = 0;
 }
@@ -38,7 +39,7 @@ t_list *mx_fetch_paths(int start_idx, int argc, char *argv[]) {
 
     for (int i = start_idx; i < argc; i++)
         mx_push_back(&result, mx_strdup(argv[i]));
-    mx_sort_list(result, alphasortg);
+    mx_sort_list(result, alphasort_local);
 
     check_existance(result);
 
