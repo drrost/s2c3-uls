@@ -9,7 +9,7 @@
 #define ULS "uls: "
 #define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
-#define FLAGS "AFGRaglmoptr1"
+#define FLAGS "AFGRaglmoptr1@"
 
 //File types
 
@@ -228,6 +228,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]);
 bool mx_has_flag(const char *flags, char ch);
 t_flags mx_parse_flags(const char *line);
 void mx_check_options_e(const char *line);
+t_list *mx_fetch_paths(int start_idx, int argc, char *argv[]);
 void mx_run_algorithm(t_algorithm *algorithm);
 t_algorithm *mx_algorithm_new();
 void mx_algorithm_del(t_algorithm **algorithm);

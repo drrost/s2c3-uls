@@ -33,6 +33,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     const char *line = argc > 1 && argv[1][0] == '-' ? argv[1] : "";
 
     mx_check_options_e(line);
+
     t_flags flags = mx_parse_flags(line);
 
     mx_assign_fetchers(algorithm, &flags);
@@ -44,8 +45,7 @@ t_algorithm *mx_parse_arguments(int argc, char *argv[]) {
     mx_strcpy(algorithm->printer.delim, delimiter);
     mx_strdel(&delimiter);
 
-    for (int i = path_idx; i < argc; i++)
-        mx_push_back(&(algorithm->paths), mx_strdup(argv[i]));
+    algorithm->paths = mx_fetch_paths(path_idx, argc, argv);
 
     set_defaults(algorithm);
 

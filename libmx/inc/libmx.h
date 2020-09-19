@@ -105,6 +105,7 @@ void mx_foreach_list(t_list *list, void(*f)(t_list *node));
 t_list *mx_listdup(t_list *list, void *(*copy)(void *data));
 void *mx_list_data_at(t_list *list, int index);
 void mx_list_delete(t_list *list);
+void mx_list_remove(t_list **list, t_list *node, void(*deleter)(t_list **));
 void mx_list_attach_back(t_list **list_head, t_list *list_tail);
 t_list *mx_list_get_last(t_list *list);
 
