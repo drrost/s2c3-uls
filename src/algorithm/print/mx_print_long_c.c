@@ -4,7 +4,7 @@
 
 #include <uls.h>
 
-void mx_print_long(t_list *entities, const char *delim) {
+void mx_print_long_c(t_list *entities, const char *delim) {
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);
     int max_links = mx_get_maxlinks(entities);
@@ -12,12 +12,7 @@ void mx_print_long(t_list *entities, const char *delim) {
     int max_group = mx_get_maxgroup(entities);
     char *s = 0;
 
-    t_dirent *custom_dirent = (t_dirent *)entities->data;
-    struct stat i_stat = custom_dirent->file_stat;
-    if (!MX_ISCHR(i_stat.st_mode)) {
-        mx_print_total(entities, files_count);
-    }
-    
+    mx_print_total(entities, files_count);
     while (entities) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
         struct stat i_stat = custom_dirent->file_stat;
@@ -50,7 +45,7 @@ void mx_print_long(t_list *entities, const char *delim) {
         mx_printstr(" ");
         mx_strdel(&size_str);
 
-        s = mx_get_time(i_stat);
+        s = mx_get_time_c(i_stat);
         mx_printstr(s);
         mx_strdel(&s);
 
