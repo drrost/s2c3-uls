@@ -5,23 +5,14 @@
 #include <uls.h>
 #include <stdlib.h>
 
-static void print_list(t_list *list) {
-    while (list) {
-        char *s = (char *)list->data;
-        mx_printline(s);
-        list = list->next;
-    }
-    mx_printline("---");
-}
-
 static bool alphasortg(const char *s1, const char *s2) {
     return mx_strcmp(s1, s2) > 0;
 }
 
 static bool is_exists(char *path) {
-    if (path[0] == 'k' || path[0] == 'a' || path[0] == 'g')
-        return false;
-    return true;
+    struct stat stat;
+    int result = lstat(path, &stat);
+    return result == 0;
 }
 
 static delete_node(t_list **node) {
@@ -37,7 +28,6 @@ static void check_existance(t_list *list) {
         if (is_exists(path) == false) {
             mx_list_remove(&list, work, delete_node);
             // Print error but not exit
-            print_list(list);
         }
         work = work->next;
     }
@@ -52,5 +42,5 @@ t_list *mx_fetch_paths(int start_idx, int argc, char *argv[]) {
 
     check_existance(result);
 
-    return 0;
+    return result;
 }
