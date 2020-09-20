@@ -24,7 +24,7 @@ static void run_printer(t_printer printer, t_list *dirs) {
     int len = mx_list_size(dirs);
     if (len <= 1) {
         t_dir *dir = (t_dir *)dirs->data;
-        if (MX_ISLNK(dir->i_stat.st_mode))
+        if (MX_ISLNK(dir->i_stat.st_mode) && printer.printer_link != 0)
             print_dir_as_link(dir, printer);
         else
             printer.printer(dir->entities, printer.delim);
