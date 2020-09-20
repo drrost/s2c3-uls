@@ -9,12 +9,16 @@ static t_list *run_fetcher(const char *path, t_fetcher fetcher) {
 }
 
 static void run_printer(t_printer printer, t_list *dirs) {
-    if (printer.is_recursive == false) {
+    int len = mx_list_size(dirs);
+    if (len <= 1) {
         t_dir *dir = (t_dir *)dirs->data;
         printer.printer(dir->entities, printer.delim);
     }
-    else
+    else if (printer.is_recursive == true)
         mx_print_dirs_recursive(dirs, printer.delim, printer.printer);
+    else {
+        mx_printline("TODO: Print multi source");
+    }
 }
 
 static void delete_dirs_list(t_list **dirs) {
@@ -25,11 +29,21 @@ static void delete_dirs_list(t_list **dirs) {
     }
 }
 
+static t_list *fetch_all(t_list *paths, t_fetcher fetcher) {
+    t_list *result = 0;
+    while (paths) {
+        char *path = (char *)paths->data;
+        t_list *one_dir = run_fetcher(path, fetcher);
+        mx_push_back(&result, one_dir);
+        paths = paths->next;
+    }
+    return result;
+}
+
 void mx_run_algorithm(t_algorithm *algorithm) {
     if (algorithm->paths == 0)
         return;
-    char *path = (char *)algorithm->paths->data;
-    t_list *dirs = run_fetcher(path, algorithm->fetcher);
+    t_list *dirs = fetch_all(algorithm->paths, algorithm->fetcher);
     run_printer(algorithm->printer, dirs);
     delete_dirs_list(&dirs);
 }
