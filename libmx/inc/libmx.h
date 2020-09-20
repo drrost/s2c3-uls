@@ -128,6 +128,7 @@ void mx_dirent_del(t_dirent **dir_ent);
 
 typedef struct s_dir {
     char *name;
+    struct stat i_stat;
     t_list *entities; // t_dirent
 }              t_dir;
 

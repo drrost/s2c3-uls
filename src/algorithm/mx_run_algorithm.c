@@ -8,11 +8,18 @@ static t_list *run_fetcher(const char *path, t_fetcher fetcher) {
     return fetcher.fetch(path, fetcher.filter, fetcher.comparator);
 }
 
+void (*select_printer(t_printer printer, t_dir *dir))(PRINTER_PARAMS) {
+    if (S_ISLNK(dir->i_stat.st_mode))
+        return printer.printer_link;
+    return printer.printer;
+}
+
 static void run_printer(t_printer printer, t_list *dirs) {
     int len = mx_list_size(dirs);
     if (len <= 1) {
         t_dir *dir = (t_dir *)dirs->data;
-        printer.printer(dir->entities, printer.delim);
+        PRINTER(printer_f) = select_printer(printer, dir);
+        printer_f(dir->entities, printer.delim);
     }
     else if (printer.is_recursive == true)
         mx_print_dirs_recursive(dirs, printer.delim, printer.printer);

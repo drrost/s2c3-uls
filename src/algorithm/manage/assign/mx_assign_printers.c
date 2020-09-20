@@ -6,6 +6,8 @@
 #include <unistd.h>
 
 void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
+    algorithm->printer.printer_link = mx_print_long_link;
+    
     if (flags->C && !isatty(STDOUT_FILENO))
         algorithm->printer.printer = mx_print_multicolumn_C;
     else if (!isatty(STDOUT_FILENO))

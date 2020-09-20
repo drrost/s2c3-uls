@@ -195,6 +195,7 @@ int mx_filter_dots(const struct dirent *dirent);
 
 typedef struct s_printer {
     PRINTER(printer);
+    PRINTER(printer_link);
     bool is_recursive;
     char delim[10];
 }              t_printer;

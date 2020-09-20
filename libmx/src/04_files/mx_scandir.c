@@ -89,6 +89,7 @@ int mx_scandir(const char *dirname, t_list **dirs,
     sort_dirents(dir_content, comparator);
 
     t_dir *result = mx_dirnew();
+    lstat(dirname, &(result->i_stat));
     result->entities = dir_content;
     result->name = mx_strdup(dirname);
     mx_push_back(dirs, result);
