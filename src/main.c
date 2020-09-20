@@ -1,4 +1,5 @@
 #include <uls.h>
+#include <stdlib.h>
 
 void check_leaks();
 
@@ -8,5 +9,7 @@ int main(int argc, char *argv[]) {
     mx_algorithm_del(&algorithm);
 
     //check_leaks();
+
+    exit(mx_exit_code(-1));
     return 0;
 }
