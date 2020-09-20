@@ -9,7 +9,7 @@ static t_list *run_fetcher(const char *path, t_fetcher fetcher) {
 }
 
 void (*select_printer(t_printer printer, t_dir *dir))(PRINTER_PARAMS) {
-    if (S_ISLNK(dir->i_stat.st_mode))
+    if (MX_ISLNK(dir->i_stat.st_mode))
         return printer.printer_link;
     return printer.printer;
 }

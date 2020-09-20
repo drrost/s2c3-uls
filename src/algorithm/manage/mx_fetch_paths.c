@@ -19,11 +19,11 @@ static bool files_first(void *s1, void *s2) {
     lstat(s_1, &stat_1);
     lstat(s_2, &stat_2);
 
-    if ((S_ISDIR(stat_1.st_mode) == 0 && S_ISDIR(stat_2.st_mode) == 0) ||
-        (S_ISREG(stat_1.st_mode) == 0 && S_ISREG(stat_2.st_mode) == 0))
+    if ((MX_ISDIR(stat_1.st_mode) == 0 && MX_ISDIR(stat_2.st_mode) == 0) ||
+        (MX_ISREG(stat_1.st_mode) == 0 && MX_ISREG(stat_2.st_mode) == 0))
         return mx_strcmp(s1, s2) > 0;
     else
-        return !S_ISDIR(stat_2.st_mode);
+        return !MX_ISDIR(stat_2.st_mode);
 }
 
 static bool is_exists(char *path) {

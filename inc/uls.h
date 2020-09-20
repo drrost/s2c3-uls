@@ -6,8 +6,6 @@
 
 // Macros
 #define USAGE "usage: uls [-ACFGRSacgilmortu1@] [file ...]\n"
-#define ULS "uls: "
-#define NO_FILE_DIR ": No such file or directory"
 #define ILLEGAL_OPTION "uls: illegal option -- "
 #define FLAGS "ACFGRSacgilmoprtu1@"
 
@@ -49,7 +47,7 @@
 #define MX_ISFIFO(m) (((m) & MX_IFMT) == MX_IFIFO)
 #define MX_ISREG(m) (((m) & MX_IFMT) == MX_IFREG)
 #define MX_ISLNK(m) (((m) & MX_IFMT) == MX_IFLNK)
-#define MX_ISXEC(m) ((m) & S_IXUSR)
+#define MX_ISXEC(m) ((m) & MX_IXUSR)
 #define MX_ISSOCK(m) (((m) & MX_IFMT) == MX_IFSOCK)
 
 #define MX_GETMAJOR(x) ((int32_t)(((u_int32_t)(x) >> 24) & 0xff)) \

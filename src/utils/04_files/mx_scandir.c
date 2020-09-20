@@ -2,8 +2,7 @@
 // Created by Rostyslav Druzhchenko on 29.08.2020.
 //
 
-#include <libmx.h>
-#include <sys/stat.h>
+#include <uls.h>
 
 static int run_filters(t_filter filter, struct dirent *dir_ent) {
     for (int i = 0; filter.filters[i]; i++) {
@@ -29,7 +28,7 @@ static t_list *read_dir(const char *dirname, t_filter filter) {
     lstat(dirname, &stat);
 
     // Handle as a file
-    if (S_ISDIR(stat.st_mode) == 0 && S_ISLNK(stat.st_mode) == 0) {
+    if (MX_ISDIR(stat.st_mode) == 0 && MX_ISLNK(stat.st_mode) == 0) {
         t_dirent *custom_dirent = mx_dirent_new(dirname, stat.st_mode);
         custom_dirent->file_stat = stat;
         custom_dirent->path = mx_strdup(".");
