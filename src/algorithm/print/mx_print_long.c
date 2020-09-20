@@ -4,6 +4,23 @@
 
 #include <uls.h>
 
+void mx_print_dirs_long(t_list *dirs, const char *delim,
+                             PRINTER(printer)) {
+    while (dirs) {
+        t_dir *dir = (t_dir *)dirs->data;
+            mx_printstr(dir->name);
+            mx_printstr(":\n");
+
+        t_list *entities = (t_list *)dir->entities;
+        if (entities)
+            printer(entities, delim);
+        if (dirs->next)
+            mx_printstr("\n");
+
+        dirs = dirs->next;
+    }
+}
+
 void mx_print_long(t_list *entities, const char *delim) {
     int files_count = mx_list_size(entities);
     int max_size = mx_get_maxsize(entities);

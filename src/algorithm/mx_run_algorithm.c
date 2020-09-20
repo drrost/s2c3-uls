@@ -24,7 +24,7 @@ static void run_printer(t_printer printer, t_list *dirs) {
     else if (printer.is_recursive == true)
         mx_print_dirs_recursive(dirs, printer.delim, printer.printer);
     else {
-        mx_printline("TODO: Print multi source");
+        mx_print_dirs_long(dirs, printer.delim, printer.printer);
     }
 }
 
