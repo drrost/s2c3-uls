@@ -5,9 +5,7 @@
 #include <sys/stat.h>
 
 // Macros
-#define USAGE "usage: uls [-ACFGRSacgilmortu1@] [file ...]\n"
-#define ILLEGAL_OPTION "uls: illegal option -- "
-#define FLAGS "ACFGRSacgilmoprtu1@"
+#define FLAGS "ACFGRSacfgilmoprtu1@"
 
 //File types
 
@@ -158,8 +156,6 @@ int mx_color_set(unsigned char a, unsigned char b);
 int mx_color_reset();
 unsigned char mx_acl_bkcol(char *acl);
 unsigned char mx_acl_strcol(char *acl);
-
-bool check_valid_flags(const char *flags);
 
 // Fetchers
 #define FETCH_PARAMS const char *dir_name, t_filter filter, t_comparator cmp
