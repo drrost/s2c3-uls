@@ -82,10 +82,22 @@ static void sort_dirents(t_list *dirs, t_comparator comparator) {
     }
 }
 
+static void mark_skipped(t_list *dir_content) {
+    while (dir_content) {
+        t_dirent *dirent = (t_dirent *)dir_content->data;
+        if (mx_strcmp(dirent->name, ".") == 0 ||
+            mx_strcmp(dirent->name, "..") == 0) {
+            dirent->skip_on_recurse = true;
+        }
+        dir_content = dir_content->next;
+    }
+}
+
 int mx_scandir(const char *dirname, t_list **dirs,
                t_filter filter, t_comparator comparator) {
     t_list *dir_content = read_dir(dirname, filter);
     sort_dirents(dir_content, comparator);
+    mark_skipped(dir_content);
 
     t_dir *result = mx_dirnew();
     lstat(dirname, &(result->i_stat));

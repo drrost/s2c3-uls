@@ -14,7 +14,7 @@ static void do_scan(t_list **dirs, FETCH_PARAMS) {
     while (entities) {
         t_dirent *dir_ent = (t_dirent *)entities->data;
 
-        if (dir_ent->type == DT_DIR) {
+        if (dir_ent->type == DT_DIR && dir_ent->skip_on_recurse == false) {
             char *subdir_name = mx_add_path(dir_name, dir_ent->name);
             do_scan(dirs, subdir_name, filter, cmp);
             mx_strdel(&subdir_name);
