@@ -8,7 +8,7 @@ void mx_print_dirs_long(t_list *dirs, const char *delim,
                         PRINTER(printer)) {
     while (dirs) {
         t_dir *dir = (t_dir *)dirs->data;
-        if (!MX_ISREG(dir->i_stat.st_mode)) {
+        if (!MX_ISREG(dir->i_stat.st_mode) && mx_strlen(dir->name) > 0) {
             mx_printstr(dir->name);
             mx_printstr(":\n");
         }

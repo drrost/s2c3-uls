@@ -122,6 +122,7 @@ typedef struct s_dirent {
     int type;
     struct stat file_stat;
     bool skip_on_recurse;
+    bool file_lonely;
 }              t_dirent;
 
 t_dirent *mx_dirent_new(const char *name, int type);
