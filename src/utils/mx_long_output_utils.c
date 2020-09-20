@@ -12,7 +12,8 @@ void mx_print_space_size(int max, const char *size) {
 
 void mx_print_total(t_list *entities, int files_count) {
     mx_printstr("total ");
-    char *s = mx_itoa(mx_find_blocks(entities, files_count));
+    int blocks_count = mx_find_blocks(entities, files_count);
+    char *s = mx_itoa(blocks_count);
     mx_printstr(s);
     mx_strdel(&s);
     mx_printstr("\n");

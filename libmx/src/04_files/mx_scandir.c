@@ -31,7 +31,7 @@ static t_list *read_dir(const char *dirname, t_filter filter) {
     // Handle as a file
     if (S_ISDIR(stat.st_mode) == 0 && S_ISLNK(stat.st_mode) == 0) {
         t_dirent *custom_dirent = mx_dirent_new(dirname, stat.st_mode);
-        fill_stat("", custom_dirent);
+        custom_dirent->file_stat = stat;
         custom_dirent->path = mx_strdup(dirname);
         mx_push_back(&work, custom_dirent);
         return work;
