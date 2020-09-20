@@ -8,8 +8,10 @@ void mx_print_dirs_long(t_list *dirs, const char *delim,
                         PRINTER(printer)) {
     while (dirs) {
         t_dir *dir = (t_dir *)dirs->data;
-        mx_printstr(dir->name);
-        mx_printstr(":\n");
+        if (!MX_ISREG(dir->i_stat.st_mode)) {
+            mx_printstr(dir->name);
+            mx_printstr(":\n");
+        }
 
         t_list *entities = (t_list *)dir->entities;
         if (entities)
