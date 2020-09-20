@@ -51,7 +51,8 @@ void mx_print_long_at(t_list *entities, const char *delim) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
         struct stat i_stat = custom_dirent->file_stat;
 
-        char *perms = mx_get_permissions(i_stat.st_mode, custom_dirent->path, custom_dirent->name);
+        char *perms = mx_get_permissions(i_stat.st_mode, custom_dirent->path,
+                                         custom_dirent->name);
         mx_printstr(perms);
 
         char *s = mx_itoa(i_stat.st_nlink);

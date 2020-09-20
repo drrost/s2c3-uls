@@ -17,7 +17,7 @@ char *mx_find_index(t_list *entities, int index) {
     }
 
     return entity->name;
-} 
+}
 
 void mx_count_spaces(t_list *entities, int max, int j, const char *delim) {
     int cur_len = mx_strlen(mx_find_index(entities, j));

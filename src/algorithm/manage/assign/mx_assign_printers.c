@@ -43,7 +43,7 @@ void mx_assign_printers(t_algorithm *algorithm, t_flags *flags) {
     if (flags->i && flags->l) {
         //algorithm->printer.printer = mx_print_multicolumn_i;
         // if (flags->l)
-            algorithm->printer.printer = mx_print_long_i;
+        algorithm->printer.printer = mx_print_long_i;
     }
     if (flags->c && flags->l)
         algorithm->printer.printer = mx_print_long_c;

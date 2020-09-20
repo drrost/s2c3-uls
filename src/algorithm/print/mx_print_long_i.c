@@ -23,7 +23,8 @@ void mx_print_long_i(t_list *entities, const char *delim) {
         mx_printint(i_stat.st_ino);
         mx_printstr(" ");
 
-        s = mx_get_permissions(i_stat.st_mode, custom_dirent->path, custom_dirent->name);
+        s = mx_get_permissions(i_stat.st_mode, custom_dirent->path,
+                               custom_dirent->name);
         mx_printstr(s);
         mx_strdel(&s);
 

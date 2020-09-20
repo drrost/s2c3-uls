@@ -49,7 +49,8 @@ char *mx_strformat(const char *f, ...) {
         int piece_len = 0;
         if (i + 1 != count) {
             piece_len = locations[i + 1] - locations[i] - 2;
-        } else {
+        }
+        else {
             piece_len = f_len - locations[i] + 2;
         }
         mx_strncpy(new_s + pos, f + locations[i] + 2, piece_len);

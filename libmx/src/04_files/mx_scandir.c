@@ -7,7 +7,7 @@
 
 static int run_filters(t_filter filter, struct dirent *dir_ent) {
     for (int i = 0; filter.filters[i]; i++) {
-        int (*a_filter) (const struct dirent *) = filter.filters[i];
+        int (*a_filter)(const struct dirent *) = filter.filters[i];
         if (a_filter(dir_ent) == 0)
             return 0;
     }

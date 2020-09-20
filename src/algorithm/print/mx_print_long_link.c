@@ -10,12 +10,13 @@ void mx_print_long_link(t_list *entities, const char *delim) {
     int max_owner = mx_get_maxowner(entities);
     int max_group = mx_get_maxgroup(entities);
     char *s = 0;
-    
+
     if (entities) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
         struct stat i_stat = custom_dirent->file_stat;
 
-        s = mx_get_permissions(i_stat.st_mode, custom_dirent->path, custom_dirent->name);
+        s = mx_get_permissions(i_stat.st_mode, custom_dirent->path,
+                               custom_dirent->name);
         mx_printstr(s);
         mx_strdel(&s);
 

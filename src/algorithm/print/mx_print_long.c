@@ -5,11 +5,11 @@
 #include <uls.h>
 
 void mx_print_dirs_long(t_list *dirs, const char *delim,
-                             PRINTER(printer)) {
+                        PRINTER(printer)) {
     while (dirs) {
         t_dir *dir = (t_dir *)dirs->data;
-            mx_printstr(dir->name);
-            mx_printstr(":\n");
+        mx_printstr(dir->name);
+        mx_printstr(":\n");
 
         t_list *entities = (t_list *)dir->entities;
         if (entities)
@@ -34,12 +34,13 @@ void mx_print_long(t_list *entities, const char *delim) {
     if (!MX_ISCHR(i_stat.st_mode)) {
         mx_print_total(entities, files_count);
     }
-    
+
     while (entities) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
         struct stat i_stat = custom_dirent->file_stat;
 
-        s = mx_get_permissions(i_stat.st_mode, custom_dirent->path, custom_dirent->name);
+        s = mx_get_permissions(i_stat.st_mode, custom_dirent->path,
+                               custom_dirent->name);
         mx_printstr(s);
         mx_strdel(&s);
 

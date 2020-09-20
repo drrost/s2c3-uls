@@ -25,7 +25,7 @@ static char mx_get_perms_p(mode_t mode) {
     return c;
 
 }
- 
+
 static void check_flag_p(mode_t mode) {
     char c;
     c = mx_get_perms_p(mode);

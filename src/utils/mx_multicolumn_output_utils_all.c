@@ -4,7 +4,6 @@
 
 #include <uls.h>
 
-
 #include <sys/ioctl.h>
 #include <unistd.h>
 
@@ -22,7 +21,7 @@ char *mx_find_index_all(t_list *entities, int index) {
     }
 
     return entity->name;
-} 
+}
 
 void mx_count_spaces_all(t_list *entities, int max, int j, const char *delim) {
     int cur_len = mx_strlen(mx_find_index_all(entities, j));

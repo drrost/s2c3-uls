@@ -3,7 +3,6 @@
 
 #include <uls.h>
 
-
 int mx_get_num_files_all(t_list *entities) {
     int sum = 0;
 

@@ -200,7 +200,8 @@ typedef struct s_printer {
     char delim[10];
 }              t_printer;
 
-void mx_print_dirs_recursive(t_list *dirs, const char *delim, PRINTER(printer));
+void
+mx_print_dirs_recursive(t_list *dirs, const char *delim, PRINTER(printer));
 void mx_print_dirs_long(t_list *dirs, const char *delim, PRINTER(printer));
 void mx_print_single_column(t_list *entities, const char *delim);
 void mx_print_dirs_m(t_list *dirs, const char *delim);

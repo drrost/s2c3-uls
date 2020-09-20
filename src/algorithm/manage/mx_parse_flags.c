@@ -37,13 +37,13 @@ static void organize_flags(t_flags *flags, const char *line) {
             flags->l = false;
         else
             flags->m = false;
-   }
+    }
 
     if (flags->l && flags->_1) {
         if (line[mx_strlen(line) - 1] == 'l')
-           flags->_1 = false;
+            flags->_1 = false;
         else
-           flags->l = false;
+            flags->l = false;
     }
 }
 

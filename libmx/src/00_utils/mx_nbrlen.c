@@ -6,7 +6,7 @@ int mx_nbrlen(int nbr) {
 
     if (nbr <= 0)
         size = 1;
-         
+
     while (temp) {
         temp = temp / 10;
         size++;
