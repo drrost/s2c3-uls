@@ -44,7 +44,6 @@ void mx_print_multicolumn_p(t_list *entities, const char *delim) {
             if (j == i || (j - i) % lines == 0) {
                 char *s = mx_find_index(entities, j);
                 mx_printstr(s);
-                mx_strdel(&s);
                 // TODO: remove this 'lstat' usage
                 lstat(mx_find_index(entities, j), &buf);
                 check_flag_p(buf.st_mode);

@@ -9,9 +9,8 @@ char *mx_find_index(t_list *entities, int index) {
     int i = 0;
     while (entities != 0) {
         entity = (t_dirent *)entities->data;
-        if (i == index) {
+        if (i == index)
             return entity->name;
-        }
         i++;
         entities = entities->next;
     }
