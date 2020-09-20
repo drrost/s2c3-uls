@@ -8,18 +8,26 @@ static t_list *run_fetcher(const char *path, t_fetcher fetcher) {
     return fetcher.fetch(path, fetcher.filter, fetcher.comparator);
 }
 
-void (*select_printer(t_printer printer, t_dir *dir))(PRINTER_PARAMS) {
-    if (MX_ISLNK(dir->i_stat.st_mode))
-        return printer.printer_link;
-    return printer.printer;
+static void print_dir_as_link(t_dir *dir, t_printer printer) {
+    t_list *list = 0;
+    t_dirent *dir_ent = mx_dirent_new(dir->name, dir->i_stat.st_mode);
+    dir_ent->file_stat = dir->i_stat;
+    dir_ent->path = mx_strdup(".");
+
+    mx_push_back(&list, dir_ent);
+    printer.printer_link(list, printer.delim);
+    mx_dirent_del(&dir_ent);
+    mx_list_delete(list);
 }
 
 static void run_printer(t_printer printer, t_list *dirs) {
     int len = mx_list_size(dirs);
     if (len <= 1) {
         t_dir *dir = (t_dir *)dirs->data;
-        PRINTER(printer_f) = select_printer(printer, dir);
-        printer_f(dir->entities, printer.delim);
+        if (MX_ISLNK(dir->i_stat.st_mode))
+            print_dir_as_link(dir, printer);
+        else
+            printer.printer(dir->entities, printer.delim);
     }
     else if (printer.is_recursive == true)
         mx_print_dirs_recursive(dirs, printer.delim, printer.printer);
