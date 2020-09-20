@@ -34,7 +34,7 @@ static t_list *fetch_all(t_list *paths, t_fetcher fetcher) {
     while (paths) {
         char *path = (char *)paths->data;
         t_list *one_dir = run_fetcher(path, fetcher);
-        mx_push_back(&result, one_dir);
+        mx_list_attach_back(&result, one_dir);
         paths = paths->next;
     }
     return result;
