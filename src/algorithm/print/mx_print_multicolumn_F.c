@@ -38,7 +38,6 @@ void mx_print_multicolumn_F(t_list *entities, const char *delim) {
                     mx_printstr("\n");
                 else
                     mx_count_spaces(entities, longest, j, delim);
-                mx_strdel(&info);
                 mx_strdel(&my_path);
             }
 }
