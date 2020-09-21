@@ -11,7 +11,7 @@ static t_list *run_fetcher(const char *path, t_fetcher fetcher) {
 static void print_dir_as_link(t_dir *dir, t_printer printer) {
     t_list *list = 0;
     t_dirent *dir_ent = mx_dirent_new(dir->name, dir->i_stat.st_mode);
-    dir_ent->file_stat = dir->i_stat;
+    mx_statcpy(&(dir_ent->file_stat), &(dir->i_stat));
     dir_ent->path = mx_strdup(".");
 
     mx_push_back(&list, dir_ent);

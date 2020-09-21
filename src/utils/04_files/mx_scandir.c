@@ -13,12 +13,12 @@ static int run_filters(t_filter filter, struct dirent *dir_ent) {
     return 1;
 }
 
-static void fill_stat(const char *dirname, t_dirent *dirent) {
+static void fill_stat(const char *dir_name, t_dirent *dir_ent) {
     struct stat i_stat;
-    char *full_path = mx_add_path(dirname, dirent->name);
+    char *full_path = mx_add_path(dir_name, dir_ent->name);
     lstat(full_path, &i_stat);
     mx_strdel(&full_path);
-    dirent->file_stat = i_stat;
+    mx_statcpy(&(dir_ent->file_stat), &i_stat);
 }
 
 static t_list *read_dir(const char *dirname, t_filter filter) {
@@ -30,7 +30,7 @@ static t_list *read_dir(const char *dirname, t_filter filter) {
     // Handle as a file
     if (MX_ISDIR(stat.st_mode) == 0 && MX_ISLNK(stat.st_mode) == 0) {
         t_dirent *custom_dirent = mx_dirent_new(dirname, stat.st_mode);
-        custom_dirent->file_stat = stat;
+        mx_statcpy(&(custom_dirent->file_stat), &stat);
         custom_dirent->path = mx_strdup(".");
         custom_dirent->file_lonely = true;
         mx_push_back(&work, custom_dirent);

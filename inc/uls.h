@@ -146,6 +146,7 @@ int mx_get_maxowner(t_list *entities);
 int mx_get_maxgroup(t_list *entities);
 void mx_print_space_size(int max, const char *size);
 void mx_print_total(t_list *entities, int files_count);
+void mx_statcpy(struct stat *dst, struct stat *src);
 
 int mx_get_maxlen_all(t_list *entities);
 int mx_get_num_files_all(t_list *entities);

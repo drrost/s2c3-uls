@@ -16,17 +16,15 @@ int mx_get_maxsize(t_list *entities) {
 
     for (; entities != NULL; entities = entities->next) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
-        struct stat i_stat = custom_dirent->file_stat;
-        int len = get_size(&i_stat);
+        int len = get_size(&(custom_dirent->file_stat));
         if (max < len) {
-            char *s = mx_get_size(i_stat);
+            char *s = mx_get_size(custom_dirent->file_stat);
             if (mx_get_char_index(s, ',') > 0) {
                 if (max <= 8)
                     max = 8;
             }
-            else {
+            else
                 max = len;
-            }
             mx_strdel(&s);
         }
     }

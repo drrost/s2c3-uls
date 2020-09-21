@@ -34,8 +34,7 @@ int mx_get_maxowner(t_list *entities) {
 
     for (; entities != 0; entities = entities->next) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
-        struct stat i_stat = custom_dirent->file_stat;
-        char *s = mx_get_owner(i_stat.st_uid);
+        char *s = mx_get_owner(custom_dirent->file_stat.st_uid);
         if (max < mx_strlen(s))
             max = mx_strlen(s);
         mx_strdel(&s);
@@ -48,8 +47,7 @@ int mx_get_maxgroup(t_list *entities) {
 
     for (; entities != 0; entities = entities->next) {
         t_dirent *custom_dirent = (t_dirent *)entities->data;
-        struct stat i_stat = custom_dirent->file_stat;
-        char *s = mx_get_group(i_stat.st_gid);
+        char *s = mx_get_group(custom_dirent->file_stat.st_gid);
         if (max < mx_strlen(s))
             max = mx_strlen(s);
         mx_strdel(&s);
