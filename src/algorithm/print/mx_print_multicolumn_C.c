@@ -11,11 +11,10 @@
 int get_window_size_C(void) {
     int output = !isatty(1);
     if (output == 0) {
-        int fd = open("/dev/tty", O_RDWR);
-        struct winsize w;
-        ioctl(fd, TIOCGWINSZ, &w);
-        close(fd);
-        return w.ws_col;
+        struct winsize win;
+
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &win);
+        return win.ws_col;
     }
     return 80;
 }
