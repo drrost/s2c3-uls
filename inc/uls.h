@@ -79,8 +79,10 @@
 
 // Errors
 
+
 enum e_error {
     ERROR_ILLEGAL_OPTION,
+    ERROR_PERMISSION_DENIED,
     ERROR_FILE_NOT_FOUND,
     ERROR_FILE_IS_EMPTY,
     ERROR_LINE_NOT_VALID,
@@ -117,6 +119,7 @@ typedef struct s_flags {
 void mx_print_error_exit(enum e_error error, char *message);
 void mx_printerr(const char *s);
 void mx_print_error_no_such_file(char *name);
+void mx_print_error_permission_denied(char *name);
 int mx_exit_code(int set);
 
 // Utils

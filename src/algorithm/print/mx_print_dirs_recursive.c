@@ -15,11 +15,15 @@ void mx_print_dirs_recursive(t_list *dirs, const char *delim,
             mx_printstr(":\n");
         }
 
-        t_list *entities = (t_list *)dir->entities;
-        if (entities)
-            printer(entities, delim);
-        if (dirs->next)
-            mx_printstr("\n");
+        if (dir->error_code != ERROR_PERMISSION_DENIED) {
+            t_list *entities = (t_list *)dir->entities;
+            if (entities)
+                printer(entities, delim);
+            if (dirs->next)
+                mx_printstr("\n");
+        }
+        else
+            mx_print_error_permission_denied(dir->name);
 
         dirs = dirs->next;
         count++;

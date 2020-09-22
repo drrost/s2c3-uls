@@ -132,6 +132,7 @@ typedef struct s_dir {
     char *name;
     struct stat i_stat;
     t_list *entities; // t_dirent
+    int error_code;
 }              t_dir;
 
 t_dir *mx_dirnew();

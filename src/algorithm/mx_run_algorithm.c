@@ -28,6 +28,8 @@ static void run_printer(t_printer printer, t_list *dirs) {
             print_dir_as_link(dir, printer);
         else
             printer.printer(dir->entities, printer.delim);
+        if (dir->error_code == ERROR_PERMISSION_DENIED)
+            mx_print_error_permission_denied(dir->name);
     }
     else if (printer.is_recursive == true)
         mx_print_dirs_recursive(dirs, printer.delim, printer.printer);

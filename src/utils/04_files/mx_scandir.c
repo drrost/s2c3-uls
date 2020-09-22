@@ -21,10 +21,9 @@ static void fill_stat(const char *dir_name, t_dirent *dir_ent) {
     mx_statcpy(&(dir_ent->file_stat), &i_stat);
 }
 
-static t_list *read_dir(const char *dirname, t_filter filter) {
-    t_list *work = 0;
-
+static int read_dir(const char *dirname, t_filter filter, t_list **result) {
     struct stat stat;
+    int error_code = 0;
     lstat(dirname, &stat);
 
     // Handle as a file
@@ -33,23 +32,28 @@ static t_list *read_dir(const char *dirname, t_filter filter) {
         mx_statcpy(&(custom_dirent->file_stat), &stat);
         custom_dirent->path = mx_strdup(".");
         custom_dirent->file_lonely = true;
-        mx_push_back(&work, custom_dirent);
-        return work;
+        mx_push_back(result, custom_dirent);
+        return error_code;
     }
 
     // Handle as a directory
     DIR *dir = opendir(dirname);
-    struct dirent *dir_ent = 0;
-    while ((dir_ent = readdir(dir)))
-        if (run_filters(filter, dir_ent)) {
-            t_dirent *custom_dirent = mx_dirent_new(
-                dir_ent->d_name, dir_ent->d_type);
-            fill_stat(dirname, custom_dirent);
-            custom_dirent->path = mx_strdup(dirname);
-            mx_push_back(&work, custom_dirent);
-        }
-    closedir(dir);
-    return work;
+    if (dir == 0)
+        error_code = ERROR_PERMISSION_DENIED;
+    else {
+        struct dirent *dir_ent = 0;
+        while ((dir_ent = readdir(dir)))
+            if (run_filters(filter, dir_ent)) {
+                t_dirent *custom_dirent = mx_dirent_new(
+                    dir_ent->d_name, dir_ent->d_type);
+                fill_stat(dirname, custom_dirent);
+                custom_dirent->path = mx_strdup(dirname);
+                mx_push_back(result, custom_dirent);
+            }
+        closedir(dir);
+    }
+
+    return error_code;
 }
 
 static void swap_dirent(t_list *d1, t_list *d2) {
@@ -96,11 +100,13 @@ static void mark_skipped(t_list *dir_content) {
 
 int mx_scandir(const char *dirname, t_list **dirs,
                t_filter filter, t_comparator comparator) {
-    t_list *dir_content = read_dir(dirname, filter);
+    t_list *dir_content = 0;
+    int code = read_dir(dirname, filter, &dir_content);
     sort_dirents(dir_content, comparator);
     mark_skipped(dir_content);
 
     t_dir *result = mx_dirnew();
+    result->error_code = code;
     lstat(dirname, &(result->i_stat));
     result->entities = dir_content;
     result->name = mx_strdup(dirname);
