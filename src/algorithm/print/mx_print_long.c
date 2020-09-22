@@ -39,7 +39,8 @@ void mx_print_long(t_list *entities, const char *delim) {
     char *s = 0;
 
     t_dirent *custom_dirent = (t_dirent *)entities->data;
-    if (!MX_ISCHR(custom_dirent->file_stat.st_mode && !MX_ISREG(custom_dirent->file_stat.st_mode))) {
+    if (!MX_ISCHR(custom_dirent->file_stat.st_mode) &&
+        !MX_ISREG(custom_dirent->file_stat.st_mode)) {
         mx_print_total(entities, files_count);
     }
 
