@@ -19,8 +19,12 @@ void mx_print_dirs_long(t_list *dirs, const char *delim, PRINTER(printer)) {
             if (dirs->next)
                 mx_printstr("\n");
         }
-        else
+        else {
             mx_print_error_permission_denied(dir->name);
+            if (dirs->next) {
+                mx_printstr("\n");
+            }
+        }
 
         dirs = dirs->next;
     }
