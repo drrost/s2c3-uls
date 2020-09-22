@@ -26,8 +26,10 @@ static void run_printer(t_printer printer, t_list *dirs) {
         t_dir *dir = (t_dir *)dirs->data;
         if (MX_ISLNK(dir->i_stat.st_mode) && printer.printer_link != 0)
             print_dir_as_link(dir, printer);
-        else
-            printer.printer(dir->entities, printer.delim);
+        else {
+            if (dir->entities)
+                printer.printer(dir->entities, printer.delim);
+        }
         if (dir->error_code == ERROR_PERMISSION_DENIED)
             mx_print_error_permission_denied(dir->name);
     }
